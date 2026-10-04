@@ -972,7 +972,7 @@ async function loadWalletBalance() {
   try {
 
     const response = await fetch(
-      "http://localhost:5000/get-user",
+      "https://ogboosting-testing.onrender.com/get-user",
       {
         method: "GET",
 
@@ -1079,7 +1079,7 @@ async function loadServices() {
   try {
 
     const response = await fetch(
-      "http://localhost:5000/api/services"
+      "https://ogboosting-testing.onrender.com/api/services"
     );
 
     const data = await response.json();
@@ -1495,7 +1495,7 @@ placeOrderBtn.addEventListener(
 
       const response =
         await fetch(
-          "http://localhost:5000/api/orders",
+          "https://ogboosting-testing.onrender.com/api/orders",
           {
             method: "POST",
 

@@ -1,4 +1,4 @@
-const API_URL="http://localhost:5000"; const token=localStorage.getItem("ogBoostingAdminToken"); if(!token) location.href="./admin-login.html";
+const API_URL="https://ogboosting-testing.onrender.com"; const token=localStorage.getItem("ogBoostingAdminToken"); if(!token) location.href="./admin-login.html";
 const $=id=>document.getElementById(id); const money=v=>`₦${Number(v||0).toLocaleString("en-NG",{minimumFractionDigits:0,maximumFractionDigits:2})}`; const date=v=>v?new Date(v).toLocaleString():"—";
 async function api(path,options={}){const r=await fetch(API_URL+path,{...options,headers:{"Content-Type":"application/json",Authorization:`Bearer ${token}`,...(options.headers||{})}});const d=await r.json().catch(()=>({}));if(r.status===401||r.status===403){localStorage.removeItem("ogBoostingAdminToken");location.href="./admin-login.html";throw Error("Admin session expired.")}if(!r.ok||d.success===false)throw Error(d.message||"Request failed.");return d}
 const esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");

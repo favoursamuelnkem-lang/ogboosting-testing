@@ -2,7 +2,7 @@
 // OG BOOSTING AUTHENTICATION
 // ==========================================
 
-const API_URL = "http://localhost:5000";
+const API_URL = "https://ogboosting-testing.onrender.com";
 
 // Get token
 const token =
