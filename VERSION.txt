@@ -1,0 +1,2 @@
+OG Boosting Admin V2 - Full Control Center
+Includes: Dashboard, Users, Orders, Services, Prices, Transactions, Deposits, Withdrawals, Revenue & Profit, Coupons, Announcements, Provider, Activity Logs, Email, Settings, Admin Security.

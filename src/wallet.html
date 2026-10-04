@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Wallet - OG Boost</title>
+
+  <link
+    rel="stylesheet"
+    href="./output.css"
+  >
+
+  <script src="./auth.js"></script>
+  
+
+  <link rel="stylesheet" href="./toast.css">
+
+</head>
+
+
+<body class="bg-[#f6f8fa] text-gray-800">
+
+
+  <!-- ================================================= -->
+  <!-- DESKTOP SIDEBAR -->
+  <!-- ================================================= -->
+
+  <aside
+    class="hidden lg:flex fixed left-0 top-0 bottom-0 w-[255px] bg-white border-r border-gray-100 flex-col z-50"
+  >
+
+    <!-- LOGO -->
+
+    <div class="px-7 pt-8 pb-7">
+
+      <a
+        href="index.html"
+        class="flex items-center gap-3"
+      >
+
+        <div
+          class="w-11 h-11 rounded-2xl bg-[#0B4F63] flex items-center justify-center"
+        >
+
+          <span class="text-white font-black text-lg">
+            OG
+          </span>
+
+        </div>
+
+
+        <div>
+
+          <h1
+            class="font-black text-xl tracking-tight text-[#0B4F63]"
+          >
+
+            OG<span class="text-orange-500">
+              Boost
+            </span>
+
+          </h1>
+
+          <p
+            class="text-[10px] uppercase tracking-[0.18em] text-gray-400 font-semibold"
+          >
+
+            Social Growth
+
+          </p>
+
+        </div>
+
+      </a>
+
+    </div>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="px-4 space-y-1.5">
+
+      <a
+        href="dashboard.html"
+        class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-[#0B4F63] transition"
+      >
+
+        <span class="text-lg">⌂</span>
+
+        Dashboard
+
+      </a>
+
+
+      <a
+        href="new-order.html"
+        class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-[#0B4F63] transition"
+      >
+
+        <span class="text-lg">＋</span>
+
+        New Order
+
+      </a>
+
+
+      <a
+        href="services.html"
+        class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-[#0B4F63] transition"
+      >
+
+        <span class="text-lg">✦</span>
+
+        Services
+
+      </a>
+
+
+      <a
+        href="orders.html"
+        class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-[#0B4F63] transition"
+      >
+
+        <span class="text-lg">▤</span>
+
+        My Orders
+
+      </a>
+
+
+      <!-- ACTIVE WALLET -->
+
+      <a
+        href="wallet.html"
+        class="flex items-center gap-3 px-4 py-3.5 rounded-xl bg-[#0B4F63] text-white font-semibold"
+      >
+
+        <span class="text-lg">◉</span>
+
+        Wallet
+
+      </a>
+
+
+      <a
+        href="support.html"
+        class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-[#0B4F63] transition"
+      >
+
+        <span class="text-lg">?</span>
+
+        Support
+
+      </a>
+
+    </nav>
+
+
+    <!-- USER -->
+
+    <div
+      class="mt-auto p-5 border-t border-gray-100"
+    >
+
+      <div class="flex items-center gap-3 mb-4">
+
+        <div
+          class="w-10 h-10 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold"
+        >
+
+          F
+
+        </div>
+
+
+        <div class="min-w-0">
+
+          <p class="font-semibold truncate">
+            Favour
+          </p>
+
+          <p class="text-xs text-gray-400 truncate">
+            Customer
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <button
+        id="logoutBtn"
+        class="w-full py-3 rounded-xl border border-gray-200 text-gray-500 hover:bg-gray-50 transition font-medium"
+      >
+
+        Log out
+
+      </button>
+
+    </div>
+
+  </aside>
+
+
+
+  <!-- ================================================= -->
+  <!-- MAIN -->
+  <!-- ================================================= -->
+
+  <div class="lg:ml-[255px] min-h-screen">
+
+
+    <!-- ================================================= -->
+    <!-- MOBILE HEADER -->
+    <!-- ================================================= -->
+
+    <header
+      class="lg:hidden bg-white border-b border-gray-100 px-5 py-4 sticky top-0 z-40"
+    >
+
+      <div class="flex items-center justify-between">
+
+        <a
+          href="index.html"
+          class="flex items-center gap-2.5"
+        >
+
+          <div
+            class="w-9 h-9 rounded-xl bg-[#0B4F63] flex items-center justify-center"
+          >
+
+            <span class="text-white font-black text-sm">
+              OG
+            </span>
+
+          </div>
+
+
+          <h1
+            class="font-black text-lg text-[#0B4F63]"
+          >
+
+            OG<span class="text-orange-500">
+              Boost
+            </span>
+
+          </h1>
+
+        </a>
+
+
+      <div
+  data-user-initial
+  class="w-9 h-9 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold"
+>
+  U
+</div>
+
+      </div>
+
+    </header>
+
+
+
+    <!-- ================================================= -->
+    <!-- PAGE CONTENT -->
+    <!-- ================================================= -->
+
+    <main
+      class="max-w-[1500px] mx-auto px-5 sm:px-7 lg:px-10 py-7 lg:py-10 pb-28 lg:pb-10"
+    >
+
+
+      <!-- PAGE TITLE -->
+
+      <section>
+
+        <p class="text-sm text-gray-400 font-medium">
+          Account
+        </p>
+
+        <h2
+          class="text-3xl sm:text-4xl font-black text-gray-900 mt-1"
+        >
+
+          My Wallet
+
+        </h2>
+
+        <p
+          class="text-gray-400 text-sm mt-2"
+        >
+
+          Manage your balance and wallet transactions.
+
+        </p>
+
+      </section>
+
+
+
+      <!-- ================================================= -->
+      <!-- WALLET AREA -->
+      <!-- ================================================= -->
+
+      <section
+        class="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-7"
+      >
+
+
+        <!-- PREMIUM BALANCE -->
+
+        <div
+          class="xl:col-span-2 relative overflow-hidden rounded-[28px] bg-[#0B4F63] p-6 sm:p-8 lg:p-10 text-white shadow-xl"
+        >
+
+          <!-- DECORATIVE CIRCLES -->
+
+          <div
+            class="absolute -right-20 -top-24 w-72 h-72 rounded-full bg-white/[0.05]"
+          ></div>
+
+          <div
+            class="absolute right-32 -bottom-40 w-80 h-80 rounded-full bg-orange-500/[0.08]"
+          ></div>
+
+
+          <div class="relative z-10">
+
+
+            <!-- TOP -->
+
+            <div
+              class="flex items-start justify-between gap-5"
+            >
+
+              <div>
+
+                <div
+                  class="flex items-center gap-3"
+                >
+
+                  <div
+                    class="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center"
+                  >
+
+                    <span
+                      class="text-orange-300 text-xl"
+                    >
+                      ₦
+                    </span>
+
+                  </div>
+
+
+                  <div>
+
+                    <p
+                      class="text-white/60 text-sm"
+                    >
+
+                      Available Balance
+
+                    </p>
+
+                    <p
+                      class="text-white/40 text-xs mt-0.5"
+                    >
+
+                      Wallet funds
+
+                    </p>
+
+                  </div>
+
+                </div>
+
+<h3
+  id="walletBalance"
+  data-wallet-balance
+  class="text-4xl sm:text-5xl font-black tracking-tight mt-7"
+>
+  ₦0.00
+</h3>
+
+              </div>
+
+
+              <!-- WALLET ICON -->
+
+              <div
+                class="hidden sm:flex w-16 h-16 rounded-2xl bg-white/10 items-center justify-center"
+              >
+
+                <span class="text-2xl">
+                  ◉
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- ACTION -->
+
+            <div
+              class="mt-8 flex flex-col sm:flex-row gap-3"
+            >
+
+              <button
+                id="fundWalletBtn"
+                class="flex-1 sm:flex-none bg-orange-500 hover:bg-orange-600 px-7 py-3.5 rounded-xl font-bold transition"
+              >
+
+                + Fund Wallet
+
+              </button>
+
+
+              <button
+                class="flex-1 sm:flex-none border border-white/15 hover:bg-white/10 px-7 py-3.5 rounded-xl font-semibold transition"
+              >
+
+                Transaction History
+
+              </button>
+
+            </div>
+
+
+            <!-- FOOTER -->
+
+            <div
+              class="mt-8 pt-5 border-t border-white/10"
+            >
+
+              <p
+                class="text-xs text-white/40"
+              >
+
+                Your wallet balance can be used to purchase social media
+                boosting services.
+
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- WALLET SUMMARY -->
+
+        <div
+          class="bg-white border border-gray-100 rounded-[28px] p-6 sm:p-7"
+        >
+
+          <h3
+            class="font-black text-xl"
+          >
+
+            Wallet Summary
+
+          </h3>
+
+
+          <p
+            class="text-gray-400 text-sm mt-1"
+          >
+
+            Your wallet activity
+
+          </p>
+
+
+          <div class="mt-7 space-y-5">
+
+
+            <!-- DEPOSITED -->
+
+            <div
+              class="flex items-center justify-between"
+            >
+
+              <div
+                class="flex items-center gap-3"
+              >
+
+                <div
+                  class="w-10 h-10 rounded-xl bg-green-50 text-green-600 flex items-center justify-center"
+                >
+
+                  ↓
+
+                </div>
+
+
+                <div>
+
+                  <p
+                    class="font-semibold text-sm"
+                  >
+
+                    Total Deposited
+
+                  </p>
+
+                  <p
+                    class="text-xs text-gray-400 mt-0.5"
+                  >
+
+                    All time
+
+                  </p>
+
+                </div>
+
+              </div>
+
+
+            <p
+  id="totalDeposited"
+  class="font-bold"
+>
+  ₦0.00
+</p>
+
+            </div>
+
+
+
+            <!-- SPENT -->
+
+            <div
+              class="flex items-center justify-between"
+            >
+
+              <div
+                class="flex items-center gap-3"
+              >
+
+                <div
+                  class="w-10 h-10 rounded-xl bg-orange-50 text-orange-500 flex items-center justify-center"
+                >
+
+                  ↑
+
+                </div>
+
+
+                <div>
+
+                  <p
+                    class="font-semibold text-sm"
+                  >
+
+                    Total Spent
+
+                  </p>
+
+                  <p
+                    class="text-xs text-gray-400 mt-0.5"
+                  >
+
+                    On orders
+
+                  </p>
+
+                </div>
+
+              </div>
+
+<p
+  id="totalSpent"
+  class="font-bold"
+>
+  ₦0.00
+</p>
+
+            </div>
+
+
+
+            <!-- TRANSACTIONS -->
+
+            <div
+              class="flex items-center justify-between"
+            >
+
+              <div
+                class="flex items-center gap-3"
+              >
+
+                <div
+                  class="w-10 h-10 rounded-xl bg-[#0B4F63]/10 text-[#0B4F63] flex items-center justify-center"
+                >
+
+                  #
+
+                </div>
+
+
+                <div>
+
+                  <p
+                    class="font-semibold text-sm"
+                  >
+
+                    Transactions
+
+                  </p>
+
+                  <p
+                    class="text-xs text-gray-400 mt-0.5"
+                  >
+
+                    All activity
+
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <p
+  id="transactionCount"
+  class="font-bold"
+>
+  0
+</p>
+
+            </div>
+
+          </div>
+
+
+          <a
+            href="#transactions"
+            class="block text-center mt-7 py-3 rounded-xl bg-gray-50 hover:bg-gray-100 text-[#0B4F63] font-bold text-sm transition"
+          >
+
+            View Transactions
+
+          </a>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ================================================= -->
+      <!-- FUND WALLET -->
+      <!-- ================================================= -->
+
+      <section
+        class="bg-white border border-gray-100 rounded-[28px] p-6 sm:p-8 mt-7"
+      >
+
+        <div>
+
+          <h2
+            class="text-2xl font-black"
+          >
+
+            Fund Your Wallet
+
+          </h2>
+
+          <p
+            class="text-gray-400 text-sm mt-1"
+          >
+
+            Add funds to continue placing orders.
+
+          </p>
+
+        </div>
+
+
+        <!-- AMOUNT -->
+
+        <div
+          class="mt-7 max-w-2xl"
+        >
+
+          <label
+            for="amount"
+            class="text-sm font-bold text-gray-700"
+          >
+
+            Amount
+
+          </label>
+
+
+          <div class="relative mt-2">
+
+            <span
+              class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold"
+            >
+
+              ₦
+
+            </span>
+
+
+            <input
+              id="amount"
+              type="number"
+              placeholder="Enter amount"
+              class="w-full pl-10 pr-4 py-4 rounded-xl border border-gray-200 outline-none focus:border-[#0B4F63] focus:ring-4 focus:ring-[#0B4F63]/5 transition text-lg font-semibold"
+            >
+
+          </div>
+
+
+          <!-- QUICK AMOUNTS -->
+
+          <div
+            class="flex flex-wrap gap-2 mt-3"
+          >
+
+            <button
+              onclick="setAmount(1000)"
+              class="quickAmount px-4 py-2 rounded-lg bg-gray-50 hover:bg-orange-50 hover:text-orange-500 border border-gray-100 text-sm font-semibold transition"
+            >
+
+              ₦1,000
+
+            </button>
+
+
+            <button
+              onclick="setAmount(5000)"
+              class="quickAmount px-4 py-2 rounded-lg bg-gray-50 hover:bg-orange-50 hover:text-orange-500 border border-gray-100 text-sm font-semibold transition"
+            >
+
+              ₦5,000
+
+            </button>
+
+
+            <button
+              onclick="setAmount(10000)"
+              class="quickAmount px-4 py-2 rounded-lg bg-gray-50 hover:bg-orange-50 hover:text-orange-500 border border-gray-100 text-sm font-semibold transition"
+            >
+
+              ₦10,000
+
+            </button>
+
+
+            <button
+              onclick="setAmount(20000)"
+              class="quickAmount px-4 py-2 rounded-lg bg-gray-50 hover:bg-orange-50 hover:text-orange-500 border border-gray-100 text-sm font-semibold transition"
+            >
+
+              ₦20,000
+
+            </button>
+
+
+            <button
+              onclick="setAmount(50000)"
+              class="quickAmount px-4 py-2 rounded-lg bg-gray-50 hover:bg-orange-50 hover:text-orange-500 border border-gray-100 text-sm font-semibold transition"
+            >
+
+              ₦50,000
+
+            </button>
+
+          </div>
+
+
+          <button
+            id="continuePaymentBtn"
+            class="w-full sm:w-auto mt-6 bg-[#0B4F63] hover:bg-[#093f4f] text-white px-8 py-4 rounded-xl font-bold transition"
+          >
+
+            Continue to Payment
+
+          </button>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ================================================= -->
+      <!-- TRANSACTIONS -->
+      <!-- ================================================= -->
+
+      <section
+        id="transactions"
+        class="bg-white border border-gray-100 rounded-[28px] mt-7 overflow-hidden"
+      >
+
+
+        <!-- HEADER -->
+
+        <div
+          class="px-5 sm:px-7 py-6 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+        >
+
+          <div>
+
+            <h2
+              class="text-xl sm:text-2xl font-black"
+            >
+
+              Recent Transactions
+
+            </h2>
+
+            <p
+              class="text-xs sm:text-sm text-gray-400 mt-1"
+            >
+
+              Your recent wallet activity.
+
+            </p>
+
+          </div>
+
+
+          <button
+            class="text-orange-500 text-sm font-bold"
+          >
+
+            View All →
+
+          </button>
+
+        </div>
+
+
+
+        <!-- MOBILE TRANSACTIONS -->
+
+     <!-- TRANSACTION LIST -->
+
+<div
+  id="transactionsLoading"
+  class="p-8 text-center text-gray-400"
+>
+  Loading transactions...
+</div>
+
+
+<div
+  id="transactionsEmpty"
+  class="hidden p-8 text-center text-gray-400"
+>
+  No transactions yet.
+</div>
+
+
+<div
+  id="transactionsList"
+  class="hidden"
+>
+</div>
+
+      </section>
+
+
+    </main>
+
+
+
+    <!-- ================================================= -->
+    <!-- MOBILE BOTTOM NAV -->
+    <!-- ================================================= -->
+
+    <nav
+      class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 z-50 px-2 py-2"
+    >
+
+      <div
+        class="grid grid-cols-5 max-w-lg mx-auto"
+      >
+
+
+        <a
+          href="dashboard.html"
+          class="flex flex-col items-center gap-1 py-2 text-gray-400"
+        >
+
+          <span class="text-lg">
+            ⌂
+          </span>
+
+          <span class="text-[10px]">
+            Home
+          </span>
+
+        </a>
+
+
+        <a
+          href="services.html"
+          class="flex flex-col items-center gap-1 py-2 text-gray-400"
+        >
+
+          <span class="text-lg">
+            ✦
+          </span>
+
+          <span class="text-[10px]">
+            Services
+          </span>
+
+        </a>
+
+
+        <!-- BOOST -->
+
+        <a
+          href="order.html"
+          class="relative flex flex-col items-center"
+        >
+
+          <span
+            class="-mt-7 w-14 h-14 rounded-full bg-orange-500 text-white flex items-center justify-center text-2xl shadow-lg border-4 border-[#f6f8fa]"
+          >
+
+            +
+
+          </span>
+
+          <span
+            class="text-[10px] font-bold text-orange-500 mt-1"
+          >
+
+            Boost
+
+          </span>
+
+        </a>
+
+
+        <a
+          href="orders.html"
+          class="flex flex-col items-center gap-1 py-2 text-gray-400"
+        >
+
+          <span class="text-lg">
+            ▤
+          </span>
+
+          <span class="text-[10px]">
+            Orders
+          </span>
+
+        </a>
+
+
+        <a
+          href="wallet.html"
+          class="flex flex-col items-center gap-1 py-2 text-[#0B4F63]"
+        >
+
+          <span class="text-lg">
+            ◉
+          </span>
+
+          <span class="text-[10px] font-bold">
+            Wallet
+          </span>
+
+        </a>
+
+      </div>
+
+    </nav>
+
+  </div>
+
+
+
+  <!-- ================================================= -->
+  <!-- JAVASCRIPT -->
+  <!-- ================================================= -->
+<script src="./toast.js"></script>
+
+<script>
+
+  // ==========================================
+  // LOAD LOGGED-IN USER
+  // ==========================================
+
+  async function loadWalletUser() {
+
+   const token =
+  localStorage.getItem("ogBoostingToken") ||
+  sessionStorage.getItem("ogBoostingToken");
+
+    // No token = not logged in
+    if (!token) {
+
+      window.location.replace("login.html");
+
+      return;
+
+    }
+
+    try {
+
+      const response = await fetch(
+        "http://localhost:5000/api/auth/me",
+        {
+          method: "GET",
+
+          headers: {
+            "Authorization":
+              `Bearer ${token}`
+          }
+        }
+      );
+
+      const data =
+        await response.json();
+
+      console.log("Wallet user:", data);
+
+
+      // Token is invalid/expired
+      if (!response.ok || !data.success) {
+
+        localStorage.removeItem("ogBoostingToken");
+        localStorage.removeItem("ogBoostingUser");
+
+        window.location.replace("login.html");
+
+        return;
+
+      }
+
+
+      // ==========================================
+      // USER INFORMATION
+      // ==========================================
+
+      const user = data.user;
+
+
+      // ==========================================
+      // USER NAME
+      // ==========================================
+
+      const nameElements =
+        document.querySelectorAll("[data-user-name]");
+
+      nameElements.forEach(element => {
+
+        element.textContent =
+          user.fullName;
+
+      });
+
+
+      // ==========================================
+      // USER EMAIL
+      // ==========================================
+
+      const emailElements =
+        document.querySelectorAll("[data-user-email]");
+
+      emailElements.forEach(element => {
+
+        element.textContent =
+          user.email;
+
+      });
+
+
+      // ==========================================
+      // WALLET BALANCE
+      // ==========================================
+
+      const balanceElements =
+        document.querySelectorAll("[data-wallet-balance]");
+
+      balanceElements.forEach(element => {
+
+        element.textContent =
+          `₦${Number(user.balance || 0).toLocaleString(
+            "en-NG",
+            {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            }
+          )}`;
+
+      });
+
+
+      // ==========================================
+      // USER INITIAL
+      // ==========================================
+
+      const initialElements =
+        document.querySelectorAll("[data-user-initial]");
+
+      initialElements.forEach(element => {
+
+        element.textContent =
+          user.fullName
+            ? user.fullName.charAt(0).toUpperCase()
+            : "U";
+
+      });
+
+
+    } catch (error) {
+
+      console.error(
+        "Wallet authentication error:",
+        error
+      );
+
+    }
+
+  }
+
+
+
+ 
+
+
+// ==========================================
+// LOAD TRANSACTIONS
+// ==========================================
+
+async function loadTransactions() {
+
+  const token =
+    localStorage.getItem("ogBoostingToken") ||
+    sessionStorage.getItem("ogBoostingToken");
+
+  if (!token) {
+
+    window.location.replace("login.html");
+
+    return;
+
+  }
+
+  try {
+
+    const response = await fetch(
+      "http://localhost:5000/api/wallet/transactions",
+      {
+        method: "GET",
+
+        headers: {
+          "Authorization":
+            `Bearer ${token}`
+        }
+      }
+    );
+
+    const data = await response.json();
+
+    console.log("Transactions:", data);
+
+    if (!response.ok || !data.success) {
+
+      throw new Error(
+        data.message ||
+        "Unable to load transactions."
+      );
+
+    }
+
+    const loading =
+      document.getElementById("transactionsLoading");
+
+    const empty =
+      document.getElementById("transactionsEmpty");
+
+    const list =
+      document.getElementById("transactionsList");
+
+    loading.classList.add("hidden");
+
+    if (
+      !data.transactions ||
+      data.transactions.length === 0
+    ) {
+
+      empty.classList.remove("hidden");
+      list.classList.add("hidden");
+
+      return;
+
+    }
+
+    list.classList.remove("hidden");
+
+    list.innerHTML = "";
+
+    data.transactions.forEach(transaction => {
+
+      const isDeposit =
+        transaction.type === "deposit";
+
+      const amount =
+        Number(transaction.amount || 0);
+
+      const formattedAmount =
+        `₦${amount.toLocaleString(
+          "en-NG",
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }
+        )}`;
+
+      const date =
+        new Date(transaction.createdAt);
+
+      const formattedDate =
+        date.toLocaleDateString(
+          "en-NG",
+          {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+          }
+        );
+
+      const formattedTime =
+        date.toLocaleTimeString(
+          "en-NG",
+          {
+            hour: "numeric",
+            minute: "2-digit"
+          }
+        );
+
+      const status =
+        transaction.status || "pending";
+
+      let statusClass =
+        "bg-yellow-50 text-yellow-600";
+
+      if (status === "successful") {
+        statusClass =
+          "bg-green-50 text-green-600";
+      }
+
+      if (status === "failed") {
+        statusClass =
+          "bg-red-50 text-red-600";
+      }
+
+      const icon =
+        isDeposit ? "↓" : "↑";
+
+      const iconClass =
+        isDeposit
+          ? "bg-green-50 text-green-600"
+          : "bg-orange-50 text-orange-500";
+
+      const amountClass =
+        isDeposit
+          ? "text-green-600"
+          : "text-gray-800";
+
+      const sign =
+        isDeposit ? "+" : "-";
+
+      list.innerHTML += `
+
+        <div class="p-5 border-b border-gray-50">
+
+          <div class="flex items-center justify-between gap-3">
+
+            <div class="flex items-center gap-3">
+
+              <div
+                class="w-11 h-11 rounded-xl ${iconClass}
+                flex items-center justify-center text-lg"
+              >
+                ${icon}
+              </div>
+
+              <div>
+
+                <p class="font-bold">
+                  ${
+                    isDeposit
+                      ? "Wallet Deposit"
+                      : "Wallet Transaction"
+                  }
+                </p>
+
+                <p class="text-xs text-gray-400 mt-1">
+                  ${formattedDate} • ${formattedTime}
+                </p>
+
+              </div>
+
+            </div>
+
+            <div class="text-right">
+
+              <p class="font-bold ${amountClass}">
+                ${sign}${formattedAmount}
+              </p>
+
+              <span
+                class="${statusClass}
+                px-2 py-1 rounded-full
+                text-[10px] font-bold"
+              >
+                ${status}
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      `;
+
+    });
+
+  } catch (error) {
+
+    console.error(
+      "Transaction loading error:",
+      error
+    );
+
+    const loading =
+      document.getElementById(
+        "transactionsLoading"
+      );
+
+    loading.textContent =
+      "Unable to load transactions.";
+
+  }
+
+}
+
+
+// ==========================================
+// LOAD WALLET SUMMARY
+// ==========================================
+
+async function loadWalletSummary() {
+
+  const token =
+    localStorage.getItem("ogBoostingToken") ||
+    sessionStorage.getItem("ogBoostingToken");
+
+
+  if (!token) {
+
+    window.location.replace("login.html");
+
+    return;
+
+  }
+
+
+  try {
+
+    const response = await fetch(
+      "http://localhost:5000/api/wallet/summary",
+      {
+
+        method: "GET",
+
+        headers: {
+
+          "Authorization":
+            `Bearer ${token}`
+
+        }
+
+      }
+    );
+
+
+    const data =
+      await response.json();
+
+
+    console.log(
+      "Wallet summary:",
+      data
+    );
+
+
+    if (!response.ok || !data.success) {
+
+      throw new Error(
+        data.message ||
+        "Unable to load wallet summary."
+      );
+
+    }
+
+
+    const summary =
+      data.summary;
+
+
+    // ==========================================
+    // TOTAL DEPOSITED
+    // ==========================================
+
+    const totalDeposited =
+      document.getElementById(
+        "totalDeposited"
+      );
+
+
+    if (totalDeposited) {
+
+      totalDeposited.textContent =
+        `₦${Number(
+          summary.totalDeposited || 0
+        ).toLocaleString(
+          "en-NG",
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }
+        )}`;
+
+    }
+
+
+    // ==========================================
+    // TOTAL SPENT
+    // ==========================================
+
+    const totalSpent =
+      document.getElementById(
+        "totalSpent"
+      );
+
+
+    if (totalSpent) {
+
+      totalSpent.textContent =
+        `₦${Number(
+          summary.totalSpent || 0
+        ).toLocaleString(
+          "en-NG",
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }
+        )}`;
+
+    }
+
+
+    // ==========================================
+    // TRANSACTION COUNT
+    // ==========================================
+
+    const transactionCount =
+      document.getElementById(
+        "transactionCount"
+      );
+
+
+    if (transactionCount) {
+
+      transactionCount.textContent =
+        summary.transactionCount || 0;
+
+    }
+
+
+  } catch (error) {
+
+    console.error(
+      "Wallet summary loading error:",
+      error
+    );
+
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // ==========================================
+  // QUICK AMOUNT
+  // ==========================================
+
+  function setAmount(amount) {
+
+    const input =
+      document.getElementById("amount");
+
+    if (input) {
+
+      input.value = amount;
+
+    }
+
+  }
+
+
+
+  // ==========================================
+  // CONTINUE PAYMENT
+  // ==========================================
+
+  const continuePaymentBtn =
+    document.getElementById("continuePaymentBtn");
+
+
+  if (continuePaymentBtn) {
+
+    continuePaymentBtn.addEventListener(
+      "click",
+      async function () {
+
+        const amountInput =
+          document.getElementById("amount");
+
+        const amount =
+          Number(amountInput.value);
+
+
+        if (!amount || amount <= 0) {
+
+          showToast("Please enter a valid amount.", "warning", { title: "Invalid amount" });
+
+          return;
+
+        }
+
+const token =
+  localStorage.getItem("ogBoostingToken") ||
+  sessionStorage.getItem("ogBoostingToken");
+
+
+        if (!token) {
+
+          window.location.href =
+            "login.html";
+
+          return;
+
+        }
+
+
+        try {
+
+          continuePaymentBtn.disabled =
+            true;
+
+          continuePaymentBtn.textContent =
+            "Connecting to payment...";
+
+
+          const response =
+            await fetch(
+              "http://localhost:5000/api/wallet/fund",
+              {
+
+                method: "POST",
+
+                headers: {
+
+                  "Content-Type":
+                    "application/json",
+
+                  "Authorization":
+                    `Bearer ${token}`
+
+                },
+
+                body:
+                  JSON.stringify({
+                    amount
+                  })
+
+              }
+            );
+
+
+          const data =
+            await response.json();
+
+
+          if (!response.ok ||
+              !data.success) {
+
+            throw new Error(
+              data.message ||
+              "Unable to start payment."
+            );
+
+          }
+
+
+          // Send user to Flutterwave
+          showToast(`₦${amount.toLocaleString("en-NG")} deposit is ready. Redirecting to secure payment...`, "info", { title: "Deposit started", duration: 2200 });
+
+          setTimeout(() => {
+            window.location.href = data.paymentLink;
+          }, 350);
+
+
+        } catch (error) {
+
+          console.error(error);
+
+          showToast(error.message || "Something went wrong.", "error", { title: "Deposit failed", duration: 6000 });
+
+
+          continuePaymentBtn.disabled =
+            false;
+
+          continuePaymentBtn.textContent =
+            "Continue to Payment";
+
+        }
+
+      }
+    );
+
+  }
+
+
+
+  // ==========================================
+  // FUND WALLET BUTTON
+  // ==========================================
+
+  const fundWalletBtn =
+    document.getElementById(
+      "fundWalletBtn"
+    );
+
+
+  if (fundWalletBtn) {
+
+    fundWalletBtn.addEventListener(
+      "click",
+      function () {
+
+        document
+          .getElementById("amount")
+          .scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+
+
+        setTimeout(() => {
+
+          document
+            .getElementById("amount")
+            .focus();
+
+        }, 500);
+
+      }
+    );
+
+  }
+
+
+
+  // ==========================================
+  // LOGOUT
+  // ==========================================
+
+  const logoutBtn =
+    document.getElementById("logoutBtn");
+
+
+  if (logoutBtn) {
+
+    logoutBtn.addEventListener(
+      "click",
+      () => {
+
+        localStorage.removeItem(
+          "ogBoostingToken"
+        );
+
+        localStorage.removeItem(
+          "ogBoostingUser"
+        );
+
+        sessionStorage.removeItem(
+          "ogBoostingToken"
+        );
+
+        sessionStorage.removeItem(
+          "ogBoostingUser"
+        );
+
+
+        window.location.replace(
+          "login.html"
+        );
+
+      }
+    );
+
+  }
+
+
+
+  // ==========================================
+  // START
+  // ==========================================
+
+  loadWalletUser();
+loadTransactions();
+loadWalletSummary();
+
+</script>
+</body>
+
+</html>

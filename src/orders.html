@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>My Orders - OG Boost</title>
+
+  <link
+    rel="stylesheet"
+    href="./output.css"
+  >
+
+  <script src="./auth.js"></script>
+
+</head>
+
+
+<body class="bg-[#f6f8fa] text-gray-800">
+
+
+  <!-- ================================================= -->
+  <!-- DESKTOP SIDEBAR -->
+  <!-- ================================================= -->
+
+  <aside
+    class="hidden lg:flex fixed left-0 top-0 bottom-0 w-[255px] bg-white border-r border-gray-100 flex-col z-50"
+  >
+
+    <!-- LOGO -->
+
+    <div class="px-7 pt-8 pb-7">
+
+      <a
+        href="index.html"
+        class="flex items-center gap-3"
+      >
+
+        <div
+          class="w-11 h-11 rounded-2xl bg-[#0B4F63] flex items-center justify-center"
+        >
+
+          <span class="text-white font-black text-lg">
+            OG
+          </span>
+
+        </div>
+
+
+        <div>
+
+          <h1
+            class="font-black text-xl tracking-tight text-[#0B4F63]"
+          >
+
+            OG<span class="text-orange-500">
+              Boost
+            </span>
+
+          </h1>
+
+          <p
+            class="text-[10px] uppercase tracking-[0.18em] text-gray-400 font-semibold"
+          >
+
+            Social Growth
+
+          </p>
+
+        </div>
+
+      </a>
+
+    </div>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="px-4 space-y-1.5">
+
+      <a
+        href="dashboard.html"
+        class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-[#0B4F63] transition"
+      >
+
+        <span class="text-lg">⌂</span>
+
+        Dashboard
+
+      </a>
+
+
+      <a
+        href="new-order.html"
+        class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-[#0B4F63] transition"
+      >
+
+        <span class="text-lg">＋</span>
+
+        New Order
+
+      </a>
+
+
+      <a
+        href="services.html"
+        class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-[#0B4F63] transition"
+      >
+
+        <span class="text-lg">✦</span>
+
+        Services
+
+      </a>
+
+
+      <!-- ACTIVE -->
+
+      <a
+        href="orders.html"
+        class="flex items-center gap-3 px-4 py-3.5 rounded-xl bg-[#0B4F63] text-white font-semibold"
+      >
+
+        <span class="text-lg">▤</span>
+
+        My Orders
+
+      </a>
+
+
+      <a
+        href="wallet.html"
+        class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-[#0B4F63] transition"
+      >
+
+        <span class="text-lg">◉</span>
+
+        Wallet
+
+      </a>
+
+
+      <a
+        href="support.html"
+        class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-[#0B4F63] transition"
+      >
+
+        <span class="text-lg">?</span>
+
+        Support
+
+      </a>
+
+    </nav>
+
+
+    <!-- USER -->
+
+    <div
+      class="mt-auto p-5 border-t border-gray-100"
+    >
+
+      <div class="flex items-center gap-3 mb-4">
+
+        <div
+          class="w-10 h-10 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold"
+        >
+
+          F
+
+        </div>
+
+
+        <div class="min-w-0">
+
+          <p class="font-semibold truncate">
+            Favour
+          </p>
+
+          <p class="text-xs text-gray-400 truncate">
+            Customer
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <button
+        id="logoutBtn"
+        class="w-full py-3 rounded-xl border border-gray-200 text-gray-500 hover:bg-gray-50 transition font-medium"
+      >
+
+        Log out
+
+      </button>
+
+    </div>
+
+  </aside>
+
+
+
+  <!-- ================================================= -->
+  <!-- MAIN -->
+  <!-- ================================================= -->
+
+  <div class="lg:ml-[255px] min-h-screen">
+
+
+    <!-- ================================================= -->
+    <!-- MOBILE HEADER -->
+    <!-- ================================================= -->
+
+    <header
+      class="lg:hidden bg-white border-b border-gray-100 px-5 py-4 sticky top-0 z-40"
+    >
+
+      <div class="flex items-center justify-between">
+
+        <a
+          href="index.html"
+          class="flex items-center gap-2.5"
+        >
+
+          <div
+            class="w-9 h-9 rounded-xl bg-[#0B4F63] flex items-center justify-center"
+          >
+
+            <span class="text-white font-black text-sm">
+              OG
+            </span>
+
+          </div>
+
+
+          <h1
+            class="font-black text-lg text-[#0B4F63]"
+          >
+
+            OG<span class="text-orange-500">
+              Boost
+            </span>
+
+          </h1>
+
+        </a>
+
+
+        <div
+          class="w-9 h-9 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold"
+        >
+
+          F
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+
+    <!-- ================================================= -->
+    <!-- CONTENT -->
+    <!-- ================================================= -->
+
+    <main
+      class="max-w-[1500px] mx-auto px-5 sm:px-7 lg:px-10 py-7 lg:py-10 pb-28 lg:pb-10"
+    >
+
+
+      <!-- PAGE TITLE -->
+
+      <section
+        class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5"
+      >
+
+        <div>
+
+          <p class="text-sm text-gray-400 font-medium">
+            Account
+          </p>
+
+          <h2
+            class="text-3xl sm:text-4xl font-black text-gray-900 mt-1"
+          >
+
+            My Orders
+
+          </h2>
+
+          <p
+            class="text-gray-400 text-sm mt-2"
+          >
+
+            Track and manage all your social media orders.
+
+          </p>
+
+        </div>
+
+
+        <a
+          href="new-order.html"
+          class="inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-6 py-3.5 rounded-xl font-bold transition"
+        >
+
+          <span class="text-xl">
+            +
+          </span>
+
+          New Order
+
+        </a>
+
+      </section>
+
+
+
+      <!-- ================================================= -->
+      <!-- ORDER STATS -->
+      <!-- ================================================= -->
+
+      <section
+        class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 mt-7"
+      >
+
+
+        <!-- TOTAL -->
+
+        <div
+          class="bg-white border border-gray-100 rounded-2xl p-5 sm:p-6"
+        >
+
+          <p class="text-gray-400 text-xs sm:text-sm">
+            Total Orders
+          </p>
+
+
+          <div
+            class="flex items-end justify-between mt-3"
+          >
+
+            <h3
+              class="text-2xl sm:text-3xl font-black"
+            >
+
+              24
+
+            </h3>
+
+
+            <div
+              class="w-9 h-9 rounded-xl bg-[#0B4F63]/10 text-[#0B4F63] flex items-center justify-center"
+            >
+
+              ▤
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- PENDING -->
+
+        <div
+          class="bg-white border border-gray-100 rounded-2xl p-5 sm:p-6"
+        >
+
+          <p class="text-gray-400 text-xs sm:text-sm">
+            Pending
+          </p>
+
+
+          <div
+            class="flex items-end justify-between mt-3"
+          >
+
+            <h3
+              class="text-2xl sm:text-3xl font-black"
+            >
+
+              3
+
+            </h3>
+
+
+            <div
+              class="w-9 h-9 rounded-xl bg-orange-50 text-orange-500 flex items-center justify-center"
+            >
+
+              ◷
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- PROCESSING -->
+
+        <div
+          class="bg-white border border-gray-100 rounded-2xl p-5 sm:p-6"
+        >
+
+          <p class="text-gray-400 text-xs sm:text-sm">
+            Processing
+          </p>
+
+
+          <div
+            class="flex items-end justify-between mt-3"
+          >
+
+            <h3
+              class="text-2xl sm:text-3xl font-black"
+            >
+
+              2
+
+            </h3>
+
+
+            <div
+              class="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center"
+            >
+
+              ↻
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- COMPLETED -->
+
+        <div
+          class="bg-white border border-gray-100 rounded-2xl p-5 sm:p-6"
+        >
+
+          <p class="text-gray-400 text-xs sm:text-sm">
+            Completed
+          </p>
+
+
+          <div
+            class="flex items-end justify-between mt-3"
+          >
+
+            <h3
+              class="text-2xl sm:text-3xl font-black"
+            >
+
+              19
+
+            </h3>
+
+
+            <div
+              class="w-9 h-9 rounded-xl bg-green-50 text-green-600 flex items-center justify-center"
+            >
+
+              ✓
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ================================================= -->
+      <!-- SEARCH + FILTER -->
+      <!-- ================================================= -->
+
+      <section
+        class="bg-white border border-gray-100 rounded-[24px] p-5 sm:p-6 mt-7"
+      >
+
+        <div
+          class="flex flex-col lg:flex-row gap-4"
+        >
+
+
+          <!-- SEARCH -->
+
+          <div class="relative flex-1">
+
+            <span
+              class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+            >
+
+              ⌕
+
+            </span>
+
+
+            <input
+              id="searchInput"
+              type="text"
+              placeholder="Search by order ID or service..."
+              class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-200 outline-none focus:border-[#0B4F63] focus:ring-4 focus:ring-[#0B4F63]/5 transition"
+            >
+
+          </div>
+
+
+
+          <!-- STATUS FILTER -->
+
+          <select
+            id="statusFilter"
+            class="lg:w-48 px-4 py-3.5 rounded-xl border border-gray-200 bg-white outline-none focus:border-[#0B4F63] transition"
+          >
+
+            <option value="all">
+              All Status
+            </option>
+
+            <option value="Pending">
+              Pending
+            </option>
+
+            <option value="Processing">
+              Processing
+            </option>
+
+            <option value="Completed">
+              Completed
+            </option>
+
+            <option value="Cancelled">
+              Cancelled
+            </option>
+
+          </select>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ================================================= -->
+      <!-- DESKTOP ORDERS TABLE -->
+      <!-- ================================================= -->
+
+    <!-- ================================================= -->
+<!-- DESKTOP ORDERS TABLE -->
+<!-- ================================================= -->
+
+<section
+  class="hidden md:block bg-white border border-gray-100 rounded-[24px] mt-6 overflow-hidden"
+>
+
+  <div
+    class="px-7 py-6 border-b border-gray-100"
+  >
+
+    <h2 class="text-xl font-black">
+      Order History
+    </h2>
+
+    <p class="text-xs text-gray-400 mt-1">
+      Your recent boosting orders.
+    </p>
+
+  </div>
+
+
+  <!-- DESKTOP ORDERS -->
+
+  <div class="overflow-x-auto">
+
+    <table class="w-full">
+
+      <thead>
+        <tr class="text-left text-xs text-gray-400 border-b border-gray-100">
+
+          <th class="px-7 py-4">Order ID</th>
+          <th class="px-7 py-4">Service</th>
+          <th class="px-7 py-4">Quantity</th>
+          <th class="px-7 py-4">Amount</th>
+          <th class="px-7 py-4">Status</th>
+          <th class="px-7 py-4">Date</th>
+          <th class="px-7 py-4">Action</th>
+
+        </tr>
+      </thead>
+
+      <tbody id="desktopOrders">
+        <!-- Real orders inserted by JavaScript -->
+      </tbody>
+
+    </table>
+
+  </div>
+
+</section>
+
+
+<!-- ================================================= -->
+<!-- MOBILE ORDERS -->
+<!-- ================================================= -->
+
+<section
+  class="md:hidden mt-6 space-y-3"
+  id="mobileOrders"
+>
+  <!-- Real orders inserted by JavaScript -->
+</section>
+         
+
+
+
+      <!-- ================================================= -->
+      <!-- NO RESULTS -->
+      <!-- ================================================= -->
+
+      <div
+        id="noResults"
+        class="hidden bg-white border border-gray-100 rounded-[24px] p-10 mt-6 text-center"
+      >
+
+        <div
+          class="w-14 h-14 mx-auto rounded-2xl bg-gray-50 flex items-center justify-center text-2xl"
+        >
+
+          ⌕
+
+        </div>
+
+
+        <h3
+          class="font-black text-lg mt-4"
+        >
+
+          No orders found
+
+        </h3>
+
+
+        <p
+          class="text-gray-400 text-sm mt-1"
+        >
+
+          Try another search or filter.
+
+        </p>
+
+      </div>
+
+
+    </main>
+
+
+
+    <!-- ================================================= -->
+    <!-- MOBILE BOTTOM NAVIGATION -->
+    <!-- ================================================= -->
+
+    <nav
+      class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 z-50 px-2 py-2"
+    >
+
+      <div
+        class="grid grid-cols-5 max-w-lg mx-auto"
+      >
+
+
+        <a
+          href="dashboard.html"
+          class="flex flex-col items-center gap-1 py-2 text-gray-400"
+        >
+
+          <span class="text-lg">
+            ⌂
+          </span>
+
+          <span class="text-[10px]">
+            Home
+          </span>
+
+        </a>
+
+
+        <a
+          href="services.html"
+          class="flex flex-col items-center gap-1 py-2 text-gray-400"
+        >
+
+          <span class="text-lg">
+            ✦
+          </span>
+
+          <span class="text-[10px]">
+            Services
+          </span>
+
+        </a>
+
+
+        <!-- BOOST -->
+
+        <a
+          href="new-order.html"
+          class="relative flex flex-col items-center"
+        >
+
+          <span
+            class="-mt-7 w-14 h-14 rounded-full bg-orange-500 text-white flex items-center justify-center text-2xl shadow-lg border-4 border-[#f6f8fa]"
+          >
+
+            +
+
+          </span>
+
+          <span
+            class="text-[10px] font-bold text-orange-500 mt-1"
+          >
+
+            Boost
+
+          </span>
+
+        </a>
+
+
+        <!-- ACTIVE ORDERS -->
+
+        <a
+          href="orders.html"
+          class="flex flex-col items-center gap-1 py-2 text-[#0B4F63]"
+        >
+
+          <span class="text-lg">
+            ▤
+          </span>
+
+          <span class="text-[10px] font-bold">
+            Orders
+          </span>
+
+        </a>
+
+
+        <a
+          href="wallet.html"
+          class="flex flex-col items-center gap-1 py-2 text-gray-400"
+        >
+
+          <span class="text-lg">
+            ◉
+          </span>
+
+          <span class="text-[10px]">
+            Wallet
+          </span>
+
+        </a>
+
+      </div>
+
+    </nav>
+
+  </div>
+
+
+
+  <!-- ================================================= -->
+  <!-- JAVASCRIPT -->
+  <!-- ================================================= -->
+<script>
+
+  // ==========================================
+  // LOAD ORDERS FROM SERVER
+  // ==========================================
+
+  const searchInput = document.getElementById("searchInput");
+  const statusFilter = document.getElementById("statusFilter");
+
+  const desktopOrders = document.getElementById("desktopOrders");
+  const mobileOrders = document.getElementById("mobileOrders");
+  const noResults = document.getElementById("noResults");
+
+  let allOrders = [];
+
+
+  // ==========================================
+  // GET LOGIN TOKEN
+  // ==========================================
+
+  const orderPageToken =
+    localStorage.getItem("ogBoostingToken") ||
+    sessionStorage.getItem("ogBoostingToken");
+
+
+  if (!orderPageToken) {
+
+    window.location.replace("login.html");
+
+  }
+
+
+  // ==========================================
+  // LOAD ORDERS
+  // ==========================================
+
+  async function loadOrders() {
+
+    try {
+
+      const response = await fetch(
+        "http://localhost:5000/api/orders",
+        {
+          method: "GET",
+
+          headers: {
+            "Authorization": `Bearer ${orderPageToken}`,
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+
+      const data = await response.json();
+
+
+      console.log("ORDERS RESPONSE:", data);
+
+
+      if (!response.ok || !data.success) {
+
+        throw new Error(
+          data.message || "Unable to load orders."
+        );
+
+      }
+
+
+      allOrders = data.orders || [];
+
+
+      renderOrders();
+
+
+    } catch (error) {
+
+      console.error(
+        "Load orders error:",
+        error
+      );
+
+      desktopOrders.innerHTML = "";
+
+      mobileOrders.innerHTML = "";
+
+      noResults.classList.remove("hidden");
+
+    }
+
+  }
+
+
+  // ==========================================
+  // RENDER ORDERS
+  // ==========================================
+
+  function renderOrders() {
+
+    const search =
+      searchInput.value
+        .toLowerCase()
+        .trim();
+
+
+    const selectedStatus =
+      statusFilter.value.toLowerCase();
+
+
+    const filteredOrders =
+      allOrders.filter(order => {
+
+        const orderId =
+          String(
+            order.providerOrderId || order._id || ""
+          ).toLowerCase();
+
+
+        const service =
+          String(
+            order.serviceName || ""
+          ).toLowerCase();
+
+
+        const platform =
+          String(
+            order.platform || ""
+          ).toLowerCase();
+
+
+        const status =
+          String(
+            order.status || ""
+          ).toLowerCase();
+
+
+        const matchesSearch =
+          orderId.includes(search) ||
+          service.includes(search) ||
+          platform.includes(search);
+
+
+        const matchesStatus =
+          selectedStatus === "all" ||
+          status === selectedStatus;
+
+
+        return matchesSearch && matchesStatus;
+
+      });
+
+
+    // Clear old orders
+
+    desktopOrders.innerHTML = "";
+
+    mobileOrders.innerHTML = "";
+
+
+    // No orders
+
+    if (filteredOrders.length === 0) {
+
+      noResults.classList.remove("hidden");
+
+      updateStats();
+
+      return;
+
+    }
+
+
+    noResults.classList.add("hidden");
+
+
+    // ==========================================
+    // CREATE ORDER ROWS
+    // ==========================================
+
+    filteredOrders.forEach(order => {
+
+      const orderId =
+        order.providerOrderId ||
+        order._id;
+
+
+      const serviceName =
+        order.serviceName ||
+        "Unknown Service";
+
+
+      const quantity =
+        Number(order.quantity || 0);
+
+
+      const amount =
+        Number(order.amount || 0);
+
+
+      const status =
+        order.status || "Pending";
+
+
+      const date =
+        order.createdAt
+          ? new Date(order.createdAt).toLocaleDateString(
+              "en-NG",
+              {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+              }
+            )
+          : "-";
+
+
+      // ==========================================
+      // STATUS STYLE
+      // ==========================================
+
+      let statusClass =
+        "bg-gray-100 text-gray-600";
+
+
+      if (status.toLowerCase() === "pending") {
+
+        statusClass =
+          "bg-orange-50 text-orange-600";
+
+      }
+
+
+      if (status.toLowerCase() === "processing") {
+
+        statusClass =
+          "bg-purple-50 text-purple-600";
+
+      }
+
+
+      if (status.toLowerCase() === "completed") {
+
+        statusClass =
+          "bg-green-50 text-green-600";
+
+      }
+
+
+      if (status.toLowerCase() === "cancelled") {
+
+        statusClass =
+          "bg-red-50 text-red-600";
+
+      }
+
+
+      // ==========================================
+      // DESKTOP ROW
+      // ==========================================
+
+      const row =
+        document.createElement("tr");
+
+
+      row.className =
+        "orderRow border-b border-gray-100 hover:bg-gray-50 transition";
+
+
+      row.dataset.search =
+        `${orderId} ${serviceName} ${order.platform || ""}`;
+
+
+      row.dataset.status =
+        status;
+
+
+      row.innerHTML = `
+
+        <td class="px-7 py-5">
+
+          <p class="font-bold text-gray-900">
+            #${orderId}
+          </p>
+
+        </td>
+
+
+        <td class="px-7 py-5">
+
+          <p class="font-semibold text-gray-800">
+            ${serviceName}
+          </p>
+
+          <p class="text-xs text-gray-400 mt-1">
+            ${order.platform || ""}
+          </p>
+
+        </td>
+
+
+        <td class="px-7 py-5">
+
+          <span class="font-semibold">
+            ${quantity.toLocaleString()}
+          </span>
+
+        </td>
+
+
+        <td class="px-7 py-5">
+
+          <span class="font-bold text-gray-900">
+            ₦${amount.toLocaleString()}
+          </span>
+
+        </td>
+
+
+        <td class="px-7 py-5">
+
+          <span class="inline-flex px-3 py-1.5 rounded-full text-xs font-bold ${statusClass}">
+            ${status}
+          </span>
+
+        </td>
+
+
+        <td class="px-7 py-5">
+
+          <span class="text-sm text-gray-500">
+            ${date}
+          </span>
+
+        </td>
+
+
+        <td class="px-7 py-5">
+
+          <a
+            href="order-details.html?id=${order._id}"
+            class="text-[#0B4F63] font-semibold text-sm hover:underline"
+          >
+            View
+          </a>
+
+        </td>
+
+      `;
+
+
+      desktopOrders.appendChild(row);
+
+
+      // ==========================================
+      // MOBILE CARD
+      // ==========================================
+
+      const mobileCard =
+        document.createElement("div");
+
+
+      mobileCard.className =
+        "mobileOrder bg-white border border-gray-100 rounded-2xl p-5";
+
+
+      mobileCard.dataset.search =
+        `${orderId} ${serviceName} ${order.platform || ""}`;
+
+
+      mobileCard.dataset.status =
+        status;
+
+
+      mobileCard.innerHTML = `
+
+        <div class="flex items-start justify-between gap-4">
+
+          <div>
+
+            <p class="text-xs text-gray-400">
+              Order #${orderId}
+            </p>
+
+            <h3 class="font-bold text-gray-900 mt-1">
+              ${serviceName}
+            </h3>
+
+            <p class="text-xs text-gray-400 mt-1">
+              ${order.platform || ""}
+            </p>
+
+          </div>
+
+
+          <span class="inline-flex px-3 py-1.5 rounded-full text-xs font-bold ${statusClass}">
+            ${status}
+          </span>
+
+        </div>
+
+
+        <div class="grid grid-cols-2 gap-4 mt-5">
+
+          <div>
+
+            <p class="text-xs text-gray-400">
+              Quantity
+            </p>
+
+            <p class="font-bold mt-1">
+              ${quantity.toLocaleString()}
+            </p>
+
+          </div>
+
+
+          <div>
+
+            <p class="text-xs text-gray-400">
+              Amount
+            </p>
+
+            <p class="font-bold mt-1">
+              ₦${amount.toLocaleString()}
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="flex items-center justify-between mt-5 pt-4 border-t border-gray-100">
+
+          <p class="text-xs text-gray-400">
+            ${date}
+          </p>
+
+
+          <a
+            href="order-details.html?id=${order._id}"
+            class="text-[#0B4F63] font-bold text-sm"
+          >
+            View Order
+          </a>
+
+        </div>
+
+      `;
+
+
+      mobileOrders.appendChild(
+        mobileCard
+      );
+
+    });
+
+
+    updateStats();
+
+  }
+
+
+  // ==========================================
+  // UPDATE ORDER STATS
+  // ==========================================
+
+  function updateStats() {
+
+    const total =
+      allOrders.length;
+
+
+    const pending =
+      allOrders.filter(
+        order =>
+          String(order.status).toLowerCase() ===
+          "pending"
+      ).length;
+
+
+    const processing =
+      allOrders.filter(
+        order =>
+          String(order.status).toLowerCase() ===
+          "processing"
+      ).length;
+
+
+    const completed =
+      allOrders.filter(
+        order =>
+          String(order.status).toLowerCase() ===
+          "completed"
+      ).length;
+
+
+    const statNumbers =
+      document.querySelectorAll(
+        "main section.grid h3"
+      );
+
+
+    if (statNumbers.length >= 4) {
+
+      statNumbers[0].textContent =
+        total;
+
+
+      statNumbers[1].textContent =
+        pending;
+
+
+      statNumbers[2].textContent =
+        processing;
+
+
+      statNumbers[3].textContent =
+        completed;
+
+    }
+
+  }
+
+
+  // ==========================================
+  // SEARCH
+  // ==========================================
+
+  searchInput.addEventListener(
+    "input",
+    renderOrders
+  );
+
+
+  // ==========================================
+  // STATUS FILTER
+  // ==========================================
+
+  statusFilter.addEventListener(
+    "change",
+    renderOrders
+  );
+
+
+  // ==========================================
+  // LOGOUT
+  // ==========================================
+
+  const logoutBtn =
+    document.getElementById("logoutBtn");
+
+
+  if (logoutBtn) {
+
+    logoutBtn.addEventListener(
+      "click",
+      () => {
+
+        localStorage.removeItem(
+          "ogBoostingToken"
+        );
+
+        localStorage.removeItem(
+          "ogBoostingUser"
+        );
+
+        sessionStorage.removeItem(
+          "ogBoostingToken"
+        );
+
+        sessionStorage.removeItem(
+          "ogBoostingUser"
+        );
+
+        window.location.replace(
+          "login.html"
+        );
+
+      }
+    );
+
+  }
+
+// ==========================================
+// START
+// ==========================================
+
+async function startOrdersPage() {
+
+  await loadOrders();
+
+  // Check Owlet immediately
+  await updateOrderStatuses();
+
+  // Check again every 30 seconds
+  setInterval(
+    updateOrderStatuses,
+    30000
+  );
+
+}
+
+startOrdersPage();
+
+  // ==========================================
+// UPDATE ORDERS FROM OWLET
+// ==========================================
+
+async function updateOrderStatuses() {
+
+  if (!allOrders.length) {
+    return;
+  }
+
+  for (const order of allOrders) {
+
+    try {
+
+      // Don't keep checking finished orders
+      const currentStatus =
+        String(order.status || "").toLowerCase();
+
+      if (
+        currentStatus === "completed" ||
+        currentStatus === "cancelled" ||
+        currentStatus === "refunded"
+      ) {
+        continue;
+      }
+
+
+      const response = await fetch(
+        `http://localhost:5000/api/orders/${order._id}/status`,
+        {
+          method: "GET",
+
+          headers: {
+            "Authorization":
+              `Bearer ${orderPageToken}`,
+
+            "Content-Type":
+              "application/json"
+          }
+        }
+      );
+
+
+      const data =
+        await response.json();
+
+
+      if (
+        !response.ok ||
+        !data.success
+      ) {
+
+        console.error(
+          "Status update failed:",
+          data.message
+        );
+
+        continue;
+
+      }
+
+
+      // ======================================
+      // UPDATE LOCAL ORDER
+      // ======================================
+
+      const updatedOrder =
+        data.order;
+
+
+      const index =
+        allOrders.findIndex(
+          item =>
+            String(item._id) ===
+            String(order._id)
+        );
+
+
+      if (index !== -1) {
+
+        allOrders[index] = {
+          ...allOrders[index],
+          ...updatedOrder
+        };
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Order status request error:",
+        error
+      );
+
+    }
+
+  }
+
+
+  // ==========================================
+  // REFRESH TABLE
+  // ==========================================
+
+  renderOrders();
+
+}
+
+</script>
+
+
+</body>
+
+</html>

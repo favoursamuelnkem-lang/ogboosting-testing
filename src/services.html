@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Services - OG Boosting</title>
+
+  <link rel="stylesheet" href="./output.css">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+  <script src="./auth.js"></script>
+
+</head>
+
+
+<body class="bg-[#f6f8fa] text-gray-800 font-[Inter] pb-24 md:pb-0">
+
+
+  <!-- =========================
+       DESKTOP NAVBAR
+  ========================== -->
+
+  <header class="hidden md:block bg-white border-b border-gray-100">
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+      <nav class="h-20 flex items-center justify-between">
+
+        <!-- LOGO -->
+
+        <a
+          href="dashboard.html"
+          class="flex items-center gap-3"
+        >
+
+          <div
+            class="w-11 h-11 rounded-xl bg-[#0B4F63] flex items-center justify-center text-white font-extrabold"
+          >
+            OG
+          </div>
+
+          <div>
+
+            <h1 class="font-extrabold text-xl text-[#0B4F63]">
+              OG Boosting
+            </h1>
+
+            <p class="text-[10px] text-gray-400">
+              Social Growth
+            </p>
+
+          </div>
+
+        </a>
+
+
+        <!-- DESKTOP LINKS -->
+
+        <div class="flex items-center gap-8">
+
+          <a
+            href="dashboard.html"
+            class="text-gray-500 hover:text-[#0B4F63] transition"
+          >
+            Home
+          </a>
+
+          <a
+            href="services.html"
+            class="text-[#0B4F63] font-bold"
+          >
+            Services
+          </a>
+
+          <a
+            href="orders.html"
+            class="text-gray-500 hover:text-[#0B4F63] transition"
+          >
+            Orders
+          </a>
+
+          <a
+            href="wallet.html"
+            class="text-gray-500 hover:text-[#0B4F63] transition"
+          >
+            Wallet
+          </a>
+
+          <a
+            href="new-order.html"
+            class="bg-[#F97316] text-white px-6 py-3 rounded-xl font-bold hover:bg-orange-600 transition"
+          >
+            New Order
+          </a>
+
+        </div>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =========================
+       PAGE HEADER
+  ========================== -->
+
+  <section class="bg-white border-b border-gray-100">
+
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-10 md:py-16">
+
+      <div class="max-w-2xl">
+
+        <p
+          class="text-[#F97316] font-bold text-xs sm:text-sm uppercase tracking-wider"
+        >
+          Our Services
+        </p>
+
+        <h1
+          class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight"
+        >
+          Choose your social media boost
+        </h1>
+
+        <p
+          class="mt-4 text-gray-500 text-sm sm:text-base lg:text-lg"
+        >
+          Select a service and start growing your social media account.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       SERVICES
+  ========================== -->
+
+  <main>
+
+    <section class="py-8 sm:py-12">
+
+      <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+
+
+        <!-- PLATFORM FILTER -->
+
+        <div class="flex flex-wrap gap-2 sm:gap-3 mb-8">
+
+          <button
+            class="platformBtn px-4 py-2.5 rounded-xl bg-[#0B4F63] text-white font-semibold text-sm"
+            data-platform="all"
+          >
+            All
+          </button>
+
+          <button
+            class="platformBtn px-4 py-2.5 rounded-xl bg-white border border-gray-200 font-semibold text-sm hover:border-[#0B4F63]"
+            data-platform="tiktok"
+          >
+            TikTok
+          </button>
+
+          <button
+            class="platformBtn px-4 py-2.5 rounded-xl bg-white border border-gray-200 font-semibold text-sm hover:border-[#0B4F63]"
+            data-platform="instagram"
+          >
+            Instagram
+          </button>
+
+          <button
+            class="platformBtn px-4 py-2.5 rounded-xl bg-white border border-gray-200 font-semibold text-sm hover:border-[#0B4F63]"
+            data-platform="youtube"
+          >
+            YouTube
+          </button>
+
+          <button
+            class="platformBtn px-4 py-2.5 rounded-xl bg-white border border-gray-200 font-semibold text-sm hover:border-[#0B4F63]"
+            data-platform="facebook"
+          >
+            Facebook
+          </button>
+
+        </div>
+
+
+
+     <!-- SERVICE GRID -->
+
+<div
+  id="servicesGrid"
+  class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6"
+>
+
+  <div class="col-span-full text-center py-12 text-gray-400">
+    Loading services...
+  </div>
+
+</div>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- ==================================================
+       MOBILE BOTTOM NAVIGATION
+       ALWAYS VISIBLE
+  =================================================== -->
+
+  <nav
+    class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-[0_-5px_20px_rgba(0,0,0,0.06)]"
+  >
+
+    <div class="h-[72px] grid grid-cols-5 items-end px-2">
+
+
+      <!-- HOME -->
+
+      <a
+        href="dashboard.html"
+        class="flex flex-col items-center justify-end h-full pb-2 text-gray-400"
+      >
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.7"
+          stroke="currentColor"
+          class="w-5 h-5"
+        >
+
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m2.25 12 8.954-8.954a1.125 1.125 0 0 1 1.592 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-5.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75"
+          />
+
+        </svg>
+
+        <span class="text-[9px] mt-1">
+          Home
+        </span>
+
+      </a>
+
+
+
+      <!-- SERVICES ACTIVE -->
+
+      <a
+        href="services.html"
+        class="flex flex-col items-center justify-end h-full pb-2 text-[#0B4F63]"
+      >
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.8"
+          stroke="currentColor"
+          class="w-5 h-5"
+        >
+
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M4.5 6.75h15M4.5 12h15M4.5 17.25h15"
+          />
+
+        </svg>
+
+        <span class="text-[9px] mt-1 font-bold">
+          Services
+        </span>
+
+      </a>
+
+
+
+      <!-- BOOST -->
+
+      <a
+        href="new-order.html"
+        class="relative flex flex-col items-center justify-end h-full pb-2"
+      >
+
+        <span
+          class="absolute -top-7 w-14 h-14 rounded-full bg-[#F97316] text-white flex items-center justify-center text-2xl shadow-lg border-4 border-[#f6f8fa]"
+        >
+          +
+        </span>
+
+        <span class="text-[9px] mt-1 text-[#F97316] font-bold">
+          Boost
+        </span>
+
+      </a>
+
+
+
+      <!-- ORDERS -->
+
+      <a
+        href="orders.html"
+        class="flex flex-col items-center justify-end h-full pb-2 text-gray-400"
+      >
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.7"
+          stroke="currentColor"
+          class="w-5 h-5"
+        >
+
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M8.25 6.75h11.25M8.25 12h11.25M8.25 17.25h11.25M4.5 6.75h.008v.008H4.5V6.75Zm0 5.25h.008v.008H4.5V12Zm0 5.25h.008v.008H4.5v-.008Z"
+          />
+
+        </svg>
+
+        <span class="text-[9px] mt-1">
+          Orders
+        </span>
+
+      </a>
+
+
+
+      <!-- WALLET -->
+
+      <a
+        href="wallet.html"
+        class="flex flex-col items-center justify-end h-full pb-2 text-gray-400"
+      >
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.7"
+          stroke="currentColor"
+          class="w-5 h-5"
+        >
+
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 7.5h16.5v10.125A1.875 1.875 0 0 1 18.375 19.5H5.625a1.875 1.875 0 0 1-1.875-1.875V7.5Zm0 0V5.625A1.875 1.875 0 0 1 5.625 3.75h11.25a1.875 1.875 0 0 1 1.875 1.875V7.5"
+          />
+
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M16.5 13.125h.008v.008H16.5v-.008Z"
+          />
+
+        </svg>
+
+        <span class="text-[9px] mt-1">
+          Wallet
+        </span>
+
+      </a>
+
+
+    </div>
+
+  </nav>
+
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+
+ <script>
+
+  // ==========================================
+  // LOAD SERVICES FROM OUR BACKEND
+  // ==========================================
+
+  let allServices = [];
+
+
+  async function loadServices() {
+
+    const servicesGrid =
+      document.getElementById("servicesGrid");
+
+
+    servicesGrid.innerHTML = `
+      <div class="col-span-full text-center py-12 text-gray-400">
+        Loading services...
+      </div>
+    `;
+
+
+    try {
+
+      const response = await fetch(
+        "http://localhost:5000/api/services"
+      );
+
+
+      const data =
+        await response.json();
+
+
+      console.log("Services from Owlet:", data);
+
+
+      if (
+        !response.ok ||
+        !data.success
+      ) {
+
+        throw new Error(
+          data.message ||
+          "Unable to load services."
+        );
+
+      }
+
+
+      allServices =
+        data.services || [];
+
+
+      renderServices(allServices);
+
+
+    } catch (error) {
+
+      console.error(
+        "Services loading error:",
+        error
+      );
+
+
+      servicesGrid.innerHTML = `
+        <div class="col-span-full text-center py-12">
+
+          <p class="text-red-500 font-bold">
+            Unable to load services.
+          </p>
+
+          <p class="text-gray-400 text-sm mt-2">
+            Please try again later.
+          </p>
+
+        </div>
+      `;
+
+    }
+
+  }
+
+
+
+  // ==========================================
+  // RENDER SERVICES
+  // ==========================================
+
+  function renderServices(services) {
+
+    const servicesGrid =
+      document.getElementById("servicesGrid");
+
+
+    servicesGrid.innerHTML = "";
+
+
+    if (!services.length) {
+
+      servicesGrid.innerHTML = `
+        <div class="col-span-full text-center py-12 text-gray-400">
+          No services available.
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    services.forEach(service => {
+
+      const name =
+        service.name || "Service";
+
+
+      const category =
+        (service.category || "Other")
+          .toLowerCase();
+
+
+     const rate =
+  Number(service.price || 0);
+
+
+      const minimum =
+        service.min || 0;
+
+
+      const maximum =
+        service.max || 0;
+
+
+      let platform =
+        category;
+
+
+      // ==========================================
+      // PLATFORM
+      // ==========================================
+
+      if (category.includes("tiktok")) {
+
+        platform = "tiktok";
+
+      } else if (
+        category.includes("instagram")
+      ) {
+
+        platform = "instagram";
+
+      } else if (
+        category.includes("youtube")
+      ) {
+
+        platform = "youtube";
+
+      } else if (
+        category.includes("facebook")
+      ) {
+
+        platform = "facebook";
+
+      }
+
+
+      // ==========================================
+      // ICON
+      // ==========================================
+
+      let icon = "✦";
+
+      let iconClass =
+        "bg-gray-100 text-[#0B4F63]";
+
+
+      if (platform === "tiktok") {
+
+        icon = "TT";
+
+        iconClass =
+          "bg-gray-100 text-[#0B4F63]";
+
+      }
+
+
+      if (platform === "instagram") {
+
+        icon = "IG";
+
+        iconClass =
+          "bg-purple-50 text-purple-500";
+
+      }
+
+
+      if (platform === "youtube") {
+
+        icon = "YT";
+
+        iconClass =
+          "bg-red-50 text-red-500";
+
+      }
+
+
+      if (platform === "facebook") {
+
+        icon = "FB";
+
+        iconClass =
+          "bg-blue-50 text-blue-600";
+
+      }
+
+
+      // ==========================================
+      // CREATE CARD
+      // ==========================================
+
+      servicesGrid.innerHTML += `
+
+        <div
+          class="serviceCard bg-white rounded-2xl border border-gray-100 p-5 sm:p-6 hover:shadow-xl transition"
+          data-platform="${platform}"
+        >
+
+          <div class="flex items-center justify-between">
+
+            <div
+              class="w-12 h-12 rounded-xl ${iconClass} flex items-center justify-center font-extrabold"
+            >
+
+              ${icon}
+
+            </div>
+
+
+            <span
+              class="text-[11px] font-bold bg-green-50 text-green-600 px-3 py-1.5 rounded-full"
+            >
+
+              Available
+
+            </span>
+
+          </div>
+
+
+          <h3
+            class="mt-5 text-lg sm:text-xl font-bold"
+          >
+
+            ${name}
+
+          </h3>
+
+
+          <p
+            class="mt-2 text-gray-500 text-sm leading-6"
+          >
+
+            ${service.description ||
+              `Order ${name} for your social media account.`}
+
+          </p>
+
+
+          <div
+            class="mt-6 flex items-end justify-between"
+          >
+
+            <div>
+
+              <p class="text-xs text-gray-400">
+
+                Starting from
+
+              </p>
+
+
+              <p
+                class="text-lg font-extrabold text-[#0B4F63]"
+              >
+
+                ₦${rate.toLocaleString(
+                  "en-NG",
+                  {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                  }
+                )}
+
+              </p>
+
+
+              <p
+                class="text-[10px] text-gray-400 mt-1"
+              >
+
+                Min ${Number(minimum).toLocaleString()}
+                ·
+                Max ${Number(maximum).toLocaleString()}
+
+              </p>
+
+            </div>
+
+
+            <a
+              href="new-order.html?service=${encodeURIComponent(name)}&serviceId=${service.service}"
+              class="bg-[#F97316] text-white px-4 py-2.5 rounded-xl font-bold text-sm hover:bg-orange-600 transition"
+            >
+
+              Order
+
+            </a>
+
+          </div>
+
+        </div>
+
+      `;
+
+    });
+
+
+    setupPlatformFilters();
+
+  }
+
+
+
+  // ==========================================
+  // PLATFORM FILTER
+  // ==========================================
+
+  function setupPlatformFilters() {
+
+    const platformButtons =
+      document.querySelectorAll(
+        ".platformBtn"
+      );
+
+
+    const serviceCards =
+      document.querySelectorAll(
+        ".serviceCard"
+      );
+
+
+    platformButtons.forEach(button => {
+
+      button.onclick = () => {
+
+        const platform =
+          button.dataset.platform;
+
+
+        // Reset buttons
+
+        platformButtons.forEach(btn => {
+
+          btn.classList.remove(
+            "bg-[#0B4F63]",
+            "text-white"
+          );
+
+          btn.classList.add(
+            "bg-white"
+          );
+
+        });
+
+
+        // Active button
+
+        button.classList.remove(
+          "bg-white"
+        );
+
+        button.classList.add(
+          "bg-[#0B4F63]",
+          "text-white"
+        );
+
+
+        // Filter
+
+        serviceCards.forEach(card => {
+
+          if (
+            platform === "all" ||
+            card.dataset.platform === platform
+          ) {
+
+            card.classList.remove(
+              "hidden"
+            );
+
+          } else {
+
+            card.classList.add(
+              "hidden"
+            );
+
+          }
+
+        });
+
+      };
+
+    });
+
+  }
+
+
+
+  // ==========================================
+  // START
+  // ==========================================
+
+  loadServices();
+
+</script>
+</body>
+
+</html>

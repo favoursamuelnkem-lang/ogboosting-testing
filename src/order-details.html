@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Order Details - OG Boost</title>
+
+  <link
+    rel="stylesheet"
+    href="./output.css"
+  >
+
+  <script src="./auth.js"></script>
+
+</head>
+
+
+<body class="bg-[#f6f8fa] text-gray-800">
+
+
+  <!-- ================================================= -->
+  <!-- DESKTOP SIDEBAR -->
+  <!-- ================================================= -->
+
+  <aside
+    class="hidden lg:flex fixed left-0 top-0 bottom-0 w-[255px] bg-white border-r border-gray-100 flex-col z-50"
+  >
+
+    <!-- LOGO -->
+
+    <div class="px-7 pt-8 pb-7">
+
+      <a
+        href="index.html"
+        class="flex items-center gap-3"
+      >
+
+        <div
+          class="w-11 h-11 rounded-2xl bg-[#0B4F63] flex items-center justify-center"
+        >
+
+          <span class="text-white font-black text-lg">
+            OG
+          </span>
+
+        </div>
+
+
+        <div>
+
+          <h1
+            class="font-black text-xl tracking-tight text-[#0B4F63]"
+          >
+
+            OG<span class="text-orange-500">
+              Boost
+            </span>
+
+          </h1>
+
+          <p
+            class="text-[10px] uppercase tracking-[0.18em] text-gray-400 font-semibold"
+          >
+
+            Social Growth
+
+          </p>
+
+        </div>
+
+      </a>
+
+    </div>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="px-4 space-y-1.5">
+
+      <a
+        href="dashboard.html"
+        class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-[#0B4F63] transition"
+      >
+
+        <span class="text-lg">⌂</span>
+
+        Dashboard
+
+      </a>
+
+
+      <a
+        href="new-order.html"
+        class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-[#0B4F63] transition"
+      >
+
+        <span class="text-lg">＋</span>
+
+        New Order
+
+      </a>
+
+
+      <a
+        href="services.html"
+        class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-[#0B4F63] transition"
+      >
+
+        <span class="text-lg">✦</span>
+
+        Services
+
+      </a>
+
+
+      <a
+        href="orders.html"
+        class="flex items-center gap-3 px-4 py-3.5 rounded-xl bg-[#0B4F63] text-white font-semibold"
+      >
+
+        <span class="text-lg">▤</span>
+
+        My Orders
+
+      </a>
+
+
+      <a
+        href="wallet.html"
+        class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-[#0B4F63] transition"
+      >
+
+        <span class="text-lg">◉</span>
+
+        Wallet
+
+      </a>
+
+
+      <a
+        href="support.html"
+        class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-[#0B4F63] transition"
+      >
+
+        <span class="text-lg">?</span>
+
+        Support
+
+      </a>
+
+    </nav>
+
+
+    <!-- USER -->
+
+    <div
+      class="mt-auto p-5 border-t border-gray-100"
+    >
+
+      <div class="flex items-center gap-3 mb-4">
+
+        <div
+          class="w-10 h-10 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold"
+        >
+
+          F
+
+        </div>
+
+
+        <div class="min-w-0">
+
+          <p class="font-semibold truncate">
+            Favour
+          </p>
+
+          <p class="text-xs text-gray-400 truncate">
+            Customer
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <button
+        id="logoutBtn"
+        class="w-full py-3 rounded-xl border border-gray-200 text-gray-500 hover:bg-gray-50 transition font-medium"
+      >
+
+        Log out
+
+      </button>
+
+    </div>
+
+  </aside>
+
+
+
+  <!-- ================================================= -->
+  <!-- MAIN -->
+  <!-- ================================================= -->
+
+  <div class="lg:ml-[255px] min-h-screen">
+
+
+    <!-- MOBILE HEADER -->
+
+    <header
+      class="lg:hidden bg-white border-b border-gray-100 px-5 py-4 sticky top-0 z-40"
+    >
+
+      <div class="flex items-center justify-between">
+
+        <a
+          href="index.html"
+          class="flex items-center gap-2.5"
+        >
+
+          <div
+            class="w-9 h-9 rounded-xl bg-[#0B4F63] flex items-center justify-center"
+          >
+
+            <span class="text-white font-black text-sm">
+              OG
+            </span>
+
+          </div>
+
+
+          <h1
+            class="font-black text-lg text-[#0B4F63]"
+          >
+
+            OG<span class="text-orange-500">
+              Boost
+            </span>
+
+          </h1>
+
+        </a>
+
+
+        <div
+          class="w-9 h-9 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold"
+        >
+
+          F
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+
+    <!-- ================================================= -->
+    <!-- CONTENT -->
+    <!-- ================================================= -->
+
+    <main
+      class="max-w-[1100px] mx-auto px-5 sm:px-7 lg:px-10 py-7 lg:py-10 pb-28 lg:pb-10"
+    >
+
+
+      <!-- BACK -->
+
+      <a
+        href="orders.html"
+        class="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-[#0B4F63] transition"
+      >
+
+        ← Back to Orders
+
+      </a>
+
+
+
+      <!-- PAGE TITLE -->
+
+      <section class="mt-6">
+
+        <p class="text-sm text-gray-400 font-medium">
+          Order
+        </p>
+
+        <h2
+          id="pageTitle"
+          class="text-3xl sm:text-4xl font-black text-gray-900 mt-1"
+        >
+
+          Order Details
+
+        </h2>
+
+        <p
+          id="orderIdText"
+          class="text-sm text-gray-400 mt-2"
+        >
+
+          Loading order...
+
+        </p>
+
+      </section>
+
+
+
+      <!-- ================================================= -->
+      <!-- LOADING -->
+      <!-- ================================================= -->
+
+      <div
+        id="loading"
+        class="bg-white border border-gray-100 rounded-[24px] p-10 mt-7 text-center"
+      >
+
+        <div
+          class="w-12 h-12 mx-auto rounded-full border-4 border-gray-200 border-t-[#0B4F63] animate-spin"
+        ></div>
+
+        <p class="text-gray-500 mt-4">
+          Loading order details...
+        </p>
+
+      </div>
+
+
+
+      <!-- ================================================= -->
+      <!-- ERROR -->
+      <!-- ================================================= -->
+
+      <div
+        id="errorBox"
+        class="hidden bg-white border border-red-100 rounded-[24px] p-10 mt-7 text-center"
+      >
+
+        <div
+          class="w-14 h-14 mx-auto rounded-2xl bg-red-50 text-red-500 flex items-center justify-center text-2xl"
+        >
+
+          !
+
+        </div>
+
+        <h3
+          class="font-black text-lg mt-4"
+        >
+
+          Unable to load order
+
+        </h3>
+
+        <p
+          id="errorMessage"
+          class="text-gray-400 text-sm mt-1"
+        ></p>
+
+
+        <a
+          href="orders.html"
+          class="inline-flex mt-5 bg-[#0B4F63] text-white px-5 py-3 rounded-xl font-bold"
+        >
+
+          Back to Orders
+
+        </a>
+
+      </div>
+
+
+
+      <!-- ================================================= -->
+      <!-- ORDER CONTENT -->
+      <!-- ================================================= -->
+
+      <div
+        id="orderContent"
+        class="hidden"
+      >
+
+
+        <!-- ================================================= -->
+        <!-- STATUS CARD -->
+        <!-- ================================================= -->
+
+        <section
+          class="bg-white border border-gray-100 rounded-[24px] p-6 sm:p-7 mt-7"
+        >
+
+          <div
+            class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+          >
+
+            <div>
+
+              <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold">
+                Order Status
+              </p>
+
+              <h3
+                id="statusText"
+                class="text-2xl font-black mt-2"
+              >
+
+                Processing
+
+              </h3>
+
+            </div>
+
+
+            <span
+              id="statusBadge"
+              class="inline-flex self-start sm:self-auto px-4 py-2 rounded-full text-sm font-bold"
+            >
+
+              Processing
+
+            </span>
+
+          </div>
+
+        </section>
+
+
+
+        <!-- ================================================= -->
+        <!-- SERVICE -->
+        <!-- ================================================= -->
+
+        <section
+          class="bg-white border border-gray-100 rounded-[24px] p-6 sm:p-7 mt-5"
+        >
+
+          <div class="flex items-center justify-between">
+
+            <div>
+
+              <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold">
+                Service
+              </p>
+
+              <h3
+                id="serviceName"
+                class="text-xl sm:text-2xl font-black mt-2 text-gray-900"
+              >
+
+                -
+
+              </h3>
+
+              <p
+                id="platform"
+                class="text-sm text-gray-400 mt-2"
+              >
+
+                -
+
+              </p>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+
+        <!-- ================================================= -->
+        <!-- ORDER INFORMATION -->
+        <!-- ================================================= -->
+
+        <section
+          class="bg-white border border-gray-100 rounded-[24px] p-6 sm:p-7 mt-5"
+        >
+
+          <h3 class="text-lg font-black">
+            Order Information
+          </h3>
+
+
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-6"
+          >
+
+
+            <!-- ORDER ID -->
+
+            <div>
+
+              <p class="text-xs text-gray-400">
+                Order ID
+              </p>
+
+              <p
+                id="orderId"
+                class="font-bold text-gray-900 mt-1 break-all"
+              >
+
+                -
+
+              </p>
+
+            </div>
+
+
+            <!-- PROVIDER ID -->
+
+            <div>
+
+              <p class="text-xs text-gray-400">
+                Provider Order ID
+              </p>
+
+              <p
+                id="providerOrderId"
+                class="font-bold text-gray-900 mt-1 break-all"
+              >
+
+                -
+
+              </p>
+
+            </div>
+
+
+            <!-- QUANTITY -->
+
+            <div>
+
+              <p class="text-xs text-gray-400">
+                Quantity
+              </p>
+
+              <p
+                id="quantity"
+                class="font-bold text-gray-900 mt-1"
+              >
+
+                -
+
+              </p>
+
+            </div>
+
+
+            <!-- AMOUNT -->
+
+            <div>
+
+              <p class="text-xs text-gray-400">
+                Amount Paid
+              </p>
+
+              <p
+                id="amount"
+                class="font-bold text-[#0B4F63] mt-1"
+              >
+
+                -
+
+              </p>
+
+            </div>
+
+
+            <!-- DATE -->
+
+            <div>
+
+              <p class="text-xs text-gray-400">
+                Order Date
+              </p>
+
+              <p
+                id="orderDate"
+                class="font-bold text-gray-900 mt-1"
+              >
+
+                -
+
+              </p>
+
+            </div>
+
+
+            <!-- SERVICE ID -->
+
+            <div>
+
+              <p class="text-xs text-gray-400">
+                Service ID
+              </p>
+
+              <p
+                id="serviceId"
+                class="font-bold text-gray-900 mt-1 break-all"
+              >
+
+                -
+
+              </p>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+
+        <!-- ================================================= -->
+        <!-- LINK -->
+        <!-- ================================================= -->
+
+        <section
+          class="bg-white border border-gray-100 rounded-[24px] p-6 sm:p-7 mt-5"
+        >
+
+          <h3 class="text-lg font-black">
+            Target Link
+          </h3>
+
+          <div
+            class="mt-4 p-4 rounded-xl bg-gray-50 border border-gray-100 break-all"
+          >
+
+            <a
+              id="orderLink"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-[#0B4F63] font-semibold text-sm hover:underline"
+            >
+
+              -
+
+            </a>
+
+          </div>
+
+        </section>
+
+
+
+        <!-- ================================================= -->
+        <!-- ORDER STATS -->
+        <!-- ================================================= -->
+
+        <section
+          class="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-5"
+        >
+
+
+          <div
+            class="bg-white border border-gray-100 rounded-2xl p-5"
+          >
+
+            <p class="text-xs text-gray-400">
+              Start Count
+            </p>
+
+            <p
+              id="startCount"
+              class="text-2xl font-black mt-2"
+            >
+
+              0
+
+            </p>
+
+          </div>
+
+
+          <div
+            class="bg-white border border-gray-100 rounded-2xl p-5"
+          >
+
+            <p class="text-xs text-gray-400">
+              Remains
+            </p>
+
+            <p
+              id="remains"
+              class="text-2xl font-black mt-2"
+            >
+
+              0
+
+            </p>
+
+          </div>
+
+
+          <div
+            class="bg-white border border-gray-100 rounded-2xl p-5 col-span-2 sm:col-span-1"
+          >
+
+            <p class="text-xs text-gray-400">
+              Quantity
+            </p>
+
+            <p
+              id="quantityBottom"
+              class="text-2xl font-black mt-2"
+            >
+
+              0
+
+            </p>
+
+          </div>
+
+        </section>
+
+
+
+        <!-- ================================================= -->
+        <!-- ACTIONS -->
+        <!-- ================================================= -->
+
+        <section
+          class="flex flex-col sm:flex-row gap-3 mt-6"
+        >
+
+          <a
+            href="orders.html"
+            class="flex-1 text-center py-3.5 rounded-xl border border-gray-200 bg-white text-gray-700 font-bold hover:bg-gray-50 transition"
+          >
+
+            ← Back to Orders
+
+          </a>
+
+
+          <a
+            href="new-order.html"
+            class="flex-1 text-center py-3.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold transition"
+          >
+
+            + New Order
+
+          </a>
+
+        </section>
+
+
+      </div>
+
+    </main>
+
+
+
+    <!-- ================================================= -->
+    <!-- MOBILE BOTTOM NAV -->
+    <!-- ================================================= -->
+
+    <nav
+      class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 z-50 px-2 py-2"
+    >
+
+      <div
+        class="grid grid-cols-5 max-w-lg mx-auto"
+      >
+
+        <a
+          href="dashboard.html"
+          class="flex flex-col items-center gap-1 py-2 text-gray-400"
+        >
+
+          <span class="text-lg">⌂</span>
+
+          <span class="text-[10px]">
+            Home
+          </span>
+
+        </a>
+
+
+        <a
+          href="services.html"
+          class="flex flex-col items-center gap-1 py-2 text-gray-400"
+        >
+
+          <span class="text-lg">✦</span>
+
+          <span class="text-[10px]">
+            Services
+          </span>
+
+        </a>
+
+
+        <a
+          href="new-order.html"
+          class="relative flex flex-col items-center"
+        >
+
+          <span
+            class="-mt-7 w-14 h-14 rounded-full bg-orange-500 text-white flex items-center justify-center text-2xl shadow-lg border-4 border-[#f6f8fa]"
+          >
+
+            +
+
+          </span>
+
+          <span
+            class="text-[10px] font-bold text-orange-500 mt-1"
+          >
+
+            Boost
+
+          </span>
+
+        </a>
+
+
+        <a
+          href="orders.html"
+          class="flex flex-col items-center gap-1 py-2 text-[#0B4F63]"
+        >
+
+          <span class="text-lg">
+            ▤
+          </span>
+
+          <span class="text-[10px] font-bold">
+            Orders
+          </span>
+
+        </a>
+
+
+        <a
+          href="wallet.html"
+          class="flex flex-col items-center gap-1 py-2 text-gray-400"
+        >
+
+          <span class="text-lg">
+            ◉
+          </span>
+
+          <span class="text-[10px]">
+            Wallet
+          </span>
+
+        </a>
+
+      </div>
+
+    </nav>
+
+  </div>
+
+
+
+  <!-- ================================================= -->
+  <!-- JAVASCRIPT -->
+  <!-- ================================================= -->
+
+  <script>
+
+
+    // ==========================================
+    // GET TOKEN
+    // ==========================================
+
+    const detailsPageToken =
+      localStorage.getItem("ogBoostingToken") ||
+      sessionStorage.getItem("ogBoostingToken");
+
+
+    if (!detailsPageToken) {
+
+      window.location.replace("login.html");
+
+    }
+
+
+
+    // ==========================================
+    // GET ORDER ID FROM URL
+    // ==========================================
+
+    const urlParams =
+      new URLSearchParams(
+        window.location.search
+      );
+
+
+    const orderIdFromUrl =
+      urlParams.get("id");
+
+
+    if (!orderIdFromUrl) {
+
+      showError(
+        "No order ID was provided."
+      );
+
+    } else {
+
+      loadOrder();
+
+    }
+
+
+
+    // ==========================================
+    // LOAD ORDER
+    // ==========================================
+
+    async function loadOrder() {
+
+      try {
+
+        const response =
+          await fetch(
+            `http://localhost:5000/api/orders/${orderIdFromUrl}`,
+            {
+              method: "GET",
+
+              headers: {
+                "Authorization":
+                  `Bearer ${detailsPageToken}`,
+
+                "Content-Type":
+                  "application/json"
+              }
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        console.log(
+          "ORDER DETAILS RESPONSE:",
+          data
+        );
+
+
+        if (
+          !response.ok ||
+          !data.success
+        ) {
+
+          throw new Error(
+            data.message ||
+            "Unable to load order."
+          );
+
+        }
+
+
+        displayOrder(
+          data.order
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          "Order details error:",
+          error
+        );
+
+
+        showError(
+          error.message
+        );
+
+      }
+
+    }
+
+
+
+    // ==========================================
+    // DISPLAY ORDER
+    // ==========================================
+
+    function displayOrder(order) {
+
+
+      document
+        .getElementById("loading")
+        .classList.add("hidden");
+
+
+      document
+        .getElementById("orderContent")
+        .classList.remove("hidden");
+
+
+      // ==========================================
+      // BASIC INFORMATION
+      // ==========================================
+
+      document
+        .getElementById("pageTitle")
+        .textContent =
+        "Order Details";
+
+
+      document
+        .getElementById("orderIdText")
+        .textContent =
+        `Order #${order.providerOrderId || order._id}`;
+
+
+      document
+        .getElementById("orderId")
+        .textContent =
+        order._id || "-";
+
+
+      document
+        .getElementById("providerOrderId")
+        .textContent =
+        order.providerOrderId || "-";
+
+
+      document
+        .getElementById("serviceId")
+        .textContent =
+        order.serviceId || "-";
+
+
+      document
+        .getElementById("serviceName")
+        .textContent =
+        order.serviceName || "Unknown Service";
+
+
+      document
+        .getElementById("platform")
+        .textContent =
+        order.platform || "-";
+
+
+      // ==========================================
+      // QUANTITY
+      // ==========================================
+
+      const quantity =
+        Number(order.quantity || 0);
+
+
+      document
+        .getElementById("quantity")
+        .textContent =
+        quantity.toLocaleString();
+
+
+      document
+        .getElementById("quantityBottom")
+        .textContent =
+        quantity.toLocaleString();
+
+
+
+      // ==========================================
+      // AMOUNT
+      // ==========================================
+
+      const amount =
+        Number(order.amount || 0);
+
+
+      document
+        .getElementById("amount")
+        .textContent =
+        `₦${amount.toLocaleString()}`;
+
+
+
+      // ==========================================
+      // DATE
+      // ==========================================
+
+      if (order.createdAt) {
+
+        document
+          .getElementById("orderDate")
+          .textContent =
+          new Date(
+            order.createdAt
+          ).toLocaleString(
+            "en-NG",
+            {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit"
+            }
+          );
+
+      }
+
+
+
+      // ==========================================
+      // LINK
+      // ==========================================
+
+      const orderLink =
+        document.getElementById(
+          "orderLink"
+        );
+
+
+      if (order.link) {
+
+        orderLink.textContent =
+          order.link;
+
+        orderLink.href =
+          order.link;
+
+      } else {
+
+        orderLink.textContent =
+          "No link available";
+
+        orderLink.removeAttribute(
+          "href"
+        );
+
+      }
+
+
+
+      // ==========================================
+      // STATUS
+      // ==========================================
+
+      const status =
+        String(
+          order.status || "Pending"
+        );
+
+
+      const normalizedStatus =
+        status.toLowerCase();
+
+
+      document
+        .getElementById("statusText")
+        .textContent =
+        status;
+
+
+      const statusBadge =
+        document.getElementById(
+          "statusBadge"
+        );
+
+
+      statusBadge.textContent =
+        status;
+
+
+      // Default
+
+      statusBadge.className =
+        "inline-flex self-start sm:self-auto px-4 py-2 rounded-full text-sm font-bold bg-gray-100 text-gray-600";
+
+
+      if (
+        normalizedStatus ===
+        "pending"
+      ) {
+
+        statusBadge.className =
+          "inline-flex self-start sm:self-auto px-4 py-2 rounded-full text-sm font-bold bg-orange-50 text-orange-600";
+
+      }
+
+
+      if (
+        normalizedStatus ===
+        "processing"
+      ) {
+
+        statusBadge.className =
+          "inline-flex self-start sm:self-auto px-4 py-2 rounded-full text-sm font-bold bg-purple-50 text-purple-600";
+
+      }
+
+
+      if (
+        normalizedStatus ===
+        "completed"
+      ) {
+
+        statusBadge.className =
+          "inline-flex self-start sm:self-auto px-4 py-2 rounded-full text-sm font-bold bg-green-50 text-green-600";
+
+      }
+
+
+      if (
+        normalizedStatus ===
+        "cancelled"
+      ) {
+
+        statusBadge.className =
+          "inline-flex self-start sm:self-auto px-4 py-2 rounded-full text-sm font-bold bg-red-50 text-red-600";
+
+      }
+
+
+
+      // ==========================================
+      // PROVIDER INFORMATION
+      // ==========================================
+
+      document
+        .getElementById("startCount")
+        .textContent =
+        Number(
+          order.startCount || 0
+        ).toLocaleString();
+
+
+      document
+        .getElementById("remains")
+        .textContent =
+        Number(
+          order.remains || 0
+        ).toLocaleString();
+
+    }
+
+
+
+    // ==========================================
+    // ERROR
+    // ==========================================
+
+    function showError(message) {
+
+      document
+        .getElementById("loading")
+        .classList.add("hidden");
+
+
+      document
+        .getElementById("orderContent")
+        .classList.add("hidden");
+
+
+      document
+        .getElementById("errorBox")
+        .classList.remove("hidden");
+
+
+      document
+        .getElementById("errorMessage")
+        .textContent =
+        message || "Something went wrong.";
+
+    }
+
+
+
+    // ==========================================
+    // LOGOUT
+    // ==========================================
+
+    const logoutBtn =
+      document.getElementById(
+        "logoutBtn"
+      );
+
+
+    if (logoutBtn) {
+
+      logoutBtn.addEventListener(
+        "click",
+        () => {
+
+          localStorage.removeItem(
+            "ogBoostingToken"
+          );
+
+          localStorage.removeItem(
+            "ogBoostingUser"
+          );
+
+          sessionStorage.removeItem(
+            "ogBoostingToken"
+          );
+
+          sessionStorage.removeItem(
+            "ogBoostingUser"
+          );
+
+          window.location.replace(
+            "login.html"
+          );
+
+        }
+      );
+
+    }
+
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+OG BOOSTING ADMIN - SETUP
+
+1. Keep your existing .env file. Do NOT replace it with .env.example.
+2. Make sure these are in your .env:
+   ADMIN_EMAIL=your-admin-email
+   ADMIN_PASSWORD=your-admin-password
+3. Open a terminal inside the OG-boosting folder.
+4. Run:
+   npm install
+5. Start:
+   node server.js
+6. Open:
+   http://127.0.0.1:3000/src/admin-login.html
+
+ADMIN FEATURES INCLUDED
+- Dashboard
+- Users: wallet credit/debit, suspend/activate
+- Orders: search, filter, status control, refunds
+- Services: enable/disable, customer display name, category, limits, description
+- Prices: customer selling price per 1,000
+- Transactions
+- Deposits
+- Withdrawals
+- Revenue and profit
+- Coupons
+- Announcements
+- Owlet provider balance/services
+- Activity logs
+- Email configuration information
+- Website settings
+- Admin password/security
+
+IMPORTANT
+Provider cost is separate from your customer selling price. Price changes are saved in MongoDB and are also enforced server-side when an order is created.

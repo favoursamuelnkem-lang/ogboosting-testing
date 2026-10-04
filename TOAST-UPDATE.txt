@@ -1,0 +1,3 @@
+Toast + welcome email build
+Date: 2026-10-03
+Changes: global styled toast notifications for login, registration, deposit flow, payment verification, and order placement; welcome-back email on successful login via Resend.
