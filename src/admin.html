@@ -45,17 +45,67 @@
   .toolbar .input{min-width:180px;}
 }
 </style>
+
+<style>
+/* Final admin navigation layout */
+.admin-desktop-sidebar{
+  position:fixed;left:0;top:0;bottom:0;width:260px;
+  background:#fff;border-right:1px solid #e5e7eb;
+  display:flex;flex-direction:column;z-index:50;
+}
+.admin-desktop-sidebar .admin-brand{padding:28px 28px 22px;}
+.admin-desktop-sidebar .admin-brand-row{display:flex;align-items:center;gap:12px;}
+.admin-desktop-sidebar .admin-logo{
+  width:44px;height:44px;border-radius:16px;background:#0B4F63;
+  display:grid;place-items:center;color:#fff;font-weight:900;
+}
+.admin-desktop-sidebar .admin-nav{
+  padding:0 16px 20px;display:flex;flex-direction:column;gap:4px;
+  overflow-y:auto;
+}
+.admin-desktop-sidebar .nav-btn{
+  width:100%;min-height:44px;display:flex;align-items:center;
+  gap:10px;padding:11px 14px;border:0;border-radius:10px;
+  background:transparent;text-align:left;color:#4b5563;
+  font-size:14px;font-weight:600;cursor:pointer;
+}
+.admin-desktop-sidebar .nav-btn:hover{background:#f3f6f7;color:#0B4F63;}
+.admin-desktop-sidebar .nav-btn.active{background:#0B4F63;color:#fff;}
+.admin-desktop-sidebar .admin-footer{
+  margin-top:auto;padding:20px;border-top:1px solid #f0f1f2;
+}
+.admin-desktop-sidebar .admin-footer button{
+  width:100%;padding:11px;border:1px solid #e5e7eb;border-radius:10px;
+  background:#fff;color:#6b7280;font-weight:700;cursor:pointer;
+}
+.admin-mobile-header{display:none;}
+.admin-mobile-drawer,.admin-mobile-overlay{display:none;}
+
+@media (min-width:1024px){
+  .admin-content{margin-left:260px;min-height:100vh;min-width:0;}
+}
+@media (max-width:1023px){
+  .admin-desktop-sidebar{display:none!important;}
+  .admin-content{margin-left:0;min-height:100vh;}
+  .admin-mobile-header{display:block;}
+  .admin-mobile-drawer{display:flex;}
+  .admin-mobile-overlay{display:block;}
+}
+@media (max-width:767px){
+  .admin-mobile-header{display:block;}
+}
+</style>
 </head>
 <body class="bg-[#f6f8fa] text-gray-800">
-<aside class="hidden lg:flex fixed left-0 top-0 bottom-0 w-[260px] bg-white border-r border-gray-100 flex-col z-50">
-  <div class="px-7 pt-8 pb-6"><div class="flex items-center gap-3"><div class="w-11 h-11 rounded-2xl bg-[#0B4F63] grid place-items-center text-white font-black">OG</div><div><h1 class="font-black text-xl text-[#0B4F63]">OG<span class="text-orange-500">Boost</span></h1><p class="text-[10px] uppercase tracking-widest text-gray-400 font-bold">Admin Control</p></div></div></div>
-  <nav id="sidebarNav" class="px-4 space-y-1 overflow-y-auto pb-5">
+<aside class="admin-desktop-sidebar">
+  <div class="admin-brand"><div class="admin-brand-row"><div class="admin-logo">OG</div><div><h1 class="font-black text-xl text-[#0B4F63]">OG<span class="text-orange-500">Boost</span></h1><p class="text-[10px] uppercase tracking-widest text-gray-400 font-bold">Admin Control</p></div></div></div>
+  <nav id="sidebarNav" class="admin-nav">
     <button data-section="dashboard" class="nav-btn active">⌂ Dashboard</button><button data-section="users" class="nav-btn">♙ Users</button><button data-section="orders" class="nav-btn">▤ Orders</button><button data-section="services" class="nav-btn">⚙ Services</button><button data-section="prices" class="nav-btn">₦ Prices</button><button data-section="transactions" class="nav-btn">↔ Transactions</button><button data-section="deposits" class="nav-btn">＋ Deposits</button><button data-section="withdrawals" class="nav-btn">↗ Withdrawals</button><button data-section="revenue" class="nav-btn">◈ Revenue & Profit</button><button data-section="coupons" class="nav-btn">% Coupons</button><button data-section="announcements" class="nav-btn">▣ Announcements</button><button data-section="provider" class="nav-btn">✦ Provider</button><button data-section="activity" class="nav-btn">☷ Activity Logs</button><button data-section="email" class="nav-btn">✉ Email</button><button data-section="settings" class="nav-btn">⚙ Settings</button><button data-section="security" class="nav-btn">🔒 Security</button>
   </nav>
-  <div class="mt-auto p-5 border-t border-gray-100"><p id="adminEmail" class="text-xs text-gray-400 truncate mb-3"></p><button id="logoutBtn" class="w-full py-3 rounded-xl border border-gray-200 text-gray-500 font-bold">Log out</button></div>
+  <div class="admin-footer"><p id="adminEmail" class="text-xs text-gray-400 truncate mb-3"></p><button id="logoutBtn">Log out</button></div>
 </aside>
 <div class="admin-content">
-<header class="lg:hidden sticky top-0 z-40 bg-white border-b border-gray-100 px-4 py-3">
+<header class="admin-mobile-header sticky top-0 z-40 bg-white border-b border-gray-100 px-4 py-3">
   <div class="flex items-center justify-between gap-3">
     <div>
       <p class="text-[10px] uppercase tracking-widest text-gray-400 font-bold">Administration</p>
@@ -68,8 +118,8 @@
     </button>
   </div>
 </header>
-<div id="adminMobileOverlay" class="hidden lg:hidden fixed inset-0 bg-black/30 z-[80]"></div>
-<aside id="adminMobileDrawer" class="lg:hidden fixed top-0 left-0 bottom-0 w-[290px] max-w-[88vw] bg-white z-[90] -translate-x-full transition-transform duration-200 shadow-2xl flex flex-col">
+<div id="adminMobileOverlay" class="admin-mobile-overlay fixed inset-0 bg-black/30 z-[80]"></div>
+<aside id="adminMobileDrawer" class="admin-mobile-drawer fixed top-0 left-0 bottom-0 w-[290px] max-w-[88vw] bg-white z-[90] -translate-x-full transition-transform duration-200 shadow-2xl flex flex-col">
   <div class="p-5 border-b border-gray-100 flex items-center justify-between">
     <div><p class="text-[10px] uppercase tracking-widest text-gray-400 font-bold">Administration</p><b class="text-xl text-[#0B4F63]">OG<span class="text-orange-500">Boost</span></b></div>
     <button id="adminMenuClose" type="button" aria-label="Close admin menu" class="w-10 h-10 rounded-xl border border-gray-200 text-gray-500">×</button>

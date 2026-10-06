@@ -593,9 +593,6 @@
   .w-\[255px\] {
     width: 255px;
   }
-  .w-\[260px\] {
-    width: 260px;
-  }
   .w-\[290px\] {
     width: 290px;
   }
@@ -717,9 +714,6 @@
   }
   .flex-wrap {
     flex-wrap: wrap;
-  }
-  .place-items-center {
-    place-items: center;
   }
   .items-center {
     align-items: center;
@@ -1113,9 +1107,6 @@
   }
   .pb-5 {
     padding-bottom: calc(var(--spacing) * 5);
-  }
-  .pb-6 {
-    padding-bottom: calc(var(--spacing) * 6);
   }
   .pb-7 {
     padding-bottom: calc(var(--spacing) * 7);
