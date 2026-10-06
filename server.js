@@ -2375,6 +2375,7 @@ app.post("/api/admin/users/:id/wallet", adminProtect, async (req, res) => {
   try {
     const { action, amount, reason } = req.body;
     const value = Number(amount);
+    const note = String(reason || "").trim();
 
     if (!["credit", "debit"].includes(action) || !Number.isFinite(value) || value <= 0) {
       return res.status(400).json({
@@ -2392,6 +2393,13 @@ app.post("/api/admin/users/:id/wallet", adminProtect, async (req, res) => {
       });
     }
 
+    if (!note) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide a reason for this wallet adjustment."
+      });
+    }
+
     if (action === "debit" && Number(user.balance || 0) < value) {
       return res.status(400).json({
         success: false,
@@ -2399,10 +2407,11 @@ app.post("/api/admin/users/:id/wallet", adminProtect, async (req, res) => {
       });
     }
 
+    const previousBalance = Number(user.balance || 0);
     user.balance =
       action === "credit"
-        ? Number(user.balance || 0) + value
-        : Number(user.balance || 0) - value;
+        ? previousBalance + value
+        : previousBalance - value;
 
     await user.save();
 
@@ -2414,6 +2423,14 @@ app.post("/api/admin/users/:id/wallet", adminProtect, async (req, res) => {
       currency: "NGN",
       status: "successful"
     });
+
+    await adminLog(
+      req,
+      action === "credit" ? "Credited user wallet" : "Debited user wallet",
+      "user",
+      user._id,
+      `Email=${user.email}; Amount=NGN ${value.toLocaleString()}; Previous=NGN ${previousBalance.toLocaleString()}; New=NGN ${Number(user.balance).toLocaleString()}; Reason=${note}`
+    );
 
     res.json({
       success: true,

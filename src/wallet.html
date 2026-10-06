@@ -1019,7 +1019,7 @@
     try {
 
       const response = await fetch(
-        "https://ogboosting-testing.onrender.com/api/auth/me",
+        "http://localhost:5000/api/auth/me",
         {
           method: "GET",
 
@@ -1161,7 +1161,7 @@ async function loadTransactions() {
   try {
 
     const response = await fetch(
-      "https://ogboosting-testing.onrender.com/api/wallet/transactions",
+      "http://localhost:5000/api/wallet/transactions",
       {
         method: "GET",
 
@@ -1383,7 +1383,7 @@ async function loadWalletSummary() {
   try {
 
     const response = await fetch(
-      "https://ogboosting-testing.onrender.com/api/wallet/summary",
+      "http://localhost:5000/api/wallet/summary",
       {
 
         method: "GET",
@@ -1596,7 +1596,7 @@ const token =
 
           const response =
             await fetch(
-              "https://ogboosting-testing.onrender.com/api/wallet/fund",
+              "http://localhost:5000/api/wallet/fund",
               {
 
                 method: "POST",

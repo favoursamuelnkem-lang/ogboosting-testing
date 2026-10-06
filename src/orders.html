@@ -829,7 +829,7 @@
     try {
 
       const response = await fetch(
-        "https://ogboosting-testing.onrender.com/api/orders",
+        "http://localhost:5000/api/orders",
         {
           method: "GET",
 
@@ -1419,7 +1419,7 @@ async function updateOrderStatuses() {
 
 
       const response = await fetch(
-        `https://ogboosting-testing.onrender.com/api/orders/${order._id}/status`,
+        `http://localhost:5000/api/orders/${order._id}/status`,
         {
           method: "GET",
 
