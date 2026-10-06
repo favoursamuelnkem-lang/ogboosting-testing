@@ -95,6 +95,133 @@
   .admin-mobile-header{display:block;}
 }
 </style>
+
+<style>
+/* =========================================================
+   OGBoost Admin UI — polished desktop + mobile components
+   ========================================================= */
+:root{
+  --og-teal:#0B4F63;
+  --og-teal-dark:#083d4c;
+  --og-orange:#F97316;
+  --og-bg:#f6f8fa;
+  --og-border:#e6eaed;
+  --og-muted:#6b7280;
+}
+
+/* Make the desktop navigation immune to utility-class conflicts. */
+.admin-desktop-sidebar{width:260px!important;background:#fff!important;border-right:1px solid var(--og-border)!important;box-shadow:0 0 0 1px rgba(15,23,42,.01)!important;}
+.admin-desktop-sidebar .admin-brand{padding:24px 22px 20px!important;border-bottom:1px solid #f0f2f4;}
+.admin-desktop-sidebar .admin-brand-row{gap:11px!important;}
+.admin-desktop-sidebar .admin-logo{width:46px!important;height:46px!important;border-radius:14px!important;background:var(--og-teal)!important;}
+.admin-desktop-sidebar .admin-nav{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:4px!important;padding:16px 12px 18px!important;overflow-y:auto!important;}
+.admin-desktop-sidebar .nav-btn{display:flex!important;flex:0 0 auto!important;width:100%!important;min-width:0!important;min-height:44px!important;box-sizing:border-box!important;align-items:center!important;justify-content:flex-start!important;gap:11px!important;padding:11px 13px!important;margin:0!important;border:1px solid transparent!important;border-radius:10px!important;background:transparent!important;text-align:left!important;color:#4b5563!important;font-size:14px!important;font-weight:600!important;line-height:1.2!important;white-space:nowrap!important;}
+.admin-desktop-sidebar .nav-btn:hover{background:#f3f7f8!important;color:var(--og-teal)!important;border-color:#edf2f3!important;}
+.admin-desktop-sidebar .nav-btn.active{background:var(--og-teal)!important;color:#fff!important;border-color:var(--og-teal)!important;box-shadow:0 4px 10px rgba(11,79,99,.12)!important;}
+.admin-desktop-sidebar .admin-footer{padding:16px!important;border-top:1px solid #eef1f3!important;background:#fff!important;}
+.admin-desktop-sidebar .admin-footer button{padding:10px 12px!important;border-radius:10px!important;font-size:13px!important;}
+
+/* Main page frame */
+.admin-content{background:var(--og-bg)!important;}
+.admin-content main{max-width:1500px!important;}
+.admin-content main>p{letter-spacing:.01em;}
+#sectionTitle{letter-spacing:-.02em!important;}
+
+/* Shared cards, toolbars, inputs and buttons used throughout admin.html */
+.card{
+  background:#fff!important;
+  border:1px solid var(--og-border)!important;
+  border-radius:12px!important;
+  box-shadow:0 1px 2px rgba(15,23,42,.03)!important;
+  padding:20px!important;
+}
+.card.overflow-hidden{padding:0!important;}
+.toolbar{
+  display:flex!important;align-items:center!important;gap:10px!important;flex-wrap:wrap!important;
+  background:#fff!important;border:1px solid var(--og-border)!important;border-radius:12px!important;
+  padding:12px!important;margin-bottom:14px!important;
+}
+.input{
+  min-height:42px!important;box-sizing:border-box!important;border:1px solid #dfe5e8!important;
+  border-radius:9px!important;background:#fff!important;color:#111827!important;padding:9px 12px!important;
+  outline:none!important;box-shadow:none!important;font-size:14px!important;
+}
+.input::placeholder{color:#9aa3aa!important;}
+.input:focus{border-color:#8ab2bf!important;box-shadow:0 0 0 3px rgba(11,79,99,.08)!important;}
+.btn{
+  min-height:42px!important;border:0!important;border-radius:9px!important;padding:9px 15px!important;
+  background:var(--og-teal)!important;color:#fff!important;font-size:14px!important;font-weight:700!important;
+  cursor:pointer!important;transition:.15s ease!important;box-shadow:none!important;
+}
+.btn:hover{background:var(--og-teal-dark)!important;transform:translateY(-1px);}
+.title{font-size:16px!important;line-height:1.3!important;font-weight:800!important;color:#111827!important;}
+
+/* Dashboard statistic cards */
+#statGrid>div,#revenueStats>div{
+  border:1px solid var(--og-border)!important;border-radius:12px!important;background:#fff!important;
+  box-shadow:0 1px 2px rgba(15,23,42,.03)!important;
+}
+
+/* Tables: consistent financial/admin table styling */
+.table{width:100%!important;border-collapse:separate!important;border-spacing:0!important;min-width:760px;}
+.table thead th{
+  background:#f8fafb!important;color:#64707a!important;border-bottom:1px solid var(--og-border)!important;
+  padding:13px 16px!important;font-size:11px!important;font-weight:800!important;text-transform:uppercase!important;
+  letter-spacing:.045em!important;text-align:left!important;white-space:nowrap!important;
+}
+.table thead th:first-child{border-top-left-radius:0;}
+.table thead th:last-child{border-top-right-radius:0;}
+.table tbody td{
+  padding:14px 16px!important;border-bottom:1px solid #edf0f2!important;color:#374151!important;
+  font-size:13px!important;vertical-align:middle!important;line-height:1.45!important;
+}
+.table tbody tr:last-child td{border-bottom:0!important;}
+.table tbody tr:hover td{background:#fbfcfd!important;}
+.table tbody td b{color:#111827!important;font-weight:700!important;}
+.table tbody td .text-xs{line-height:1.35!important;}
+
+/* Generated action controls */
+.table button,.table select{
+  min-height:36px!important;border-radius:8px!important;font-size:12px!important;
+}
+.table .input{min-height:38px!important;font-size:13px!important;}
+.table input[type="checkbox"]{accent-color:var(--og-teal);}
+
+/* Status badges */
+.table span[class*="rounded-full"]{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:26px!important;padding:4px 9px!important;border:1px solid rgba(0,0,0,.04)!important;white-space:nowrap!important;}
+
+/* Provider balance / prominent panels */
+#providerBalance{border-radius:12px!important;box-shadow:0 5px 16px rgba(11,79,99,.10)!important;}
+
+/* Forms */
+#section-coupons form,#section-announcements form,#section-settings form,#section-security form{width:100%;}
+#section-coupons form .input,#section-announcements form .input,#section-settings form .input,#section-security form .input{width:100%;}
+#section-announcements textarea{resize:vertical;}
+#section-announcements .flex{align-items:center;}
+
+/* Modal */
+#modal>div{border:1px solid var(--og-border)!important;box-shadow:0 18px 50px rgba(15,23,42,.18)!important;}
+
+/* Mobile: retain the same polished components while stacking controls */
+@media (max-width:1023px){
+  .admin-content main{padding-top:20px!important;}
+}
+@media (max-width:767px){
+  .admin-mobile-header{background:#fff!important;border-bottom:1px solid var(--og-border)!important;}
+  .toolbar{align-items:stretch!important;}
+  .toolbar .input,.toolbar select{width:100%!important;flex:1 1 100%!important;}
+  .toolbar .btn{width:100%!important;}
+  .card{padding:14px!important;border-radius:11px!important;}
+  .table{min-width:760px!important;}
+  .table thead th{padding:11px 12px!important;font-size:10px!important;}
+  .table tbody td{padding:12px!important;font-size:12px!important;}
+  #section-coupons form{grid-template-columns:1fr!important;}
+  #section-announcements .flex{display:grid!important;grid-template-columns:1fr!important;gap:10px!important;}
+  #section-announcements .flex>*{width:100%!important;}
+  #section-email .grid{grid-template-columns:1fr!important;}
+  #section-settings .card,#section-security .card{max-width:none!important;}
+}
+</style>
 </head>
 <body class="bg-[#f6f8fa] text-gray-800">
 <aside class="admin-desktop-sidebar">
