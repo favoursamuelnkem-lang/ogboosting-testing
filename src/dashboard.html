@@ -268,12 +268,15 @@
 
         <!-- USER -->
 
-        <div
-          class="w-9 h-9 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold"
-        >
-
-          F
-
+        <div class="flex items-center gap-2">
+          <button
+            id="mobileLogoutTop"
+            type="button"
+            class="px-3 py-2 rounded-lg border border-gray-200 text-gray-600 text-sm font-semibold hover:bg-gray-50"
+          >
+            Log out
+          </button>
+          <div class="w-9 h-9 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold">F</div>
         </div>
 
       </div>
@@ -1072,7 +1075,7 @@
     try {
 
       const response = await fetch(
-        "http://localhost:5000/api/auth/me",
+        "https://ogboosting-testing.onrender.com/api/auth/me",
         {
           method: "GET",
 
@@ -1178,7 +1181,7 @@ async function loadOrderSummary() {
     }
 
     const response = await fetch(
-      "http://localhost:5000/api/orders/summary",
+      "https://ogboosting-testing.onrender.com/api/orders/summary",
       {
         method: "GET",
 
@@ -1249,7 +1252,7 @@ async function loadRecentOrders() {
     }
 
     const response = await fetch(
-      "http://localhost:5000/api/orders",
+      "https://ogboosting-testing.onrender.com/api/orders",
       {
         method: "GET",
 

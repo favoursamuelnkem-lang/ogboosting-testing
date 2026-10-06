@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000";
+const API_URL = "https://ogboosting-testing.onrender.com";
 
 if (localStorage.getItem("ogBoostingAdminToken")) {
   window.location.href = "./admin.html";

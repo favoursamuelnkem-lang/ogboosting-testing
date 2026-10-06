@@ -391,7 +391,7 @@ app.post("/api/auth/forgot-password", async (req, res) => {
 
 // Create password reset link
 const resetLink =
-  `http://127.0.0.1:3000/src/reset-password.html?token=${rawToken}`;
+  `${process.env.FRONTEND_URL}/reset-password.html?token=${rawToken}`;
 
 // Send password reset email
 // Send password reset email
