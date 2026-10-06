@@ -52,6 +52,7 @@
 
   </div>
 
+
 <script src="./toast.js"></script>
 
 <script>
@@ -59,12 +60,14 @@
 const API_URL =
   "https://ogboosting-testing.onrender.com";
 
+
 async function verifyPayment() {
 
   const params =
     new URLSearchParams(
       window.location.search
     );
+
 
   const transactionId =
     params.get("transaction_id");
@@ -75,6 +78,7 @@ async function verifyPayment() {
 const token =
   localStorage.getItem("ogBoostingToken") ||
   sessionStorage.getItem("ogBoostingToken");
+
 
   if (
     !transactionId ||
@@ -89,6 +93,7 @@ const token =
     return;
 
   }
+
 
   try {
 
@@ -112,8 +117,10 @@ const token =
 
       );
 
+
     const data =
       await response.json();
+
 
     if (!response.ok || !data.success) {
 
@@ -126,19 +133,23 @@ const token =
 
     }
 
+
     document.getElementById(
       "icon"
     ).innerHTML = "✓";
+
 
     document.getElementById(
       "icon"
     ).className =
       "w-16 h-16 rounded-full bg-green-50 text-green-600 mx-auto flex items-center justify-center text-3xl font-bold";
 
+
     document.getElementById(
       "title"
     ).textContent =
       "Payment Successful";
+
 
     document.getElementById(
       "message"
@@ -158,6 +169,7 @@ const token =
 
     }, 2500);
 
+
   } catch (error) {
 
     console.error(error);
@@ -170,6 +182,7 @@ const token =
 
 }
 
+
 function showError(message) {
 
   showToast(message, "error", { title: "Deposit verification failed", duration: 6000 });
@@ -178,15 +191,18 @@ function showError(message) {
     "icon"
   ).innerHTML = "✕";
 
+
   document.getElementById(
     "icon"
   ).className =
     "w-16 h-16 rounded-full bg-red-50 text-red-600 mx-auto flex items-center justify-center text-2xl font-bold";
 
+
   document.getElementById(
     "title"
   ).textContent =
     "Payment Verification Failed";
+
 
   document.getElementById(
     "message"
@@ -194,6 +210,7 @@ function showError(message) {
     message;
 
 }
+
 
 verifyPayment();
 

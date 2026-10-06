@@ -23,11 +23,14 @@
 
 </head>
 
+
 <body
   class="min-h-screen bg-[#f6f8fa] text-gray-800 font-[Inter] flex items-center justify-center px-4 py-8"
 >
 
+
   <main class="w-full max-w-md">
+
 
     <div class="text-center mb-8">
 
@@ -60,6 +63,8 @@
 
     </div>
 
+
+
     <section
       class="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 sm:p-8"
     >
@@ -86,7 +91,10 @@
 
       </div>
 
+
+
       <form id="loginForm" class="space-y-5">
+
 
         <div>
 
@@ -109,6 +117,8 @@
 
         </div>
 
+
+
         <div>
 
           <div class="flex items-center justify-between mb-2">
@@ -128,6 +138,7 @@
             </a>
 
           </div>
+
 
           <div class="relative">
 
@@ -173,6 +184,8 @@
 
         </div>
 
+
+
         <div class="flex items-center gap-2">
 
           <input
@@ -190,6 +203,8 @@
 
         </div>
 
+
+
         <button
           type="submit"
           id="loginBtn"
@@ -198,7 +213,10 @@
           Sign In
         </button>
 
+
       </form>
+
+
 
       <div class="relative my-7">
 
@@ -220,6 +238,7 @@
 
       </div>
 
+
       <a
         href="register.html"
         class="w-full h-12 rounded-xl border border-gray-200 flex items-center justify-center font-bold text-[#0B4F63] hover:bg-gray-50 transition"
@@ -228,6 +247,8 @@
       </a>
 
     </section>
+
+
 
     <p class="text-center text-xs text-gray-400 mt-6">
 
@@ -251,9 +272,12 @@
 
     </p>
 
+
   </main>
 
-<script src="./toast.js"></script>
+
+
+  <script src="./toast.js"></script>
 
 <script>
 
@@ -290,11 +314,13 @@
 
     event.preventDefault();
 
+
     const email =
       document.getElementById("email").value.trim();
 
     const passwordValue =
       password.value;
+
 
     if (!email || !passwordValue) {
 
@@ -307,6 +333,7 @@
     loginBtn.disabled = true;
 
     loginBtn.innerText = "Signing In...";
+
 
     try {
 
@@ -328,6 +355,7 @@
           })
         }
       );
+
 
       const data = await response.json();
 
@@ -373,11 +401,13 @@
 
       window.location.href = "dashboard.html";
 
+
     } catch (error) {
 
       console.error("Login error:", error);
 
       showToast("Unable to connect to the server. Make sure your backend is running.", "error", { title: "Connection error", duration: 6000 });
+
 
       loginBtn.disabled = false;
 

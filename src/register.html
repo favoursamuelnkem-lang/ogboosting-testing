@@ -23,11 +23,14 @@
 
 </head>
 
+
 <body
   class="min-h-screen bg-[#f6f8fa] text-gray-800 font-[Inter] flex items-center justify-center px-4 py-8"
 >
 
+
   <main class="w-full max-w-md">
+
 
     <div class="text-center mb-8">
 
@@ -60,6 +63,8 @@
 
     </div>
 
+
+
     <section
       class="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 sm:p-8"
     >
@@ -86,10 +91,13 @@
 
       </div>
 
+
+
       <form
         id="registerForm"
         class="space-y-5"
       >
+
 
         <div>
 
@@ -112,6 +120,8 @@
 
         </div>
 
+
+
         <div>
 
           <label
@@ -132,6 +142,8 @@
           >
 
         </div>
+
+
 
         <div>
 
@@ -195,6 +207,8 @@
 
         </div>
 
+
+
         <div>
 
           <label
@@ -253,6 +267,8 @@
 
         </div>
 
+
+
         <div class="flex items-start gap-3">
 
           <input
@@ -284,6 +300,8 @@
 
         </div>
 
+
+
         <button
           type="submit"
           id="registerBtn"
@@ -292,7 +310,10 @@
           Create Account
         </button>
 
+
       </form>
+
+
 
       <div class="relative my-7">
 
@@ -314,6 +335,7 @@
 
       </div>
 
+
       <a
         href="login.html"
         class="w-full h-12 rounded-xl border border-gray-200 flex items-center justify-center font-bold text-[#0B4F63] hover:bg-gray-50 transition"
@@ -323,15 +345,20 @@
 
     </section>
 
+
+
     <p class="text-center text-xs text-gray-400 mt-6">
 
       © 2026 OG Boosting. All rights reserved.
 
     </p>
 
+
   </main>
 
- <script src="./toast.js"></script>
+
+
+  <script src="./toast.js"></script>
 
 <script>
 
@@ -375,6 +402,7 @@
 
     event.preventDefault();
 
+
     const fullName =
       document.getElementById("fullName").value.trim();
 
@@ -407,6 +435,7 @@
 
     registerBtn.innerText = "Creating Account...";
 
+
     try {
 
       const response = await fetch(
@@ -431,6 +460,7 @@
         }
       );
 
+
       const data = await response.json();
 
       if (!response.ok) {
@@ -449,11 +479,13 @@
 
       window.location.href = "login.html";
 
+
     } catch (error) {
 
       console.error("Registration error:", error);
 
       showToast("Unable to connect to the server. Make sure your backend is running.", "error", { title: "Connection error", duration: 6000 });
+
 
       registerBtn.disabled = false;
 

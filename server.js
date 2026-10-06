@@ -119,6 +119,7 @@ app.post("/api/auth/register", async (req, res) => {
         email: normalizedEmail
       });
 
+
     if (existingUser) {
 
       return res.status(409).json({
@@ -157,6 +158,7 @@ app.post("/api/auth/register", async (req, res) => {
       }
 
     });
+
 
   } catch (error) {
 
@@ -198,6 +200,7 @@ app.post("/api/auth/login", async (req, res) => {
       email: normalizedEmail
     });
 
+
     if (!user) {
 
       return res.status(401).json({
@@ -213,6 +216,7 @@ app.post("/api/auth/login", async (req, res) => {
 
     const passwordMatch =
       await bcrypt.compare(password, user.password);
+
 
     if (!passwordMatch) {
 
@@ -254,6 +258,7 @@ app.post("/api/auth/login", async (req, res) => {
       }
 
     });
+
 
   } catch (error) {
 
@@ -308,7 +313,7 @@ const { data, error } = await resend.emails.send({
   subject: "Reset Your OG Boosting Password",
   html: `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 30px;">
-
+      
       <h2 style="color: #F97316;">
         OG Boosting
       </h2>
@@ -490,6 +495,7 @@ app.get(
         await User.findById(req.userId)
           .select("-password");
 
+
       if (!user) {
 
         return res.status(404).json({
@@ -501,6 +507,7 @@ app.get(
         });
 
       }
+
 
       res.json({
 
@@ -520,12 +527,14 @@ app.get(
 
       });
 
+
     } catch (error) {
 
       console.error(
         "Get current user error:",
         error
       );
+
 
       res.status(500).json({
 
@@ -539,6 +548,7 @@ app.get(
 
   }
 );
+
 
 app.get("/get-user", protect, async (req, res) => {
 
@@ -688,6 +698,7 @@ app.post(
 
       );
 
+
       res.json({
 
         success: true,
@@ -699,6 +710,7 @@ app.post(
 
       });
 
+
     } catch (error) {
 
       console.error(
@@ -709,6 +721,7 @@ app.post(
         error.message
 
       );
+
 
       res.status(500).json({
 
@@ -736,6 +749,7 @@ app.get(
         tx_ref
       } = req.query;
 
+
       if (!transaction_id || !tx_ref) {
 
         return res.status(400).json({
@@ -757,6 +771,7 @@ app.get(
           userId: req.userId
 
         });
+
 
       if (!transaction) {
 
@@ -808,6 +823,7 @@ app.get(
 
         );
 
+
       const payment =
         response.data.data;
 
@@ -838,6 +854,7 @@ app.get(
 
         await transaction.save();
 
+
         return res.status(400).json({
 
           success: false,
@@ -853,6 +870,7 @@ app.get(
         await User.findById(
           transaction.userId
         );
+
 
       if (!user) {
 
@@ -870,6 +888,7 @@ app.get(
       user.balance =
         Number(user.balance || 0) +
         Number(transaction.amount);
+
 
       await user.save();
 
@@ -896,6 +915,7 @@ app.get(
 
       });
 
+
     } catch (error) {
 
       console.error(
@@ -906,6 +926,7 @@ app.get(
         error.message
 
       );
+
 
       res.status(500).json({
 
@@ -1141,7 +1162,9 @@ app.post(
 
       }
 
+
       const selectedQuantity = Number(quantity);
+
 
       if (
         !Number.isInteger(selectedQuantity) ||
@@ -1157,6 +1180,7 @@ app.post(
 
       const user =
         await User.findById(req.userId);
+
 
       if (!user) {
 
@@ -1181,6 +1205,7 @@ app.post(
           }
         );
 
+
       const owletServices =
         servicesResponse.data;
 
@@ -1190,6 +1215,7 @@ app.post(
             String(service.service) ===
             String(serviceId)
         );
+
 
       if (!selectedService) {
 
@@ -1209,6 +1235,7 @@ app.post(
 
       const maximum = Number(serviceOverride?.maxOverride ?? selectedService.max ?? 999999999);
 
+
       if (selectedQuantity < minimum) {
 
         return res.status(400).json({
@@ -1218,6 +1245,7 @@ app.post(
         });
 
       }
+
 
       if (selectedQuantity > maximum) {
 
@@ -1245,6 +1273,7 @@ app.post(
 
       const currentBalance =
         Number(user.balance || 0);
+
 
       if (currentBalance < totalPrice) {
 
@@ -1277,6 +1306,7 @@ app.post(
           }
         );
 
+
       console.log(
         "OWLET ORDER RESPONSE:",
         owletResponse.data
@@ -1284,6 +1314,7 @@ app.post(
 
       const owletData =
         owletResponse.data;
+
 
       if (
         !owletData ||
@@ -1302,6 +1333,7 @@ app.post(
       user.balance =
         currentBalance -
         totalPrice;
+
 
       await user.save();
 
@@ -1395,6 +1427,7 @@ app.post(
 
 });
 
+
     } catch (error) {
 
       console.error(
@@ -1402,6 +1435,7 @@ app.post(
         error.response?.data ||
         error.message
       );
+
 
       res.status(500).json({
 
@@ -1586,10 +1620,12 @@ app.get(
         }
       );
 
+
       console.log(
         "OWLET STATUS RESPONSE:",
         owletResponse.data
       );
+
 
       const owletData = owletResponse.data;
 
@@ -1612,6 +1648,7 @@ app.get(
           owletData.status || ""
         ).trim();
 
+
       if (!providerStatus) {
 
         return res.status(400).json({
@@ -1623,6 +1660,7 @@ app.get(
 
       let newStatus =
         providerStatus.toLowerCase();
+
 
       if (
         newStatus === "in progress"
@@ -1712,6 +1750,7 @@ app.get(
             order.userId
           );
 
+
         if (user) {
 
           user.balance =
@@ -1782,6 +1821,7 @@ app.get(
 
       });
 
+
     } catch (error) {
 
       console.error(
@@ -1789,6 +1829,7 @@ app.get(
         error.response?.data ||
         error.message
       );
+
 
       res.status(500).json({
 

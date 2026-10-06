@@ -30,8 +30,37 @@ $('userSearchBtn').onclick=()=>loadUsers().catch(showError);$('orderSearchBtn').
 const adminMenuBtn=$('adminMenuBtn'),adminMenuClose=$('adminMenuClose'),adminMobileDrawer=$('adminMobileDrawer'),adminMobileOverlay=$('adminMobileOverlay'),mobileAdminNav=$('mobileAdminNav');
 const mobileItems=[['dashboard','⌂ Dashboard'],['users','♙ Users'],['orders','▤ Orders'],['services','⚙ Services'],['prices','₦ Prices'],['transactions','↔ Transactions'],['deposits','＋ Deposits'],['withdrawals','↗ Withdrawals'],['revenue','◈ Revenue & Profit'],['coupons','% Coupons'],['announcements','▣ Announcements'],['provider','✦ Provider'],['activity','☷ Activity Logs'],['email','✉ Email'],['settings','⚙ Settings'],['security','Security']];
 mobileAdminNav.innerHTML=mobileItems.map(([id,label])=>`<button type="button" data-mobile-section="${id}" class="w-full text-left px-4 py-3 rounded-xl text-gray-600 font-semibold hover:bg-gray-50">${label}</button>`).join('');
-function openAdminMenu(){adminMobileDrawer?.classList.add('is-open');adminMobileOverlay?.classList.add('is-open');adminMenuBtn?.setAttribute('aria-expanded','true')}
-function closeAdminMenu(){adminMobileDrawer?.classList.remove('is-open');adminMobileOverlay?.classList.remove('is-open');adminMenuBtn?.setAttribute('aria-expanded','false')}
-adminMenuBtn?.addEventListener('click',openAdminMenu);adminMenuClose?.addEventListener('click',closeAdminMenu);adminMobileOverlay?.addEventListener('click',closeAdminMenu);
+function openAdminMenu(){
+  if(!adminMobileDrawer||!adminMobileOverlay)return;
+  adminMobileDrawer.style.setProperty('display','flex','important');
+  adminMobileDrawer.style.setProperty('visibility','visible','important');
+  adminMobileDrawer.style.setProperty('opacity','1','important');
+  adminMobileDrawer.style.setProperty('pointer-events','auto','important');
+  adminMobileDrawer.style.setProperty('transform','translate3d(0,0,0)','important');
+  adminMobileOverlay.style.setProperty('display','block','important');
+  adminMobileOverlay.style.setProperty('visibility','visible','important');
+  adminMobileOverlay.style.setProperty('opacity','1','important');
+  adminMobileOverlay.style.setProperty('pointer-events','auto','important');
+  document.body.classList.add('admin-menu-open');
+  adminMenuBtn?.setAttribute('aria-expanded','true');
+}
+function closeAdminMenu(){
+  if(adminMobileDrawer){
+    adminMobileDrawer.style.setProperty('visibility','hidden','important');
+    adminMobileDrawer.style.setProperty('pointer-events','none','important');
+    adminMobileDrawer.style.setProperty('transform','translate3d(-105%,0,0)','important');
+  }
+  if(adminMobileOverlay){
+    adminMobileOverlay.style.setProperty('visibility','hidden','important');
+    adminMobileOverlay.style.setProperty('opacity','0','important');
+    adminMobileOverlay.style.setProperty('pointer-events','none','important');
+  }
+  document.body.classList.remove('admin-menu-open');
+  adminMenuBtn?.setAttribute('aria-expanded','false');
+}
+adminMenuBtn?.addEventListener('click',(e)=>{e.preventDefault();e.stopPropagation();openAdminMenu()});
+adminMenuClose?.addEventListener('click',(e)=>{e.preventDefault();e.stopPropagation();closeAdminMenu()});
+adminMobileOverlay?.addEventListener('click',closeAdminMenu);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAdminMenu()});
 document.querySelectorAll('[data-mobile-section]').forEach(b=>b.addEventListener('click',()=>{showSection(b.dataset.mobileSection);closeAdminMenu()}));
 if($('mobileAdminEmail')) $('mobileAdminEmail').textContent=admin.email||'Administrator';
