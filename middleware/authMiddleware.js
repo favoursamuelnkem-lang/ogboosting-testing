@@ -21,8 +21,6 @@ function protect(req, res, next) {
       token,
       process.env.JWT_SECRET
     );
-
-    // Your login token uses userId
     req.userId = decoded.userId;
 
     next();

@@ -6,7 +6,41 @@
 .admin-content{margin-left:260px;min-height:100vh;min-width:0;}
 @media (max-width:1023px){.admin-content{margin-left:0;}}
 
-/* Responsive admin layout */
+@media (max-width:1023px){
+  .admin-mobile-drawer{
+    display:flex!important;
+    position:fixed!important;
+    top:0!important;left:0!important;bottom:0!important;
+    width:290px!important;max-width:88vw!important;
+    z-index:90!important;
+    transform:translateX(-100%)!important;
+    visibility:hidden!important;
+    transition:transform .22s ease, visibility 0s linear .22s!important;
+  }
+  .admin-mobile-drawer.is-open{
+    transform:translateX(0)!important;
+    visibility:visible!important;
+    transition:transform .22s ease, visibility 0s linear 0s!important;
+  }
+  .admin-mobile-overlay{
+    display:block!important;
+    position:fixed!important;
+    inset:0!important;
+    z-index:80!important;
+    background:rgba(15,23,42,.38)!important;
+    opacity:0!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+    transition:opacity .2s ease, visibility 0s linear .2s!important;
+  }
+  .admin-mobile-overlay.is-open{
+    opacity:1!important;
+    visibility:visible!important;
+    pointer-events:auto!important;
+    transition:opacity .2s ease, visibility 0s linear 0s!important;
+  }
+}
+
 .admin-section{min-width:0;}
 .card,.toolbar{min-width:0;}
 .table{min-width:680px;}
@@ -47,7 +81,7 @@
 </style>
 
 <style>
-/* Final admin navigation layout */
+
 .admin-desktop-sidebar{
   position:fixed;left:0;top:0;bottom:0;width:260px;
   background:#fff;border-right:1px solid #e5e7eb;
@@ -97,9 +131,7 @@
 </style>
 
 <style>
-/* =========================================================
-   OGBoost Admin UI — polished desktop + mobile components
-   ========================================================= */
+
 :root{
   --og-teal:#0B4F63;
   --og-teal-dark:#083d4c;
@@ -109,7 +141,6 @@
   --og-muted:#6b7280;
 }
 
-/* Make the desktop navigation immune to utility-class conflicts. */
 .admin-desktop-sidebar{width:260px!important;background:#fff!important;border-right:1px solid var(--og-border)!important;box-shadow:0 0 0 1px rgba(15,23,42,.01)!important;}
 .admin-desktop-sidebar .admin-brand{padding:24px 22px 20px!important;border-bottom:1px solid #f0f2f4;}
 .admin-desktop-sidebar .admin-brand-row{gap:11px!important;}
@@ -121,13 +152,11 @@
 .admin-desktop-sidebar .admin-footer{padding:16px!important;border-top:1px solid #eef1f3!important;background:#fff!important;}
 .admin-desktop-sidebar .admin-footer button{padding:10px 12px!important;border-radius:10px!important;font-size:13px!important;}
 
-/* Main page frame */
 .admin-content{background:var(--og-bg)!important;}
 .admin-content main{max-width:1500px!important;}
 .admin-content main>p{letter-spacing:.01em;}
 #sectionTitle{letter-spacing:-.02em!important;}
 
-/* Shared cards, toolbars, inputs and buttons used throughout admin.html */
 .card{
   background:#fff!important;
   border:1px solid var(--og-border)!important;
@@ -156,13 +185,11 @@
 .btn:hover{background:var(--og-teal-dark)!important;transform:translateY(-1px);}
 .title{font-size:16px!important;line-height:1.3!important;font-weight:800!important;color:#111827!important;}
 
-/* Dashboard statistic cards */
 #statGrid>div,#revenueStats>div{
   border:1px solid var(--og-border)!important;border-radius:12px!important;background:#fff!important;
   box-shadow:0 1px 2px rgba(15,23,42,.03)!important;
 }
 
-/* Tables: consistent financial/admin table styling */
 .table{width:100%!important;border-collapse:separate!important;border-spacing:0!important;min-width:760px;}
 .table thead th{
   background:#f8fafb!important;color:#64707a!important;border-bottom:1px solid var(--og-border)!important;
@@ -180,29 +207,23 @@
 .table tbody td b{color:#111827!important;font-weight:700!important;}
 .table tbody td .text-xs{line-height:1.35!important;}
 
-/* Generated action controls */
 .table button,.table select{
   min-height:36px!important;border-radius:8px!important;font-size:12px!important;
 }
 .table .input{min-height:38px!important;font-size:13px!important;}
 .table input[type="checkbox"]{accent-color:var(--og-teal);}
 
-/* Status badges */
 .table span[class*="rounded-full"]{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:26px!important;padding:4px 9px!important;border:1px solid rgba(0,0,0,.04)!important;white-space:nowrap!important;}
 
-/* Provider balance / prominent panels */
 #providerBalance{border-radius:12px!important;box-shadow:0 5px 16px rgba(11,79,99,.10)!important;}
 
-/* Forms */
 #section-coupons form,#section-announcements form,#section-settings form,#section-security form{width:100%;}
 #section-coupons form .input,#section-announcements form .input,#section-settings form .input,#section-security form .input{width:100%;}
 #section-announcements textarea{resize:vertical;}
 #section-announcements .flex{align-items:center;}
 
-/* Modal */
 #modal>div{border:1px solid var(--og-border)!important;box-shadow:0 18px 50px rgba(15,23,42,.18)!important;}
 
-/* Mobile: retain the same polished components while stacking controls */
 @media (max-width:1023px){
   .admin-content main{padding-top:20px!important;}
 }

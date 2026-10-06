@@ -23,18 +23,11 @@
 
 </head>
 
-
 <body
   class="min-h-screen bg-[#f6f8fa] text-gray-800 font-[Inter] flex items-center justify-center px-4 py-8"
 >
 
-
-  <!-- MAIN -->
-
   <main class="w-full max-w-md">
-
-
-    <!-- LOGO -->
 
     <div class="text-center mb-8">
 
@@ -67,10 +60,6 @@
 
     </div>
 
-
-
-    <!-- REGISTER CARD -->
-
     <section
       class="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 sm:p-8"
     >
@@ -97,17 +86,10 @@
 
       </div>
 
-
-
-      <!-- REGISTER FORM -->
-
       <form
         id="registerForm"
         class="space-y-5"
       >
-
-
-        <!-- FULL NAME -->
 
         <div>
 
@@ -130,10 +112,6 @@
 
         </div>
 
-
-
-        <!-- EMAIL -->
-
         <div>
 
           <label
@@ -154,10 +132,6 @@
           >
 
         </div>
-
-
-
-        <!-- PASSWORD -->
 
         <div>
 
@@ -221,10 +195,6 @@
 
         </div>
 
-
-
-        <!-- CONFIRM PASSWORD -->
-
         <div>
 
           <label
@@ -283,10 +253,6 @@
 
         </div>
 
-
-
-        <!-- TERMS -->
-
         <div class="flex items-start gap-3">
 
           <input
@@ -318,10 +284,6 @@
 
         </div>
 
-
-
-        <!-- REGISTER BUTTON -->
-
         <button
           type="submit"
           id="registerBtn"
@@ -330,12 +292,7 @@
           Create Account
         </button>
 
-
       </form>
-
-
-
-      <!-- LOGIN -->
 
       <div class="relative my-7">
 
@@ -357,7 +314,6 @@
 
       </div>
 
-
       <a
         href="login.html"
         class="w-full h-12 rounded-xl border border-gray-200 flex items-center justify-center font-bold text-[#0B4F63] hover:bg-gray-50 transition"
@@ -367,22 +323,13 @@
 
     </section>
 
-
-
-    <!-- FOOTER -->
-
     <p class="text-center text-xs text-gray-400 mt-6">
 
       © 2026 OG Boosting. All rights reserved.
 
     </p>
 
-
   </main>
-
-
-
-  <!-- JAVASCRIPT -->
 
  <script src="./toast.js"></script>
 
@@ -406,11 +353,6 @@
   const registerBtn =
     document.getElementById("registerBtn");
 
-
-  // ===============================
-  // SHOW / HIDE PASSWORD
-  // ===============================
-
   togglePassword.addEventListener("click", () => {
 
     password.type =
@@ -419,11 +361,6 @@
         : "password";
 
   });
-
-
-  // ===============================
-  // SHOW / HIDE CONFIRM PASSWORD
-  // ===============================
 
   toggleConfirmPassword.addEventListener("click", () => {
 
@@ -434,15 +371,9 @@
 
   });
 
-
-  // ===============================
-  // REGISTER
-  // ===============================
-
   registerForm.addEventListener("submit", async (event) => {
 
     event.preventDefault();
-
 
     const fullName =
       document.getElementById("fullName").value.trim();
@@ -456,9 +387,6 @@
     const confirmPasswordValue =
       confirmPassword.value;
 
-
-    // CHECK PASSWORD MATCH
-
     if (passwordValue !== confirmPasswordValue) {
 
       showToast("Passwords do not match.", "warning", { title: "Check your password" });
@@ -466,9 +394,6 @@
       return;
 
     }
-
-
-    // CHECK PASSWORD LENGTH
 
     if (passwordValue.length < 8) {
 
@@ -478,13 +403,9 @@
 
     }
 
-
-    // DISABLE BUTTON
-
     registerBtn.disabled = true;
 
     registerBtn.innerText = "Creating Account...";
-
 
     try {
 
@@ -510,11 +431,7 @@
         }
       );
 
-
       const data = await response.json();
-
-
-      // BACKEND ERROR
 
       if (!response.ok) {
 
@@ -528,23 +445,15 @@
 
       }
 
-
-      // SUCCESS
-
       showToast("Your account has been created. You can sign in now.", "success", { title: "Account created" });
 
-
-      // SEND USER TO LOGIN
-
       window.location.href = "login.html";
-
 
     } catch (error) {
 
       console.error("Registration error:", error);
 
       showToast("Unable to connect to the server. Make sure your backend is running.", "error", { title: "Connection error", duration: 6000 });
-
 
       registerBtn.disabled = false;
 

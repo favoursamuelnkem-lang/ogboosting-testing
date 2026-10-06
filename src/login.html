@@ -23,18 +23,11 @@
 
 </head>
 
-
 <body
   class="min-h-screen bg-[#f6f8fa] text-gray-800 font-[Inter] flex items-center justify-center px-4 py-8"
 >
 
-
-  <!-- MAIN -->
-
   <main class="w-full max-w-md">
-
-
-    <!-- LOGO -->
 
     <div class="text-center mb-8">
 
@@ -67,10 +60,6 @@
 
     </div>
 
-
-
-    <!-- LOGIN CARD -->
-
     <section
       class="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 sm:p-8"
     >
@@ -97,14 +86,7 @@
 
       </div>
 
-
-
-      <!-- LOGIN FORM -->
-
       <form id="loginForm" class="space-y-5">
-
-
-        <!-- EMAIL -->
 
         <div>
 
@@ -127,10 +109,6 @@
 
         </div>
 
-
-
-        <!-- PASSWORD -->
-
         <div>
 
           <div class="flex items-center justify-between mb-2">
@@ -150,7 +128,6 @@
             </a>
 
           </div>
-
 
           <div class="relative">
 
@@ -196,10 +173,6 @@
 
         </div>
 
-
-
-        <!-- REMEMBER -->
-
         <div class="flex items-center gap-2">
 
           <input
@@ -217,10 +190,6 @@
 
         </div>
 
-
-
-        <!-- LOGIN BUTTON -->
-
         <button
           type="submit"
           id="loginBtn"
@@ -229,12 +198,7 @@
           Sign In
         </button>
 
-
       </form>
-
-
-
-      <!-- REGISTER -->
 
       <div class="relative my-7">
 
@@ -256,7 +220,6 @@
 
       </div>
 
-
       <a
         href="register.html"
         class="w-full h-12 rounded-xl border border-gray-200 flex items-center justify-center font-bold text-[#0B4F63] hover:bg-gray-50 transition"
@@ -265,10 +228,6 @@
       </a>
 
     </section>
-
-
-
-    <!-- FOOTER -->
 
     <p class="text-center text-xs text-gray-400 mt-6">
 
@@ -292,12 +251,8 @@
 
     </p>
 
-
   </main>
 
-
-
-  <!-- JAVASCRIPT -->
 <script src="./toast.js"></script>
 
 <script>
@@ -317,11 +272,6 @@
   const remember =
     document.getElementById("remember");
 
-
-  // ===============================
-  // SHOW / HIDE PASSWORD
-  // ===============================
-
   togglePassword.addEventListener("click", () => {
 
     if (password.type === "password") {
@@ -336,22 +286,15 @@
 
   });
 
-
-  // ===============================
-  // LOGIN
-  // ===============================
-
   loginForm.addEventListener("submit", async (event) => {
 
     event.preventDefault();
-
 
     const email =
       document.getElementById("email").value.trim();
 
     const passwordValue =
       password.value;
-
 
     if (!email || !passwordValue) {
 
@@ -361,13 +304,9 @@
 
     }
 
-
-    // DISABLE BUTTON
-
     loginBtn.disabled = true;
 
     loginBtn.innerText = "Signing In...";
-
 
     try {
 
@@ -390,11 +329,7 @@
         }
       );
 
-
       const data = await response.json();
-
-
-      // LOGIN FAILED
 
       if (!response.ok) {
 
@@ -407,11 +342,6 @@
         return;
 
       }
-
-
-      // ===============================
-      // SAVE LOGIN INFORMATION
-      // ===============================
 
       if (remember.checked) {
 
@@ -439,23 +369,15 @@
 
       }
 
-
-      // SUCCESS
-
       showToast("Welcome back! Signing you in now.", "success", { title: "Welcome back" });
 
-
-      // GO TO DASHBOARD
-
       window.location.href = "dashboard.html";
-
 
     } catch (error) {
 
       console.error("Login error:", error);
 
       showToast("Unable to connect to the server. Make sure your backend is running.", "error", { title: "Connection error", duration: 6000 });
-
 
       loginBtn.disabled = false;
 

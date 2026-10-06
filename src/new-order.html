@@ -23,19 +23,11 @@
 
 </head>
 
-
 <body class="bg-[#f6f8fa] text-gray-800">
-
-
-  <!-- ================================================= -->
-  <!-- DESKTOP SIDEBAR -->
-  <!-- ================================================= -->
 
   <aside
     class="hidden lg:flex fixed left-0 top-0 bottom-0 w-[255px] bg-white border-r border-gray-100 flex-col z-50"
   >
-
-    <!-- LOGO -->
 
     <div class="px-7 pt-8 pb-7">
 
@@ -74,9 +66,6 @@
 
     </div>
 
-
-    <!-- NAVIGATION -->
-
     <nav class="px-4 space-y-1.5">
 
       <a
@@ -90,9 +79,6 @@
 
       </a>
 
-
-      <!-- ACTIVE -->
-
       <a
         href="new-order.html"
         class="flex items-center gap-3 px-4 py-3.5 rounded-xl bg-[#0B4F63] text-white font-semibold"
@@ -103,7 +89,6 @@
         New Order
 
       </a>
-
 
       <a
         href="services.html"
@@ -116,7 +101,6 @@
 
       </a>
 
-
       <a
         href="orders.html"
         class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-[#0B4F63] transition"
@@ -128,7 +112,6 @@
 
       </a>
 
-
       <a
         href="wallet.html"
         class="flex items-center gap-3 px-4 py-3.5 rounded-xl text-gray-500 hover:bg-gray-50 hover:text-[#0B4F63] transition"
@@ -139,7 +122,6 @@
         Wallet
 
       </a>
-
 
       <a
         href="support.html"
@@ -154,9 +136,6 @@
 
     </nav>
 
-
-    <!-- USER -->
-
     <div
       class="mt-auto p-5 border-t border-gray-100"
     >
@@ -168,7 +147,6 @@
         >
           F
         </div>
-
 
         <div class="min-w-0">
 
@@ -184,7 +162,6 @@
 
       </div>
 
-
       <button
         id="logoutBtn"
         class="w-full py-3 rounded-xl border border-gray-200 text-gray-500 hover:bg-gray-50 transition font-medium"
@@ -196,18 +173,7 @@
 
   </aside>
 
-
-
-  <!-- ================================================= -->
-  <!-- MAIN -->
-  <!-- ================================================= -->
-
   <div class="lg:ml-[255px] min-h-screen">
-
-
-    <!-- ================================================= -->
-    <!-- MOBILE HEADER -->
-    <!-- ================================================= -->
 
     <header
       class="lg:hidden bg-white border-b border-gray-100 px-5 py-4 sticky top-0 z-40"
@@ -230,7 +196,6 @@
 
           </div>
 
-
           <h1
             class="font-black text-lg text-[#0B4F63]"
           >
@@ -240,7 +205,6 @@
           </h1>
 
         </a>
-
 
         <div
           class="w-9 h-9 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold"
@@ -252,18 +216,9 @@
 
     </header>
 
-
-
-    <!-- ================================================= -->
-    <!-- CONTENT -->
-    <!-- ================================================= -->
-
     <main
       class="max-w-[1100px] mx-auto px-5 sm:px-7 lg:px-10 py-7 lg:py-10 pb-28 lg:pb-10"
     >
-
-
-      <!-- PAGE HEADER -->
 
       <section>
 
@@ -273,13 +228,11 @@
           BOOST YOUR SOCIALS
         </p>
 
-
         <h2
           class="text-3xl sm:text-4xl font-black text-gray-900 mt-1"
         >
           New Order
         </h2>
-
 
         <p
           class="text-gray-400 text-sm mt-2"
@@ -289,12 +242,6 @@
 
       </section>
 
-
-
-      <!-- ================================================= -->
-      <!-- WALLET BALANCE -->
-      <!-- ================================================= -->
-
       <section
         class="mt-7 bg-[#0B4F63] rounded-[24px] p-5 sm:p-6 text-white relative overflow-hidden"
       >
@@ -302,7 +249,6 @@
         <div
           class="absolute -right-10 -top-10 w-40 h-40 rounded-full bg-white/5"
         ></div>
-
 
         <div
           class="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
@@ -316,7 +262,6 @@
               Available Balance
             </p>
 
-
          <h3
   id="walletBalance"
   class="text-2xl sm:text-3xl font-black mt-1"
@@ -325,7 +270,6 @@
 </h3>
 
           </div>
-
 
           <a
             href="wallet.html"
@@ -338,20 +282,9 @@
 
       </section>
 
-
-
-      <!-- ================================================= -->
-      <!-- ORDER AREA -->
-      <!-- ================================================= -->
-
       <section
         class="grid lg:grid-cols-[1fr_360px] gap-6 mt-7"
       >
-
-
-        <!-- =============================================== -->
-        <!-- FORM -->
-        <!-- =============================================== -->
 
         <div
           class="bg-white border border-gray-100 rounded-[26px] p-5 sm:p-7"
@@ -365,7 +298,6 @@
               Create Boost Order
             </h3>
 
-
             <p
               class="text-sm text-gray-400 mt-1"
             >
@@ -374,10 +306,6 @@
 
           </div>
 
-
-
-          <!-- PLATFORM -->
-
           <div>
 
             <label
@@ -385,7 +313,6 @@
             >
               Social Platform
             </label>
-
 
             <select
               id="platform"
@@ -420,10 +347,6 @@
 
           </div>
 
-
-
-          <!-- SERVICE -->
-
           <div class="mt-5">
 
             <label
@@ -431,7 +354,6 @@
             >
               Service
             </label>
-
 
             <select
               id="service"
@@ -446,10 +368,6 @@
 
           </div>
 
-
-
-          <!-- LINK -->
-
           <div class="mt-5">
 
             <label
@@ -458,14 +376,12 @@
               Link
             </label>
 
-
             <input
               id="targetLink"
               type="url"
               placeholder="https://..."
               class="w-full px-4 py-3.5 rounded-xl border border-gray-200 outline-none focus:border-[#0B4F63] focus:ring-4 focus:ring-[#0B4F63]/5 transition"
             >
-
 
             <p
               class="text-xs text-gray-400 mt-2"
@@ -475,10 +391,6 @@
 
           </div>
 
-
-
-          <!-- QUANTITY -->
-
           <div class="mt-5">
 
             <label
@@ -486,7 +398,6 @@
             >
               Quantity
             </label>
-
 
             <input
               id="quantity"
@@ -496,7 +407,6 @@
               placeholder="Enter quantity"
               class="w-full px-4 py-3.5 rounded-xl border border-gray-200 outline-none focus:border-[#0B4F63] focus:ring-4 focus:ring-[#0B4F63]/5 transition"
             >
-
 
             <div
               class="flex flex-wrap gap-2 mt-3"
@@ -510,7 +420,6 @@
                 1,000
               </button>
 
-
               <button
                 type="button"
                 class="quantityBtn px-3 py-2 rounded-lg bg-gray-50 hover:bg-gray-100 text-xs font-bold"
@@ -519,7 +428,6 @@
                 2,500
               </button>
 
-
               <button
                 type="button"
                 class="quantityBtn px-3 py-2 rounded-lg bg-gray-50 hover:bg-gray-100 text-xs font-bold"
@@ -527,7 +435,6 @@
               >
                 5,000
               </button>
-
 
               <button
                 type="button"
@@ -541,10 +448,6 @@
 
           </div>
 
-
-
-          <!-- SUBMIT -->
-
           <button
             id="placeOrderBtn"
             type="button"
@@ -555,19 +458,12 @@
 
           </button>
 
-
           <p
             id="formMessage"
             class="hidden text-center text-sm mt-4"
           ></p>
 
         </div>
-
-
-
-        <!-- =============================================== -->
-        <!-- ORDER SUMMARY -->
-        <!-- =============================================== -->
 
         <aside
           class="bg-white border border-gray-100 rounded-[26px] p-5 sm:p-6 h-fit lg:sticky lg:top-7"
@@ -579,13 +475,11 @@
             Order Summary
           </h3>
 
-
           <p
             class="text-xs text-gray-400 mt-1"
           >
             Review your order before submitting.
           </p>
-
 
           <div
             class="mt-6 space-y-4"
@@ -608,7 +502,6 @@
 
             </div>
 
-
             <div
               class="flex justify-between gap-4"
             >
@@ -625,7 +518,6 @@
               </span>
 
             </div>
-
 
             <div
               class="flex justify-between gap-4"
@@ -645,7 +537,6 @@
             </div>
 
           </div>
-
 
           <div
             class="border-t border-gray-100 mt-6 pt-6"
@@ -670,7 +561,6 @@
 
               </div>
 
-
               <span
                 class="text-xs text-gray-400"
               >
@@ -681,9 +571,6 @@
 
           </div>
 
-
-          <!-- INFO -->
-
           <div
             class="mt-6 bg-orange-50 rounded-2xl p-4"
           >
@@ -693,7 +580,6 @@
             >
               Important
             </p>
-
 
             <p
               class="text-xs text-orange-700/70 leading-5 mt-1"
@@ -708,12 +594,6 @@
 
       </section>
 
-
-
-      <!-- ================================================= -->
-      <!-- HOW IT WORKS -->
-      <!-- ================================================= -->
-
       <section class="mt-10">
 
         <div>
@@ -724,7 +604,6 @@
             Simple Process
           </p>
 
-
           <h2
             class="text-2xl font-black mt-2"
           >
@@ -732,7 +611,6 @@
           </h2>
 
         </div>
-
 
         <div
           class="grid sm:grid-cols-3 gap-4 mt-5"
@@ -748,13 +626,11 @@
               1
             </div>
 
-
             <h3
               class="font-bold mt-4"
             >
               Choose a service
             </h3>
-
 
             <p
               class="text-xs text-gray-400 leading-5 mt-1"
@@ -763,7 +639,6 @@
             </p>
 
           </div>
-
 
           <div
             class="bg-white border border-gray-100 rounded-2xl p-5"
@@ -775,13 +650,11 @@
               2
             </div>
 
-
             <h3
               class="font-bold mt-4"
             >
               Enter your details
             </h3>
-
 
             <p
               class="text-xs text-gray-400 leading-5 mt-1"
@@ -790,7 +663,6 @@
             </p>
 
           </div>
-
 
           <div
             class="bg-white border border-gray-100 rounded-2xl p-5"
@@ -802,13 +674,11 @@
               3
             </div>
 
-
             <h3
               class="font-bold mt-4"
             >
               Place your order
             </h3>
-
 
             <p
               class="text-xs text-gray-400 leading-5 mt-1"
@@ -822,14 +692,7 @@
 
       </section>
 
-
     </main>
-
-
-
-    <!-- ================================================= -->
-    <!-- MOBILE BOTTOM NAVIGATION -->
-    <!-- ================================================= -->
 
     <nav
       class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 z-50 px-2 py-2"
@@ -854,7 +717,6 @@
 
         </a>
 
-
         <a
           href="services.html"
           class="flex flex-col items-center gap-1 py-2 text-gray-400"
@@ -869,9 +731,6 @@
           </span>
 
         </a>
-
-
-        <!-- ACTIVE BOOST -->
 
         <a
           href="new-order.html"
@@ -892,7 +751,6 @@
 
         </a>
 
-
         <a
           href="orders.html"
           class="flex flex-col items-center gap-1 py-2 text-gray-400"
@@ -907,7 +765,6 @@
           </span>
 
         </a>
-
 
         <a
           href="wallet.html"
@@ -930,20 +787,9 @@
 
   </div>
 
-
-
-  <!-- ================================================= -->
-  <!-- JAVASCRIPT -->
-  <!-- ================================================= -->
-
   <script src="./toast.js"></script>
 
 <script>
-
-
-// ==========================================
-// LOAD REAL WALLET BALANCE
-// ==========================================
 
 async function loadWalletBalance() {
 
@@ -955,9 +801,6 @@ async function loadWalletBalance() {
   sessionStorage.getItem("ogBoostingToken");
 
   console.log("Token found:", !!token);
-
-  // Don't redirect from this function.
-  // auth.js should handle authentication.
   if (!token) {
 
     console.log("No token found.");
@@ -1026,18 +869,8 @@ async function loadWalletBalance() {
 }
 
 loadWalletBalance();
- 
-
-// ==========================================
-// REAL SERVICES FROM BACKEND
-// ==========================================
 
 let services = [];
-
-
-// ==========================================
-// ELEMENTS
-// ==========================================
 
 const platform =
   document.getElementById("platform");
@@ -1068,11 +901,6 @@ const placeOrderBtn =
 
 const formMessage =
   document.getElementById("formMessage");
-
-
-// ==========================================
-// LOAD SERVICES FROM BACKEND
-// ==========================================
 
 async function loadServices() {
 
@@ -1122,11 +950,6 @@ async function loadServices() {
 
 loadServices();
 
-
-// ==========================================
-// PLATFORM CHANGE
-// ==========================================
-
 platform.addEventListener(
   "change",
   function () {
@@ -1145,8 +968,6 @@ platform.addEventListener(
 
     }
 
-    // Find services matching platform/category/name
-
     const matchingServices =
       services.filter(function (item) {
 
@@ -1163,13 +984,11 @@ platform.addEventListener(
 
       });
 
-
     console.log(
       selectedPlatform,
       "services:",
       matchingServices
     );
-
 
     if (matchingServices.length === 0) {
 
@@ -1181,7 +1000,6 @@ platform.addEventListener(
       return;
 
     }
-
 
     matchingServices.forEach(
       function (item) {
@@ -1214,11 +1032,6 @@ platform.addEventListener(
   }
 );
 
-
-// ==========================================
-// SERVICE CHANGE
-// ==========================================
-
 service.addEventListener(
   "change",
   function () {
@@ -1228,11 +1041,6 @@ service.addEventListener(
   }
 );
 
-
-// ==========================================
-// QUANTITY CHANGE
-// ==========================================
-
 quantity.addEventListener(
   "input",
   function () {
@@ -1241,11 +1049,6 @@ quantity.addEventListener(
 
   }
 );
-
-
-// ==========================================
-// QUANTITY BUTTONS
-// ==========================================
 
 document
   .querySelectorAll(".quantityBtn")
@@ -1267,11 +1070,6 @@ document
     }
   );
 
-
-// ==========================================
-// UPDATE SUMMARY
-// ==========================================
-
 function updateSummary() {
 
   const selectedPlatform =
@@ -1283,14 +1081,11 @@ function updateSummary() {
   const selectedQuantity =
     Number(quantity.value) || 0;
 
-
   summaryPlatform.textContent =
     selectedPlatform || "—";
 
-
   summaryQuantity.textContent =
     selectedQuantity.toLocaleString();
-
 
   if (!selectedPlatform ||
       !selectedService) {
@@ -1305,12 +1100,10 @@ function updateSummary() {
 
   }
 
-
   const selectedOption =
     service.options[
       service.selectedIndex
     ];
-
 
   if (!selectedOption) {
 
@@ -1324,20 +1117,16 @@ function updateSummary() {
 
   }
 
-
   const serviceName =
     selectedOption.textContent;
-
 
   const pricePer1000 =
     Number(
       selectedOption.dataset.price || 0
     );
 
-
   summaryService.textContent =
     serviceName;
-
 
   const totalPrice =
     Math.ceil(
@@ -1345,17 +1134,11 @@ function updateSummary() {
       pricePer1000
     );
 
-
   summaryPrice.textContent =
     "₦" +
     totalPrice.toLocaleString("en-NG");
 
 }
-
-
-// ==========================================
-// PLACE ORDER
-// ==========================================
 
 placeOrderBtn.addEventListener(
   "click",
@@ -1373,11 +1156,6 @@ placeOrderBtn.addEventListener(
     const selectedQuantity =
       Number(quantity.value);
 
-
-    // ===============================
-    // VALIDATION
-    // ===============================
-
     if (!selectedPlatform) {
 
       showMessage(
@@ -1389,7 +1167,6 @@ placeOrderBtn.addEventListener(
 
     }
 
-
     if (!selectedService) {
 
       showMessage(
@@ -1400,7 +1177,6 @@ placeOrderBtn.addEventListener(
       return;
 
     }
-
 
     if (!link) {
 
@@ -1414,7 +1190,6 @@ placeOrderBtn.addEventListener(
       return;
 
     }
-
 
     if (
       !selectedQuantity ||
@@ -1432,22 +1207,15 @@ placeOrderBtn.addEventListener(
 
     }
 
-
-    // ===============================
-    // GET SELECTED SERVICE
-    // ===============================
-
     const selectedOption =
       service.options[
         service.selectedIndex
       ];
 
-
     const pricePer1000 =
       Number(
         selectedOption.dataset.price || 0
       );
-
 
     const totalPrice =
       Math.ceil(
@@ -1455,15 +1223,9 @@ placeOrderBtn.addEventListener(
         pricePer1000
       );
 
-
-    // ===============================
-    // GET LOGIN TOKEN
-    // ===============================
-
     const token =
       localStorage.getItem("ogBoostingToken") ||
       sessionStorage.getItem("ogBoostingToken");
-
 
     if (!token) {
 
@@ -1476,22 +1238,12 @@ placeOrderBtn.addEventListener(
 
     }
 
-
-    // ===============================
-    // DISABLE BUTTON
-    // ===============================
-
     placeOrderBtn.disabled = true;
 
     placeOrderBtn.textContent =
       "Processing...";
 
-
     try {
-
-      // ===============================
-      // SEND ORDER TO BACKEND
-      // ===============================
 
       const response =
         await fetch(
@@ -1533,16 +1285,13 @@ placeOrderBtn.addEventListener(
           }
         );
 
-
       const data =
         await response.json();
-
 
       console.log(
         "Create order response:",
         data
       );
-
 
       if (!response.ok || !data.success) {
 
@@ -1556,18 +1305,10 @@ placeOrderBtn.addEventListener(
 
       }
 
-
-      // ===============================
-      // SUCCESS
-      // ===============================
-
       showMessage(
         "Order placed successfully!",
         "success"
       );
-
-
-      // Update balance immediately if backend returns it
 
       if (
         typeof data.balance !==
@@ -1597,17 +1338,11 @@ placeOrderBtn.addEventListener(
 
       }
 
-
-      // Clear form
-
       targetLink.value = "";
 
       quantity.value = 1000;
 
       updateSummary();
-
-
-      // Go to orders after short delay
 
       setTimeout(
         function () {
@@ -1619,7 +1354,6 @@ placeOrderBtn.addEventListener(
         1000
       );
 
-
     } catch (error) {
 
       console.error(
@@ -1627,12 +1361,10 @@ placeOrderBtn.addEventListener(
         error
       );
 
-
       showMessage(
         "Unable to connect to the server.",
         "error"
       );
-
 
     } finally {
 
@@ -1647,17 +1379,10 @@ placeOrderBtn.addEventListener(
   }
 );
 
-
-// ==========================================
-// MESSAGE
-// ==========================================
-
 function showMessage(
   message,
   type
 ) {
-
-  // Keep the order form clean and use the global styled toast.
   formMessage.textContent = "";
   formMessage.classList.add("hidden");
 
@@ -1672,17 +1397,6 @@ function showMessage(
 
 }
 
-
-
-
-
-
-
-
-    // ==========================================
-    // LOGOUT
-    // ==========================================
-
     const logoutBtn =
     document.getElementById("logoutBtn");
 
@@ -1691,18 +1405,12 @@ function showMessage(
     logoutBtn.addEventListener(
       "click",
       () => {
-
-        // Remove login token
         localStorage.removeItem(
           "ogBoostingToken"
         );
-
-        // Remove saved user
         localStorage.removeItem(
           "ogBoostingUser"
         );
-
-        // Remove session login
         sessionStorage.removeItem(
           "ogBoostingToken"
         );
@@ -1710,8 +1418,6 @@ function showMessage(
         sessionStorage.removeItem(
           "ogBoostingUser"
         );
-
-        // Send user to login
         window.location.replace(
           "login.html"
         );
@@ -1722,7 +1428,6 @@ function showMessage(
   }
 
   </script>
-
 
 </body>
 

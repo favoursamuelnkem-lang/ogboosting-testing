@@ -22,10 +22,6 @@ const axios = require("axios");
 
 dotenv.config();
 const resend = new Resend(process.env.RESEND_API_KEY);
-
-// ==========================================
-// WELCOME-BACK EMAIL
-// ==========================================
 async function sendWelcomeBackEmail(user) {
   if (!process.env.RESEND_API_KEY) {
     console.warn("RESEND_API_KEY is not configured; welcome email skipped.");
@@ -65,19 +61,9 @@ async function sendWelcomeBackEmail(user) {
 
 const app = express();
 
-
-// ===============================
-// MIDDLEWARE
-// ===============================
-
 app.use(cors());
 
 app.use(express.json());
-
-
-// ===============================
-// MONGODB
-// ===============================
 
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -89,11 +75,6 @@ mongoose
     console.error(error.message);
   });
 
-
-// ===============================
-// TEST ROUTE
-// ===============================
-
 app.get("/", (req, res) => {
 
   res.json({
@@ -101,11 +82,6 @@ app.get("/", (req, res) => {
   });
 
 });
-
-
-// ===============================
-// REGISTER
-// ===============================
 
 app.post("/api/auth/register", async (req, res) => {
 
@@ -117,9 +93,6 @@ app.post("/api/auth/register", async (req, res) => {
       password
     } = req.body;
 
-
-    // CHECK REQUIRED FIELDS
-
     if (!fullName || !email || !password) {
 
       return res.status(400).json({
@@ -128,9 +101,6 @@ app.post("/api/auth/register", async (req, res) => {
       });
 
     }
-
-
-    // CHECK PASSWORD LENGTH
 
     if (password.length < 8) {
 
@@ -141,20 +111,13 @@ app.post("/api/auth/register", async (req, res) => {
 
     }
 
-
-    // NORMALIZE EMAIL
-
     const normalizedEmail =
       email.trim().toLowerCase();
-
-
-    // CHECK EXISTING USER
 
     const existingUser =
       await User.findOne({
         email: normalizedEmail
       });
-
 
     if (existingUser) {
 
@@ -165,14 +128,8 @@ app.post("/api/auth/register", async (req, res) => {
 
     }
 
-
-    // HASH PASSWORD
-
     const hashedPassword =
       await bcrypt.hash(password, 12);
-
-
-    // CREATE USER
 
     const user = await User.create({
 
@@ -185,9 +142,6 @@ app.post("/api/auth/register", async (req, res) => {
       balance: 0
 
     });
-
-
-    // SUCCESS
 
     res.status(201).json({
 
@@ -203,7 +157,6 @@ app.post("/api/auth/register", async (req, res) => {
       }
 
     });
-
 
   } catch (error) {
 
@@ -221,11 +174,6 @@ app.post("/api/auth/register", async (req, res) => {
 
 });
 
-
-// ===============================
-// LOGIN
-// ===============================
-
 const jwt = require("jsonwebtoken");
 
 app.post("/api/auth/login", async (req, res) => {
@@ -233,9 +181,6 @@ app.post("/api/auth/login", async (req, res) => {
   try {
 
     const { email, password } = req.body;
-
-
-    // CHECK REQUIRED FIELDS
 
     if (!email || !password) {
 
@@ -246,19 +191,12 @@ app.post("/api/auth/login", async (req, res) => {
 
     }
 
-
-    // NORMALIZE EMAIL
-
     const normalizedEmail =
       email.trim().toLowerCase();
-
-
-    // FIND USER
 
     const user = await User.findOne({
       email: normalizedEmail
     });
-
 
     if (!user) {
 
@@ -269,16 +207,12 @@ app.post("/api/auth/login", async (req, res) => {
 
     }
 
-
-    // CHECK PASSWORD
-
     if (user.active === false) {
       return res.status(403).json({ success: false, message: "This account is suspended." });
     }
 
     const passwordMatch =
       await bcrypt.compare(password, user.password);
-
 
     if (!passwordMatch) {
 
@@ -289,9 +223,6 @@ app.post("/api/auth/login", async (req, res) => {
 
     }
 
-
-    // CREATE JWT
-
     const token = jwt.sign(
       {
         userId: user._id
@@ -301,17 +232,11 @@ app.post("/api/auth/login", async (req, res) => {
         expiresIn: "7d"
       }
     );
-
-
-    // Send a welcome-back email after every successful sign-in.
-    // Email delivery must never prevent a valid login.
     try {
       await sendWelcomeBackEmail(user);
     } catch (emailError) {
       console.error("Welcome-back email error:", emailError);
     }
-
-    // SUCCESS
 
     res.json({
 
@@ -330,7 +255,6 @@ app.post("/api/auth/login", async (req, res) => {
 
     });
 
-
   } catch (error) {
 
     console.error("Login error:", error);
@@ -346,10 +270,6 @@ app.post("/api/auth/login", async (req, res) => {
   }
 
 });
-
-// ===============================
-// FORGOT PASSWORD
-// ===============================
 app.post("/api/auth/forgot-password", async (req, res) => {
   try {
     const { email } = req.body;
@@ -365,36 +285,22 @@ app.post("/api/auth/forgot-password", async (req, res) => {
     const user = await User.findOne({
       email: normalizedEmail
     });
-
-    // Always return the same response so people cannot
-    // discover which emails have accounts.
     if (!user) {
       return res.json({
         message: "If an account exists with that email, a reset link has been sent."
       });
     }
-
-    // Generate secure random token
     const rawToken = crypto.randomBytes(32).toString("hex");
-
-    // Store only the hashed token in MongoDB
     const hashedToken = crypto
       .createHash("sha256")
       .update(rawToken)
       .digest("hex");
-
-    // Token expires in 30 minutes
     user.resetPasswordToken = hashedToken;
     user.resetPasswordExpires = new Date(Date.now() + 30 * 60 * 1000);
 
     await user.save();
-
-// Create password reset link
 const resetLink =
   `${process.env.FRONTEND_URL}/reset-password.html?token=${rawToken}`;
-
-// Send password reset email
-// Send password reset email
 const { data, error } = await resend.emails.send({
   from: "OG Boosting <support@getogsms.com>",
   replyTo: "supportogboosting@gmail.com",
@@ -402,7 +308,7 @@ const { data, error } = await resend.emails.send({
   subject: "Reset Your OG Boosting Password",
   html: `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 30px;">
-      
+
       <h2 style="color: #F97316;">
         OG Boosting
       </h2>
@@ -472,12 +378,6 @@ return res.json({
   });
 }
 });
-
-
-
-// ===============================
-// RESET PASSWORD
-// ===============================
 app.post("/api/auth/reset-password", async (req, res) => {
   try {
     const { token, password } = req.body;
@@ -487,8 +387,6 @@ app.post("/api/auth/reset-password", async (req, res) => {
         message: "Reset token and password are required."
       });
     }
-
-    // Validate password
     if (password.length < 8) {
       return res.status(400).json({
         message: "Password must be at least 8 characters."
@@ -506,14 +404,10 @@ app.post("/api/auth/reset-password", async (req, res) => {
         message: "Password must contain at least one number."
       });
     }
-
-    // Hash the token from the reset link
     const hashedToken = crypto
       .createHash("sha256")
       .update(token)
       .digest("hex");
-
-    // Find user with valid, non-expired token
     const user = await User.findOne({
       resetPasswordToken: hashedToken,
       resetPasswordExpires: {
@@ -526,14 +420,8 @@ app.post("/api/auth/reset-password", async (req, res) => {
         message: "Reset link is invalid or has expired."
       });
     }
-
-    // Hash the new password
     const hashedPassword = await bcrypt.hash(password, 12);
-
-    // Update password
     user.password = hashedPassword;
-
-    // Remove reset token so it cannot be used again
     user.resetPasswordToken = null;
     user.resetPasswordExpires = null;
 
@@ -551,12 +439,6 @@ app.post("/api/auth/reset-password", async (req, res) => {
     });
   }
 });
-
-
-
-// ==========================================
-// AUTHENTICATION MIDDLEWARE
-// ==========================================
 
 function authenticateToken(req, res, next) {
 
@@ -598,13 +480,6 @@ function authenticateToken(req, res, next) {
   );
 
 }
-
-
-
-
-// ==========================================
-// GET CURRENT USER
-// ==========================================
 app.get(
   "/api/auth/me",
   authenticateToken,
@@ -614,7 +489,6 @@ app.get(
       const user =
         await User.findById(req.userId)
           .select("-password");
-
 
       if (!user) {
 
@@ -627,7 +501,6 @@ app.get(
         });
 
       }
-
 
       res.json({
 
@@ -647,14 +520,12 @@ app.get(
 
       });
 
-
     } catch (error) {
 
       console.error(
         "Get current user error:",
         error
       );
-
 
       res.status(500).json({
 
@@ -668,7 +539,6 @@ app.get(
 
   }
 );
-
 
 app.get("/get-user", protect, async (req, res) => {
 
@@ -709,14 +579,6 @@ app.get("/get-user", protect, async (req, res) => {
 
 });
 
-
-// ==========================================
-// FLUTTERWAVE - CREATE PAYMENT
-// ==========================================
-// ==========================================
-// FLUTTERWAVE - CREATE PAYMENT
-// ==========================================
-
 app.post(
   "/api/wallet/fund",
   protect,
@@ -748,13 +610,8 @@ app.post(
 
       }
 
-      // UNIQUE PAYMENT REFERENCE
-
       const txRef =
         `OGBOOST-${Date.now()}-${user._id}`;
-
-
-      // SAVE PENDING TRANSACTION
 
       await Transaction.create({
 
@@ -771,9 +628,6 @@ app.post(
         status: "pending"
 
       });
-
-
-      // CREATE FLUTTERWAVE PAYMENT
 
       const response = await axios.post(
 
@@ -834,7 +688,6 @@ app.post(
 
       );
 
-
       res.json({
 
         success: true,
@@ -846,7 +699,6 @@ app.post(
 
       });
 
-
     } catch (error) {
 
       console.error(
@@ -857,7 +709,6 @@ app.post(
         error.message
 
       );
-
 
       res.status(500).json({
 
@@ -873,11 +724,6 @@ app.post(
   }
 );
 
-
-// ==========================================
-// VERIFY FLUTTERWAVE PAYMENT
-// ==========================================
-
 app.get(
   "/api/wallet/verify",
   protect,
@@ -889,7 +735,6 @@ app.get(
         transaction_id,
         tx_ref
       } = req.query;
-
 
       if (!transaction_id || !tx_ref) {
 
@@ -904,9 +749,6 @@ app.get(
 
       }
 
-
-      // FIND OUR TRANSACTION
-
       const transaction =
         await Transaction.findOne({
 
@@ -915,7 +757,6 @@ app.get(
           userId: req.userId
 
         });
-
 
       if (!transaction) {
 
@@ -929,9 +770,6 @@ app.get(
         });
 
       }
-
-
-      // PREVENT DOUBLE CREDIT
 
       if (
         transaction.status ===
@@ -948,9 +786,6 @@ app.get(
         });
 
       }
-
-
-      // ASK FLUTTERWAVE FOR THE REAL STATUS
 
       const response =
         await axios.get(
@@ -973,12 +808,8 @@ app.get(
 
         );
 
-
       const payment =
         response.data.data;
-
-
-      // VERIFY EVERYTHING
 
       if (
 
@@ -1007,7 +838,6 @@ app.get(
 
         await transaction.save();
 
-
         return res.status(400).json({
 
           success: false,
@@ -1019,14 +849,10 @@ app.get(
 
       }
 
-
-      // FIND USER
-
       const user =
         await User.findById(
           transaction.userId
         );
-
 
       if (!user) {
 
@@ -1041,18 +867,11 @@ app.get(
 
       }
 
-
-      // CREDIT WALLET
-
       user.balance =
         Number(user.balance || 0) +
         Number(transaction.amount);
 
-
       await user.save();
-
-
-      // UPDATE TRANSACTION
 
       transaction.status =
         "successful";
@@ -1061,9 +880,6 @@ app.get(
         String(payment.id);
 
       await transaction.save();
-
-
-      // SUCCESS
 
       res.json({
 
@@ -1080,7 +896,6 @@ app.get(
 
       });
 
-
     } catch (error) {
 
       console.error(
@@ -1091,7 +906,6 @@ app.get(
         error.message
 
       );
-
 
       res.status(500).json({
 
@@ -1106,10 +920,6 @@ app.get(
 
   }
 );
-
-// ==========================================
-// GET TRANSACTION HISTORY
-// ==========================================
 
 app.get(
   "/api/wallet/transactions",
@@ -1145,11 +955,6 @@ app.get(
 
   }
 );
-
-
-// ==========================================
-// WALLET SUMMARY
-// ==========================================
 
 app.get(
   "/api/wallet/summary",
@@ -1230,11 +1035,6 @@ app.get(
   }
 );
 
-
-// ==========================================
-// OWLET API - TEST CONNECTION
-// ==========================================
-
 app.get("/api/owlet/services", async (req, res) => {
 
   try {
@@ -1275,14 +1075,6 @@ app.get("/api/owlet/services", async (req, res) => {
   }
 
 });
-
-
-// ==========================================
-// OG BOOSTING - GET SELECTED SERVICES
-// ==========================================
-// ==========================================
-// GET SERVICES WITH OUR OWN SELLING PRICES
-// ==========================================
 
 app.get("/api/services", async (req, res) => {
   try {
@@ -1326,12 +1118,6 @@ app.get("/api/services", async (req, res) => {
   }
 });
 
-
-
-// ==========================================
-// CREATE BOOST ORDER
-// ==========================================
-
 app.post(
   "/api/orders",
   protect,
@@ -1346,11 +1132,6 @@ app.post(
   quantity
 } = req.body;
 
-
-      // ==========================================
-      // VALIDATE INPUT
-      // ==========================================
-
       if (!serviceId || !link || !quantity) {
 
         return res.status(400).json({
@@ -1360,9 +1141,7 @@ app.post(
 
       }
 
-
       const selectedQuantity = Number(quantity);
-
 
       if (
         !Number.isInteger(selectedQuantity) ||
@@ -1376,14 +1155,8 @@ app.post(
 
       }
 
-
-      // ==========================================
-      // GET USER
-      // ==========================================
-
       const user =
         await User.findById(req.userId);
-
 
       if (!user) {
 
@@ -1393,11 +1166,6 @@ app.post(
         });
 
       }
-
-
-      // ==========================================
-      // GET SERVICES FROM OWLET
-      // ==========================================
 
       const servicesResponse =
         await axios.post(
@@ -1413,14 +1181,8 @@ app.post(
           }
         );
 
-
       const owletServices =
         servicesResponse.data;
-
-
-      // ==========================================
-      // FIND SELECTED SERVICE
-      // ==========================================
 
       const selectedService =
         owletServices.find(
@@ -1428,7 +1190,6 @@ app.post(
             String(service.service) ===
             String(serviceId)
         );
-
 
       if (!selectedService) {
 
@@ -1444,15 +1205,9 @@ app.post(
         return res.status(400).json({ success: false, message: "This service is currently unavailable." });
       }
 
-
-      // ==========================================
-      // CHECK MINIMUM / MAXIMUM
-      // ==========================================
-
       const minimum = Number(serviceOverride?.minOverride ?? selectedService.min ?? 1);
 
       const maximum = Number(serviceOverride?.maxOverride ?? selectedService.max ?? 999999999);
-
 
       if (selectedQuantity < minimum) {
 
@@ -1464,7 +1219,6 @@ app.post(
 
       }
 
-
       if (selectedQuantity > maximum) {
 
         return res.status(400).json({
@@ -1474,11 +1228,6 @@ app.post(
         });
 
       }
-
-
-      // ==========================================
-      // CALCULATE OUR SELLING PRICE
-      // ==========================================
 
       const owletCost = Number(selectedService.rate || 0);
       const savedPrice = await ServicePrice.findOne({
@@ -1494,14 +1243,8 @@ app.post(
         (selectedQuantity / 1000) * sellingRate
       );
 
-
-// ==========================================
-      // CHECK WALLET BALANCE
-      // ==========================================
-
       const currentBalance =
         Number(user.balance || 0);
-
 
       if (currentBalance < totalPrice) {
 
@@ -1512,11 +1255,6 @@ app.post(
         });
 
       }
-
-
-      // ==========================================
-      // SEND ORDER TO OWLET
-      // ==========================================
 
       const owletResponse =
         await axios.post(
@@ -1539,20 +1277,13 @@ app.post(
           }
         );
 
-
       console.log(
         "OWLET ORDER RESPONSE:",
         owletResponse.data
       );
 
-
-      // ==========================================
-      // CHECK OWLET RESPONSE
-      // ==========================================
-
       const owletData =
         owletResponse.data;
-
 
       if (
         !owletData ||
@@ -1568,22 +1299,11 @@ app.post(
 
       }
 
-
-      // ==========================================
-      // DEDUCT WALLET
-      // ==========================================
-
       user.balance =
         currentBalance -
         totalPrice;
 
-
       await user.save();
-
-
-      // ==========================================
-      // SAVE ORDER
-      // ==========================================
 
   const order = await Order.create({
 
@@ -1617,9 +1337,6 @@ app.post(
     Number(selectedService.rate || 0) * (selectedQuantity / 1000)
 
 });
-      // ==========================================
-      // SAVE TRANSACTION
-      // ==========================================
 
       await Transaction.create({
 
@@ -1641,11 +1358,6 @@ app.post(
           "successful"
 
       });
-
-
-      // ==========================================
-      // SUCCESS
-      // ==========================================
 
     res.json({
 
@@ -1683,7 +1395,6 @@ app.post(
 
 });
 
-
     } catch (error) {
 
       console.error(
@@ -1691,7 +1402,6 @@ app.post(
         error.response?.data ||
         error.message
       );
-
 
       res.status(500).json({
 
@@ -1707,18 +1417,6 @@ app.post(
 
   }
 );
-
-
-
-
-
-
-
-
-
-// ==========================================
-// GET USER ORDERS
-// ==========================================
 
 app.get(
   "/api/orders",
@@ -1753,12 +1451,6 @@ app.get(
 
   }
 );
-
-
-
-// ==========================================
-// DASHBOARD ORDER SUMMARY
-// ==========================================
 
 app.get(
   "/api/orders/summary",
@@ -1816,14 +1508,6 @@ app.get(
   }
 );
 
-
-
-
-
-// ==========================================
-// GET SINGLE ORDER
-// ==========================================
-
 app.get(
   "/api/orders/:id",
   protect,
@@ -1867,20 +1551,12 @@ app.get(
   }
 );
 
-// ==========================================
-// CHECK ORDER STATUS FROM OWLET
-// ==========================================
-
 app.get(
   "/api/orders/:id/status",
   protect,
   async (req, res) => {
 
     try {
-
-      // ==========================================
-      // FIND USER'S ORDER
-      // ==========================================
 
       const order = await Order.findOne({
         _id: req.params.id,
@@ -1896,11 +1572,6 @@ app.get(
 
       }
 
-
-      // ==========================================
-      // ASK OWLET FOR CURRENT STATUS
-      // ==========================================
-
       const owletResponse = await axios.post(
         process.env.OWLET_API_URL,
         {
@@ -1915,19 +1586,12 @@ app.get(
         }
       );
 
-
       console.log(
         "OWLET STATUS RESPONSE:",
         owletResponse.data
       );
 
-
       const owletData = owletResponse.data;
-
-
-      // ==========================================
-      // CHECK OWLET ERROR
-      // ==========================================
 
       if (
         !owletData ||
@@ -1943,16 +1607,10 @@ app.get(
 
       }
 
-
-      // ==========================================
-      // GET STATUS
-      // ==========================================
-
       const providerStatus =
         String(
           owletData.status || ""
         ).trim();
-
 
       if (!providerStatus) {
 
@@ -1963,14 +1621,8 @@ app.get(
 
       }
 
-
-      // ==========================================
-      // NORMALIZE STATUS
-      // ==========================================
-
       let newStatus =
         providerStatus.toLowerCase();
-
 
       if (
         newStatus === "in progress"
@@ -2029,11 +1681,6 @@ app.get(
 
       }
 
-
-      // ==========================================
-      // SAVE OWLET DATA
-      // ==========================================
-
       order.status =
         newStatus;
 
@@ -2052,11 +1699,6 @@ app.get(
           owletData.charge || 0
         );
 
-
-      // ==========================================
-      // HANDLE CANCEL / REFUND
-      // ==========================================
-
       if (
         (
           newStatus === "cancelled" ||
@@ -2070,23 +1712,13 @@ app.get(
             order.userId
           );
 
-
         if (user) {
-
-          // ======================================
-          // REFUND CUSTOMER
-          // ======================================
 
           user.balance =
             Number(user.balance || 0) +
             Number(order.amount || 0);
 
           await user.save();
-
-
-          // ======================================
-          // RECORD REFUND TRANSACTION
-          // ======================================
 
           await Transaction.create({
 
@@ -2110,11 +1742,6 @@ app.get(
 
           });
 
-
-          // ======================================
-          // PREVENT DOUBLE REFUND
-          // ======================================
-
           order.refundProcessed =
             true;
 
@@ -2122,17 +1749,7 @@ app.get(
 
       }
 
-
-      // ==========================================
-      // SAVE ORDER
-      // ==========================================
-
       await order.save();
-
-
-      // ==========================================
-      // RETURN UPDATED ORDER
-      // ==========================================
 
       res.json({
 
@@ -2165,7 +1782,6 @@ app.get(
 
       });
 
-
     } catch (error) {
 
       console.error(
@@ -2173,7 +1789,6 @@ app.get(
         error.response?.data ||
         error.message
       );
-
 
       res.status(500).json({
 
@@ -2188,13 +1803,6 @@ app.get(
 
   }
 );
-
-
-
-
-// ==========================================
-// ADMIN AUTHENTICATION
-// ==========================================
 
 app.post("/api/admin/login", async (req, res) => {
   try {
@@ -2255,11 +1863,6 @@ app.get("/api/admin/me", adminProtect, (req, res) => {
   });
 });
 
-
-// ==========================================
-// ADMIN DASHBOARD
-// ==========================================
-
 app.get("/api/admin/dashboard", adminProtect, async (req, res) => {
   try {
     const [
@@ -2318,11 +1921,6 @@ app.get("/api/admin/dashboard", adminProtect, async (req, res) => {
   }
 });
 
-
-// ==========================================
-// ADMIN USERS
-// ==========================================
-
 app.get("/api/admin/users", adminProtect, async (req, res) => {
   try {
     const search = String(req.query.search || "").trim();
@@ -2365,11 +1963,6 @@ app.get("/api/admin/users", adminProtect, async (req, res) => {
     });
   }
 });
-
-
-// ==========================================
-// ADMIN USER WALLET ADJUSTMENT
-// ==========================================
 
 app.post("/api/admin/users/:id/wallet", adminProtect, async (req, res) => {
   try {
@@ -2452,11 +2045,6 @@ app.post("/api/admin/users/:id/wallet", adminProtect, async (req, res) => {
   }
 });
 
-
-// ==========================================
-// ADMIN ORDERS
-// ==========================================
-
 app.get("/api/admin/orders", adminProtect, async (req, res) => {
   try {
     const search = String(req.query.search || "").trim();
@@ -2514,11 +2102,6 @@ app.get("/api/admin/orders", adminProtect, async (req, res) => {
   }
 });
 
-
-// ==========================================
-// ADMIN TRANSACTIONS
-// ==========================================
-
 app.get("/api/admin/transactions", adminProtect, async (req, res) => {
   try {
     const page = Math.max(Number(req.query.page || 1), 1);
@@ -2551,11 +2134,6 @@ app.get("/api/admin/transactions", adminProtect, async (req, res) => {
     });
   }
 });
-
-
-// ==========================================
-// ADMIN PROVIDER
-// ==========================================
 
 app.get("/api/admin/provider", adminProtect, async (req, res) => {
   try {
@@ -2622,10 +2200,6 @@ app.get("/api/admin/provider", adminProtect, async (req, res) => {
     });
   }
 });
-
-// ==========================================
-// ADMIN - SERVICE PRICE MANAGEMENT
-// ==========================================
 
 app.get("/api/admin/prices", adminProtect, async (req, res) => {
   try {
@@ -2716,11 +2290,6 @@ app.delete("/api/admin/prices/:serviceId", adminProtect, async (req, res) => {
     res.status(500).json({ success: false, message: "Unable to reset service price." });
   }
 });
-
-
-// ==========================================
-// ADMIN - HELPERS / LOGS
-// ==========================================
 async function adminLog(req, action, targetType = "", targetId = "", details = "") {
   try { await AdminLog.create({ adminEmail: req.adminEmail || req.admin?.email || "admin", action, targetType, targetId: String(targetId || ""), details }); } catch (e) { console.error("Admin log error:", e.message); }
 }
@@ -2731,10 +2300,6 @@ app.get("/api/admin/activity", adminProtect, async (req, res) => {
     res.json({ success: true, logs });
   } catch (e) { res.status(500).json({ success:false, message:"Unable to load activity logs." }); }
 });
-
-// ==========================================
-// ADMIN - SERVICE MANAGEMENT
-// ==========================================
 app.get("/api/admin/services", adminProtect, async (req, res) => {
   try {
     const response = await axios.post(process.env.OWLET_API_URL, { key:process.env.OWLET_API_KEY, action:"services" }, { headers:{"Content-Type":"application/json"} });
@@ -2759,10 +2324,6 @@ app.put("/api/admin/services/:serviceId", adminProtect, async (req,res) => {
     res.json({success:true,message:"Service updated successfully.",service:saved});
   } catch(e){res.status(500).json({success:false,message:"Unable to update service."});}
 });
-
-// ==========================================
-// ADMIN - USER MANAGEMENT
-// ==========================================
 app.patch("/api/admin/users/:id/status", adminProtect, async (req,res)=>{
   try { const user=await User.findByIdAndUpdate(req.params.id,{active:req.body.active!==false},{new:true}).select("fullName email balance active createdAt"); if(!user)return res.status(404).json({success:false,message:"User not found."}); await adminLog(req,user.active?"Activated user":"Suspended user","user",user._id,user.email); res.json({success:true,user}); }
   catch(e){res.status(500).json({success:false,message:"Unable to update user status."});}
@@ -2771,10 +2332,6 @@ app.get("/api/admin/users/:id", adminProtect, async (req,res)=>{
   try { const user=await User.findById(req.params.id).select("-password -resetPasswordToken -resetPasswordExpires"); if(!user)return res.status(404).json({success:false,message:"User not found."}); const orders=await Order.find({userId:user._id}).sort({createdAt:-1}).limit(50); const transactions=await Transaction.find({userId:user._id}).sort({createdAt:-1}).limit(50); res.json({success:true,user,orders,transactions}); }
   catch(e){res.status(500).json({success:false,message:"Unable to load user details."});}
 });
-
-// ==========================================
-// ADMIN - ORDER CONTROL
-// ==========================================
 app.patch("/api/admin/orders/:id", adminProtect, async (req,res)=>{
   try {
     const order=await Order.findById(req.params.id); if(!order)return res.status(404).json({success:false,message:"Order not found."});
@@ -2786,10 +2343,6 @@ app.patch("/api/admin/orders/:id", adminProtect, async (req,res)=>{
     order.status=status; await order.save(); await adminLog(req,"Updated order status","order",order._id,`Status=${status}`); res.json({success:true,message:"Order updated.",order});
   } catch(e){res.status(500).json({success:false,message:"Unable to update order."});}
 });
-
-// ==========================================
-// ADMIN - DEPOSITS / WITHDRAWALS
-// ==========================================
 app.get("/api/admin/deposits", adminProtect, async (req,res)=>{
   try { const transactions=await Transaction.find({type:"deposit"}).populate("userId","fullName email").sort({createdAt:-1}).limit(200); res.json({success:true,transactions}); }
   catch(e){res.status(500).json({success:false,message:"Unable to load deposits."});}
@@ -2802,44 +2355,19 @@ app.patch("/api/admin/withdrawals/:id", adminProtect, async (req,res)=>{
   try { const w=await Withdrawal.findById(req.params.id); if(!w)return res.status(404).json({success:false,message:"Withdrawal not found."}); const next=String(req.body.status||""); if(!["pending","approved","rejected"].includes(next))return res.status(400).json({success:false,message:"Invalid withdrawal status."}); w.status=next; w.note=String(req.body.note||w.note||""); await w.save(); await adminLog(req,`Withdrawal ${next}`,"withdrawal",w._id,w.note); res.json({success:true,withdrawal:w}); }
   catch(e){res.status(500).json({success:false,message:"Unable to update withdrawal."});}
 });
-
-// ==========================================
-// ADMIN - COUPONS
-// ==========================================
 app.get("/api/admin/coupons", adminProtect, async (req,res)=>{ try{res.json({success:true,coupons:await Coupon.find({}).sort({createdAt:-1})});}catch(e){res.status(500).json({success:false,message:"Unable to load coupons."});} });
 app.post("/api/admin/coupons", adminProtect, async (req,res)=>{ try{const b=req.body||{}; const coupon=await Coupon.create({code:String(b.code||"").trim().toUpperCase(),type:b.type||"percent",value:Number(b.value||0),minOrder:Number(b.minOrder||0),maxDiscount:Number(b.maxDiscount||0),usageLimit:Number(b.usageLimit||0),expiresAt:b.expiresAt||null,active:b.active!==false}); await adminLog(req,"Created coupon","coupon",coupon._id,coupon.code); res.json({success:true,coupon});}catch(e){res.status(400).json({success:false,message:e.code===11000?"Coupon code already exists.":"Unable to create coupon."});} });
 app.patch("/api/admin/coupons/:id", adminProtect, async (req,res)=>{ try{const allowed=["code","type","value","minOrder","maxDiscount","usageLimit","expiresAt","active"];const update={};for(const k of allowed)if(req.body[k]!==undefined)update[k]=k==="code"?String(req.body[k]).toUpperCase():req.body[k];const c=await Coupon.findByIdAndUpdate(req.params.id,update,{new:true});if(!c)return res.status(404).json({success:false,message:"Coupon not found."});await adminLog(req,"Updated coupon","coupon",c._id,c.code);res.json({success:true,coupon:c});}catch(e){res.status(400).json({success:false,message:"Unable to update coupon."});} });
 app.delete("/api/admin/coupons/:id", adminProtect, async (req,res)=>{try{await Coupon.findByIdAndDelete(req.params.id);await adminLog(req,"Deleted coupon","coupon",req.params.id);res.json({success:true,message:"Coupon deleted."});}catch(e){res.status(500).json({success:false,message:"Unable to delete coupon."});}});
-
-// ==========================================
-// ADMIN - ANNOUNCEMENTS
-// ==========================================
 app.get("/api/admin/announcements", adminProtect, async(req,res)=>{try{res.json({success:true,announcements:await Announcement.find({}).sort({createdAt:-1})});}catch(e){res.status(500).json({success:false,message:"Unable to load announcements."});}});
 app.post("/api/admin/announcements", adminProtect, async(req,res)=>{try{const a=await Announcement.create(req.body);await adminLog(req,"Created announcement","announcement",a._id,a.title);res.json({success:true,announcement:a});}catch(e){res.status(400).json({success:false,message:"Unable to create announcement."});}});
 app.patch("/api/admin/announcements/:id", adminProtect, async(req,res)=>{try{const a=await Announcement.findByIdAndUpdate(req.params.id,req.body,{new:true});if(!a)return res.status(404).json({success:false,message:"Announcement not found."});await adminLog(req,"Updated announcement","announcement",a._id,a.title);res.json({success:true,announcement:a});}catch(e){res.status(400).json({success:false,message:"Unable to update announcement."});}});
 app.delete("/api/admin/announcements/:id", adminProtect, async(req,res)=>{try{await Announcement.findByIdAndDelete(req.params.id);await adminLog(req,"Deleted announcement","announcement",req.params.id);res.json({success:true,message:"Announcement deleted."});}catch(e){res.status(500).json({success:false,message:"Unable to delete announcement."});}});
 app.get("/api/announcements", async(req,res)=>{try{const now=new Date();const announcements=await Announcement.find({active:true,$or:[{expiresAt:null},{expiresAt:{$gt:now}}]}).sort({createdAt:-1}).limit(10);res.json({success:true,announcements});}catch(e){res.status(500).json({success:false,message:"Unable to load announcements."});}});
-
-// ==========================================
-// ADMIN - SETTINGS
-// ==========================================
 app.get("/api/admin/settings", adminProtect, async(req,res)=>{res.json({success:true,settings:{websiteName:process.env.WEBSITE_NAME||"OG Boosting",supportEmail:process.env.SUPPORT_EMAIL||"",whatsapp:process.env.SUPPORT_WHATSAPP||"",currency:"NGN",maintenanceMode:process.env.MAINTENANCE_MODE==="true",registrationEnabled:process.env.REGISTRATION_ENABLED!=="false",defaultMarkup:68.35}});});
 app.put("/api/admin/settings", adminProtect, async(req,res)=>{try{const envPath=path.join(__dirname,".env");let env=fs.existsSync(envPath)?fs.readFileSync(envPath,"utf8"):"";const fields={WEBSITE_NAME:req.body.websiteName,SUPPORT_EMAIL:req.body.supportEmail,SUPPORT_WHATSAPP:req.body.whatsapp,MAINTENANCE_MODE:req.body.maintenanceMode?"true":"false",REGISTRATION_ENABLED:req.body.registrationEnabled===false?"false":"true"};for(const [k,v] of Object.entries(fields)){const line=`${k}=${String(v??"").replace(/\n/g,"")}`;const re=new RegExp(`^${k}=.*$`,`m`);env=re.test(env)?env.replace(re,line):env+`\n${line}`;}fs.writeFileSync(envPath,env);for(const[k,v]of Object.entries(fields))process.env[k]=v;await adminLog(req,"Updated website settings","settings","",Object.keys(fields).join(","));res.json({success:true,message:"Settings saved."});}catch(e){res.status(500).json({success:false,message:"Unable to save settings."});}});
-
-// ==========================================
-// ADMIN - CHANGE PASSWORD / SECURITY
-// ==========================================
 app.post("/api/admin/change-password", adminProtect, async(req,res)=>{try{const current=String(req.body.currentPassword||"");const next=String(req.body.newPassword||"");if(current!==String(process.env.ADMIN_PASSWORD||""))return res.status(401).json({success:false,message:"Current password is incorrect."});if(next.length<8)return res.status(400).json({success:false,message:"New password must be at least 8 characters."});const envPath=path.join(__dirname,".env");let env=fs.existsSync(envPath)?fs.readFileSync(envPath,"utf8"):"";const re=/^ADMIN_PASSWORD=.*$/m;env=re.test(env)?env.replace(re,`ADMIN_PASSWORD=${next}`):env+`\nADMIN_PASSWORD=${next}`;fs.writeFileSync(envPath,env);process.env.ADMIN_PASSWORD=next;await adminLog(req,"Changed admin password");res.json({success:true,message:"Admin password changed. Please log in again."});}catch(e){res.status(500).json({success:false,message:"Unable to change admin password."});}});
-
-// ==========================================
-// ADMIN - REVENUE / PROFIT
-// ==========================================
 app.get("/api/admin/revenue", adminProtect, async(req,res)=>{try{const orders=await Order.find({}).lean();const sales=orders.reduce((a,o)=>a+Number(o.amount||0),0);const provider=orders.reduce((a,o)=>a+Number(o.providerCharge||0),0);const completed=orders.filter(o=>String(o.status).toLowerCase()==="completed");res.json({success:true,summary:{sales,providerCost:provider,profit:sales-provider,completedOrders:completed.length},orders:orders.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt)).slice(0,200)});}catch(e){res.status(500).json({success:false,message:"Unable to load revenue report."});}});
-
-
-// ===============================
-// SERVER
-// ===============================
 
 const PORT = process.env.PORT || 5000;
 

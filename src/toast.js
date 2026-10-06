@@ -1,4 +1,3 @@
-// OG Boosting global toast notifications
 (function () {
   function ensureContainer() {
     let container = document.getElementById("ogToastContainer");
