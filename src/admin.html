@@ -3,8 +3,47 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OG Boosting Admin</title><link rel="stylesheet" href="./output.css"><style>
-.admin-content{margin-left:260px;min-height:100vh;}
+.admin-content{margin-left:260px;min-height:100vh;min-width:0;}
 @media (max-width:1023px){.admin-content{margin-left:0;}}
+
+/* Responsive admin layout */
+.admin-section{min-width:0;}
+.card,.toolbar{min-width:0;}
+.table{min-width:680px;}
+.overflow-x-auto{-webkit-overflow-scrolling:touch;scrollbar-width:thin;}
+
+@media (max-width:767px){
+  .admin-content main{padding-left:.75rem!important;padding-right:.75rem!important;padding-top:1rem!important;}
+  .admin-content main>p{font-size:.72rem;}
+  #sectionTitle{font-size:1.65rem!important;line-height:1.2;margin-bottom:1rem!important;}
+  .toolbar{padding:.85rem;margin-bottom:.85rem;gap:.5rem;}
+  .toolbar .input{min-width:0;flex:1 1 100%;}
+  .toolbar .btn{width:100%;}
+  .input{font-size:.9rem;padding:.7rem .85rem;}
+  .btn{width:100%;padding:.7rem 1rem;}
+  .card{border-radius:.75rem;padding:.9rem;}
+  .title{font-size:1rem;}
+  .table{font-size:.78rem;min-width:680px;}
+  .table th,.table td{padding:.7rem .65rem;white-space:nowrap;}
+  .table td{white-space:normal;}
+  #section-coupons .table{min-width:760px;}
+  #section-announcements .flex{flex-wrap:wrap;}
+  #section-announcements .flex>*{min-width:0;}
+  #providerBalance{padding:1rem!important;border-radius:.75rem!important;}
+  #providerBalance .text-3xl{font-size:1.5rem;}
+  #modal{padding:.75rem!important;align-items:flex-end!important;}
+  #modal>div{width:100%;max-width:none;border-radius:1rem 1rem 0 0;padding:1rem;max-height:92vh;}
+  #walletForm .btn{width:100%;}
+  #adminMobileDrawer{width:280px;max-width:86vw;}
+  #mobileAdminNav{padding:.75rem;}
+  #mobileAdminNav button{font-size:.9rem;padding:.7rem .8rem;}
+  #statGrid{grid-template-columns:1fr!important;}
+}
+
+@media (min-width:768px) and (max-width:1023px){
+  .admin-content main{padding-left:1.25rem!important;padding-right:1.25rem!important;}
+  .toolbar .input{min-width:180px;}
+}
 </style>
 </head>
 <body class="bg-[#f6f8fa] text-gray-800">
@@ -51,7 +90,7 @@
 <section id="section-deposits" class="admin-section hidden"><div class="card overflow-hidden"><div class="overflow-x-auto"><table class="table min-w-[900px]"><thead><tr><th>Reference</th><th>Customer</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead><tbody id="depositsTable"></tbody></table></div></div></section>
 <section id="section-withdrawals" class="admin-section hidden"><div class="card overflow-hidden"><div class="overflow-x-auto"><table class="table min-w-[1000px]"><thead><tr><th>Customer</th><th>Amount</th><th>Method</th><th>Destination</th><th>Status</th><th>Action</th></tr></thead><tbody id="withdrawalsTable"></tbody></table></div></div></section>
 <section id="section-revenue" class="admin-section hidden"><div id="revenueStats" class="grid sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6"></div><div class="card overflow-hidden"><div class="overflow-x-auto"><table class="table min-w-[850px]"><thead><tr><th>Order</th><th>Sales</th><th>Provider Cost</th><th>Profit</th><th>Status</th><th>Date</th></tr></thead><tbody id="revenueTable"></tbody></table></div></div></section>
-<section id="section-coupons" class="admin-section hidden"><div class="card mb-5"><h3 class="title">Create Coupon</h3><form id="couponForm" class="grid md:grid-cols-4 gap-3 mt-4"><input id="couponCode" required placeholder="WELCOME20" class="input"><select id="couponType" class="input"><option value="percent">Percentage</option><option value="fixed">Fixed NGN</option></select><input id="couponValue" type="number" min="0" step="0.01" required placeholder="Value" class="input"><input id="couponMin" type="number" min="0" placeholder="Minimum order" class="input"><input id="couponMax" type="number" min="0" placeholder="Max discount (0 = none)" class="input"><input id="couponLimit" type="number" min="0" placeholder="Usage limit (0 = unlimited)" class="input"><input id="couponExpiry" type="date" class="input"><button class="btn">Create coupon</button></form></div><div class="card overflow-hidden"><table class="table"><thead><tr><th>Code</th><th>Type</th><th>Value</th><th>Used</th><th>Expires</th><th>Status</th><th>Action</th></tr></thead><tbody id="couponsTable"></tbody></table></div></section>
+<section id="section-coupons" class="admin-section hidden"><div class="card mb-5"><h3 class="title">Create Coupon</h3><form id="couponForm" class="grid md:grid-cols-4 gap-3 mt-4"><input id="couponCode" required placeholder="WELCOME20" class="input"><select id="couponType" class="input"><option value="percent">Percentage</option><option value="fixed">Fixed NGN</option></select><input id="couponValue" type="number" min="0" step="0.01" required placeholder="Value" class="input"><input id="couponMin" type="number" min="0" placeholder="Minimum order" class="input"><input id="couponMax" type="number" min="0" placeholder="Max discount (0 = none)" class="input"><input id="couponLimit" type="number" min="0" placeholder="Usage limit (0 = unlimited)" class="input"><input id="couponExpiry" type="date" class="input"><button class="btn">Create coupon</button></form></div><div class="card overflow-hidden"><div class="overflow-x-auto"><table class="table min-w-[760px]"><thead><tr><th>Code</th><th>Type</th><th>Value</th><th>Used</th><th>Expires</th><th>Status</th><th>Action</th></tr></thead><tbody id="couponsTable"></tbody></table></div></div></section>
 <section id="section-announcements" class="admin-section hidden"><div class="card mb-5"><h3 class="title">Create Announcement</h3><form id="announcementForm" class="space-y-3 mt-4"><input id="announcementTitle" required placeholder="Title" class="input"><textarea id="announcementMessage" required placeholder="Message" class="input min-h-24"></textarea><div class="flex gap-3"><select id="announcementType" class="input"><option>info</option><option>success</option><option>warning</option><option>danger</option></select><input id="announcementExpiry" type="date" class="input"><button class="btn">Publish</button></div></form></div><div id="announcementsList" class="space-y-3"></div></section>
 <section id="section-provider" class="admin-section hidden"><div id="providerBalance" class="bg-[#0B4F63] text-white rounded-2xl p-6 mb-5"></div><div class="card overflow-hidden"><div class="overflow-x-auto"><table class="table min-w-[950px]"><thead><tr><th>ID</th><th>Service</th><th>Category</th><th>Provider Rate</th><th>Our Rate</th><th>Min/Max</th></tr></thead><tbody id="providerTable"></tbody></table></div></div></section>
 <section id="section-activity" class="admin-section hidden"><div class="card overflow-hidden"><div class="overflow-x-auto"><table class="table min-w-[1000px]"><thead><tr><th>Time</th><th>Admin</th><th>Action</th><th>Target</th><th>Details</th></tr></thead><tbody id="activityTable"></tbody></table></div></div></section>
