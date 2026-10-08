@@ -82,9 +82,7 @@
   .toolbar .input{min-width:180px;}
 }
   body.admin-menu-open{overflow:hidden!important;}
-}
 
-<style>
 .admin-desktop-sidebar{
   position:fixed;left:0;top:0;bottom:0;width:260px;
   background:#fff;border-right:1px solid #e5e7eb;
@@ -243,6 +241,39 @@
   #section-announcements .flex>*{width:100%!important;}
   #section-email .grid{grid-template-columns:1fr!important;}
   #section-settings .card,#section-security .card{max-width:none!important;}
+}
+</style>
+
+<style>
+/* Desktop admin visibility fix */
+@media (min-width: 1024px) {
+  .admin-desktop-sidebar {
+    display: flex !important;
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    width: 260px !important;
+  }
+  .admin-content {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin-left: 260px !important;
+    width: calc(100% - 260px) !important;
+    min-height: 100vh !important;
+    background: #f6f8fa !important;
+  }
+  .admin-content > main {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  .admin-mobile-header,
+  .admin-mobile-drawer,
+  .admin-mobile-overlay {
+    display: none !important;
+  }
 }
 </style>
 </head>
