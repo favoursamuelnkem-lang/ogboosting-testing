@@ -3,26 +3,55 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OG Boosting Admin</title><link rel="stylesheet" href="./output.css"><style>
-.admin-content{margin-left:260px;min-height:100vh;min-width:0;background:#f6f8fa;}
-.admin-desktop-sidebar{position:fixed;left:0;top:0;bottom:0;width:260px;background:#fff;border-right:1px solid #e6eaed;display:flex;flex-direction:column;z-index:50;}
-.admin-mobile-header{display:none;}
-.admin-mobile-drawer,.admin-mobile-overlay{display:none;}
-.admin-section{min-width:0;display:none!important;}
-.admin-section.is-active{display:block!important;}
-.admin-content main{max-width:1500px;min-height:calc(100vh - 1px);}
+.admin-content{margin-left:260px;min-height:100vh;min-width:0;}
+@media (max-width:1023px){.admin-content{margin-left:0;}}
+
 @media (max-width:1023px){
-  .admin-desktop-sidebar{display:none!important;}
-  .admin-content{margin-left:0;min-height:100vh;}
-  .admin-mobile-header{display:block;}
-  .admin-mobile-drawer{display:flex;}
-  .admin-mobile-overlay{display:block;}
+  .admin-mobile-drawer{
+    display:flex!important;
+    position:fixed!important;
+    top:0!important;left:0!important;bottom:0!important;
+    width:290px!important;max-width:88vw!important;
+    z-index:2147483000!important;
+    transform:translate3d(-105%,0,0)!important;
+    visibility:hidden!important;
+    opacity:1!important;
+    pointer-events:none!important;
+    transition:transform .22s ease, visibility 0s linear .22s!important;
+  }
+  .admin-mobile-drawer.is-open{
+    transform:translate3d(0,0,0)!important;
+    visibility:visible!important;
+    pointer-events:auto!important;
+    transition:transform .22s ease, visibility 0s linear 0s!important;
+  }
+  .admin-mobile-overlay{
+    display:block!important;
+    position:fixed!important;
+    inset:0!important;
+    z-index:2147482990!important;
+    background:rgba(15,23,42,.38)!important;
+    opacity:0!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+    transition:opacity .2s ease, visibility 0s linear .2s!important;
+  }
+  .admin-mobile-overlay.is-open{
+    opacity:1!important;
+    visibility:visible!important;
+    pointer-events:auto!important;
+    transition:opacity .2s ease, visibility 0s linear 0s!important;
+  }
 }
-@media (min-width:1024px){
-  .admin-content{margin-left:260px!important;}
-  .admin-desktop-sidebar{display:flex!important;}
-}
+
+.admin-section{min-width:0;}
+.card,.toolbar{min-width:0;}
+.table{min-width:680px;}
+.overflow-x-auto{-webkit-overflow-scrolling:touch;scrollbar-width:thin;}
+
 @media (max-width:767px){
   .admin-content main{padding-left:.75rem!important;padding-right:.75rem!important;padding-top:1rem!important;}
+  .admin-content main>p{font-size:.72rem;}
   #sectionTitle{font-size:1.65rem!important;line-height:1.2;margin-bottom:1rem!important;}
   .toolbar{padding:.85rem;margin-bottom:.85rem;gap:.5rem;}
   .toolbar .input{min-width:0;flex:1 1 100%;}
@@ -30,11 +59,32 @@
   .input{font-size:.9rem;padding:.7rem .85rem;}
   .btn{width:100%;padding:.7rem 1rem;}
   .card{border-radius:.75rem;padding:.9rem;}
+  .title{font-size:1rem;}
   .table{font-size:.78rem;min-width:680px;}
-  .table th,.table td{padding:.7rem .65rem;}
+  .table th,.table td{padding:.7rem .65rem;white-space:nowrap;}
+  .table td{white-space:normal;}
+  #section-coupons .table{min-width:760px;}
+  #section-announcements .flex{flex-wrap:wrap;}
+  #section-announcements .flex>*{min-width:0;}
+  #providerBalance{padding:1rem!important;border-radius:.75rem!important;}
+  #providerBalance .text-3xl{font-size:1.5rem;}
+  #modal{padding:.75rem!important;align-items:flex-end!important;}
+  #modal>div{width:100%;max-width:none;border-radius:1rem 1rem 0 0;padding:1rem;max-height:92vh;}
+  #walletForm .btn{width:100%;}
+  #adminMobileDrawer{width:280px;max-width:86vw;}
+  #mobileAdminNav{padding:.75rem;}
+  #mobileAdminNav button{font-size:.9rem;padding:.7rem .8rem;}
+  #statGrid{grid-template-columns:1fr!important;}
 }
-body.admin-menu-open{overflow:hidden!important;}
 
+@media (min-width:768px) and (max-width:1023px){
+  .admin-content main{padding-left:1.25rem!important;padding-right:1.25rem!important;}
+  .toolbar .input{min-width:180px;}
+}
+  body.admin-menu-open{overflow:hidden!important;}
+}
+
+<style>
 .admin-desktop-sidebar{
   position:fixed;left:0;top:0;bottom:0;width:260px;
   background:#fff;border-right:1px solid #e5e7eb;
@@ -81,7 +131,6 @@ body.admin-menu-open{overflow:hidden!important;}
 @media (max-width:767px){
   .admin-mobile-header{display:block;}
 }
-
 </style>
 
 <style>
@@ -232,7 +281,7 @@ body.admin-menu-open{overflow:hidden!important;}
   </div>
 </aside>
 <main class="max-w-[1600px] mx-auto px-5 sm:px-7 lg:px-10 py-7 pb-20"><p class="text-sm text-gray-400 font-medium">Administration</p><h2 id="sectionTitle" class="text-3xl font-black text-gray-900 mt-1 mb-7">Dashboard</h2>
-<section id="section-dashboard" class="admin-section is-active"><div id="statGrid" class="grid sm:grid-cols-2 xl:grid-cols-4 gap-4"></div><div class="grid xl:grid-cols-2 gap-5 mt-6"><div class="card"><h3 class="title">Order status</h3><div id="orderStatus" class="mt-5 space-y-3"></div></div><div class="card"><h3 class="title">Recent users</h3><div id="recentUsers" class="mt-5 divide-y divide-gray-100"></div></div></div></section>
+<section id="section-dashboard" class="admin-section"><div id="statGrid" class="grid sm:grid-cols-2 xl:grid-cols-4 gap-4"></div><div class="grid xl:grid-cols-2 gap-5 mt-6"><div class="card"><h3 class="title">Order status</h3><div id="orderStatus" class="mt-5 space-y-3"></div></div><div class="card"><h3 class="title">Recent users</h3><div id="recentUsers" class="mt-5 divide-y divide-gray-100"></div></div></div></section>
 <section id="section-users" class="admin-section hidden"><div class="toolbar"><input id="userSearch" placeholder="Search name or email..." class="input"><button id="userSearchBtn" class="btn">Search</button></div><div class="card overflow-hidden"><div class="overflow-x-auto"><table class="table"><thead><tr><th>User</th><th>Email</th><th>Balance</th><th>Status</th><th>Joined</th><th>Action</th></tr></thead><tbody id="usersTable"></tbody></table></div></div></section>
 <section id="section-orders" class="admin-section hidden"><div class="toolbar"><input id="orderSearch" placeholder="Search order, user, service or link..." class="input"><select id="orderStatusFilter" class="input sm:w-48"><option value="">All statuses</option><option>pending</option><option>processing</option><option>completed</option><option>partial</option><option>cancelled</option><option>refunded</option></select><button id="orderSearchBtn" class="btn">Search</button></div><div class="card overflow-hidden"><div class="overflow-x-auto"><table class="table min-w-[1100px]"><thead><tr><th>Order</th><th>Customer</th><th>Service</th><th>Amount</th><th>Provider Cost</th><th>Profit</th><th>Status</th><th>Action</th></tr></thead><tbody id="ordersTable"></tbody></table></div></div></section>
 <section id="section-services" class="admin-section hidden"><div class="toolbar"><input id="serviceSearch" placeholder="Search services..." class="input"><button id="serviceRefreshBtn" class="btn">Refresh</button></div><div class="card overflow-hidden"><div class="overflow-x-auto"><table class="table min-w-[1250px]"><thead><tr><th>ID</th><th>Provider Service</th><th>Customer Name</th><th>Category</th><th>Provider Cost</th><th>Enabled</th><th>Min</th><th>Max</th><th>Description</th><th>Action</th></tr></thead><tbody id="servicesTable"></tbody></table></div></div></section>
