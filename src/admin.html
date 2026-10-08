@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OG Boosting Admin</title><link rel="stylesheet" href="./output.css?v=admin-status-1"><style>
+  <title>OG Boosting Admin</title><link rel="stylesheet" href="./output.css?v=admin-status-2"><style>
 .admin-content{margin-left:260px;min-height:100vh;min-width:0;}
 @media (max-width:1023px){.admin-content{margin-left:0;}}
 
@@ -330,5 +330,5 @@
 <section id="section-security" class="admin-section hidden"><div class="card max-w-xl"><h3 class="title">Change Admin Password</h3><form id="securityForm" class="space-y-4 mt-5"><input id="currentPassword" type="password" required placeholder="Current password" class="input"><input id="newPassword" type="password" required minlength="8" placeholder="New password" class="input"><input id="confirmPassword" type="password" required minlength="8" placeholder="Confirm new password" class="input"><button class="btn">Change Password</button><p id="securityMessage" class="hidden px-4 py-3 rounded-xl text-sm"></p></form></div></section>
 </main></div>
 <div id="modal" class="fixed inset-0 bg-black/40 hidden items-center justify-center p-5 z-[100]"><div class="bg-white rounded-2xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto"><div class="flex justify-between"><h3 id="modalTitle" class="text-xl font-black">Wallet</h3><button id="closeModal" class="text-gray-400 text-xl">×</button></div><p id="modalUser" class="text-sm text-gray-400 mt-1"></p><p id="modalBalance" class="text-sm font-bold text-[#0B4F63] mt-2"></p><form id="walletForm" class="mt-5 space-y-4"><input type="hidden" id="walletUserId"><select id="walletAction" class="input"><option value="credit">Add money (credit)</option><option value="debit">Remove money (debit)</option></select><input id="walletAmount" type="number" min="1" required placeholder="Amount in NGN" class="input"><input id="walletReason" required placeholder="Reason / note" class="input"><p id="walletMessage" class="hidden px-4 py-3 rounded-xl text-sm"></p><button class="btn w-full">Update Wallet</button></form></div></div>
-<script src="./admin.js?v=admin-status-1"></script>
+<script src="./admin.js?v=admin-status-2"></script>
 </body></html>

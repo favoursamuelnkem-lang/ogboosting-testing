@@ -1979,7 +1979,7 @@ app.get("/api/admin/users", adminProtect, async (req, res) => {
 
     const [users, total] = await Promise.all([
       User.find(filter)
-        .select("fullName email balance createdAt")
+        .select("fullName email balance active createdAt")
         .sort({ createdAt: -1 })
         .skip((page - 1) * limit)
         .limit(limit),
