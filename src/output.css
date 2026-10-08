@@ -1481,17 +1481,11 @@
     .hover\:bg-gray-100:hover {
       background-color: var(--color-gray-100);
     }
-    .hover\:bg-green-100:hover {
-      background-color: var(--color-green-100);
-    }
     .hover\:bg-orange-50:hover {
       background-color: var(--color-orange-50);
     }
     .hover\:bg-orange-600:hover {
       background-color: var(--color-orange-600);
-    }
-    .hover\:bg-red-100:hover {
-      background-color: var(--color-red-100);
     }
     .hover\:bg-white\/10:hover {
       background-color: color-mix(in srgb, #fff 10%, transparent);

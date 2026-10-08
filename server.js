@@ -1920,7 +1920,7 @@ app.get("/api/admin/dashboard", adminProtect, async (req, res) => {
       User.countDocuments(),
       Order.countDocuments(),
       Transaction.countDocuments(),
-      User.find().select("fullName email balance createdAt").sort({ createdAt: -1 }).limit(8),
+      User.find().select("fullName email balance active createdAt").sort({ createdAt: -1 }).limit(8),
       Transaction.aggregate([
         { $match: { type: "deposit", status: "successful" } },
         { $group: { _id: null, total: { $sum: "$amount" } } }
