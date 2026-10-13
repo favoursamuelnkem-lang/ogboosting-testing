@@ -385,6 +385,32 @@
           <div class="mt-5">
 
             <label
+              for="boostType"
+              class="block text-sm font-bold mb-2"
+            >
+              Boost Type
+            </label>
+
+            <select
+              id="boostType"
+              class="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-white outline-none focus:border-[#0B4F63] focus:ring-4 focus:ring-[#0B4F63]/5 transition"
+            >
+              <option value="">All service types</option>
+              <option value="followers">Followers</option>
+              <option value="likes">Likes</option>
+              <option value="views">Views</option>
+              <option value="comments">Comments</option>
+              <option value="shares">Shares</option>
+              <option value="subscribers">Subscribers</option>
+              <option value="members">Members</option>
+            </select>
+
+          </div>
+
+
+          <div class="mt-5">
+
+            <label
               class="block text-sm font-bold mb-2"
             >
               Service
@@ -1031,90 +1057,50 @@ async function loadServices() {
 
 loadServices();
 
-platform.addEventListener(
-  "change",
-  function () {
+const boostType = document.getElementById("boostType");
 
-    const selectedPlatform =
-      platform.value;
+function renderMatchingServices() {
+  const selectedPlatform = platform.value;
+  const selectedType = boostType.value.toLowerCase();
 
-    service.innerHTML =
-      `<option value="">Select service</option>`;
+  service.innerHTML = `<option value="">Select service</option>`;
 
-    if (!selectedPlatform) {
-
-      updateSummary();
-
-      return;
-
-    }
-
-    const matchingServices =
-      services.filter(function (item) {
-
-        const text =
-          (
-            String(item.name || "") +
-            " " +
-            String(item.category || "")
-          ).toLowerCase();
-
-        return text.includes(
-          selectedPlatform.toLowerCase()
-        );
-
-      });
-
-
-    console.log(
-      selectedPlatform,
-      "services:",
-      matchingServices
-    );
-
-
-    if (matchingServices.length === 0) {
-
-      service.innerHTML =
-        `<option value="">No services available</option>`;
-
-      updateSummary();
-
-      return;
-
-    }
-
-
-    matchingServices.forEach(
-      function (item) {
-
-        const option =
-          document.createElement("option");
-
-        option.value =
-          item.service;
-
-        option.textContent =
-          item.name;
-
-        option.dataset.price =
-          item.price;
-
-        option.dataset.min =
-          item.min;
-
-        option.dataset.max =
-          item.max;
-
-        service.appendChild(option);
-
-      }
-    );
-
+  if (!selectedPlatform) {
+    service.innerHTML = `<option value="">Select a platform first</option>`;
     updateSummary();
-
+    return;
   }
-);
+
+  const matchingServices = services.filter(function (item) {
+    const platformText = `${String(item.name || "")} ${String(item.category || "")}`.toLowerCase();
+    const serviceText = `${String(item.name || "")} ${String(item.category || "")} ${String(item.type || "")} ${String(item.description || "")}`.toLowerCase();
+    const platformMatches = platformText.includes(selectedPlatform.toLowerCase()) ||
+      (selectedPlatform === "X" && /twitter|\bx\b/.test(platformText));
+    const typeMatches = !selectedType || serviceText.includes(selectedType);
+    return platformMatches && typeMatches;
+  });
+
+  if (matchingServices.length === 0) {
+    service.innerHTML = `<option value="">No matching services found</option>`;
+    updateSummary();
+    return;
+  }
+
+  matchingServices.forEach(function (item) {
+    const option = document.createElement("option");
+    option.value = item.service;
+    option.textContent = `${item.name} — ₦${Number(item.price || 0).toLocaleString("en-NG", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} per 1,000`;
+    option.dataset.price = item.price;
+    option.dataset.min = item.min;
+    option.dataset.max = item.max;
+    service.appendChild(option);
+  });
+
+  updateSummary();
+}
+
+platform.addEventListener("change", renderMatchingServices);
+boostType.addEventListener("change", renderMatchingServices);
 
 service.addEventListener(
   "change",

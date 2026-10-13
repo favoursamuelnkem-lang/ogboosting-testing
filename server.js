@@ -1110,7 +1110,7 @@ app.get("/api/services", async (req, res) => {
     const priceMap = new Map(overrides.map(item => [String(item.serviceId), item]));
     const defaultMarkup = 68.35;
 
-    const services = owletServices.slice(0, 50).map(service => {
+    const services = owletServices.map(service => {
       const serviceId = String(service.service);
       const providerRate = Number(service.rate || 0);
       const saved = priceMap.get(serviceId);
@@ -2205,7 +2205,7 @@ app.get("/api/admin/provider", adminProtect, async (req, res) => {
     const priceMap = new Map(savedPrices.map(item => [String(item.serviceId), item]));
     const MARKUP_PERCENT = 68.35;
 
-    const services = rawServices.slice(0, 100).map(service => {
+    const services = rawServices.map(service => {
       const providerRate = Number(service.rate || 0);
       const saved = priceMap.get(String(service.service));
       const defaultSelling = providerRate + (providerRate * MARKUP_PERCENT / 100);
@@ -2255,7 +2255,7 @@ app.get("/api/admin/prices", adminProtect, async (req, res) => {
     const priceMap = new Map(savedPrices.map(item => [String(item.serviceId), item]));
     const defaultMarkup = 68.35;
 
-    const services = owletServices.slice(0, 100).map(service => {
+    const services = owletServices.map(service => {
       const id = String(service.service);
       const providerRate = Number(service.rate || 0);
       const saved = priceMap.get(id);
@@ -2347,7 +2347,7 @@ app.get("/api/admin/services", adminProtect, async (req, res) => {
     const raw = Array.isArray(response.data) ? response.data : [];
     const saved = await ServicePrice.find({}).lean();
     const map = new Map(saved.map(x => [String(x.serviceId), x]));
-    const services = raw.slice(0, 200).map(x => {
+    const services = raw.map(x => {
       const o = map.get(String(x.service));
       return { serviceId:String(x.service), name:x.name, category:x.category || "Other", providerRate:Number(x.rate||0), min:x.min, max:x.max, enabled:o?.enabled !== false, displayName:o?.displayName || x.name, description:o?.description || "", minOverride:o?.minOverride ?? null, maxOverride:o?.maxOverride ?? null };
     });
