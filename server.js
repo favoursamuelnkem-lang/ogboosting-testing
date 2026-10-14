@@ -27,7 +27,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 // Provider names and rates remain sourced from Owlet.
 const ALLOWED_TIKTOK_FOLLOWER_SERVICE_IDS = new Set(["8288", "23425"]);
 const ALLOWED_TIKTOK_LIKE_SERVICE_IDS = new Set(["21632"]);
-const ALLOWED_TIKTOK_VIEW_SERVICE_IDS = new Set(["23148"]);
+const ALLOWED_TIKTOK_VIEW_SERVICE_IDS = new Set(["23148", "20884"]);
 function getTikTokServiceText(service) {
   return `${service?.name || ""} ${service?.category || ""}`.toLowerCase();
 }
@@ -78,6 +78,79 @@ async function refundOrderOnce(order, referencePrefix = "REFUND") {
   order.refundProcessed = true;
   return true;
 }
+async function sendOrderStatusEmail(order, notificationStatus) {
+  if (!process.env.RESEND_API_KEY) {
+    console.warn(`RESEND_API_KEY is not configured; order ${notificationStatus} email skipped.`);
+    return false;
+  }
+  if (!order || (Array.isArray(order.emailNotifications) && order.emailNotifications.includes(notificationStatus))) {
+    return false;
+  }
+
+  const user = await User.findById(order.userId).select("fullName email");
+  if (!user?.email) {
+    console.warn(`Cannot send order ${notificationStatus} email: customer email not found.`);
+    return false;
+  }
+
+  const details = {
+    placed: {
+      subject: "Your OG Boosting order has been placed successfully",
+      heading: "Your order has been placed successfully!",
+      message: "We have received your order and sent it to our service provider. You can check its progress from your OG Boosting dashboard."
+    },
+    completed: {
+      subject: "Your OG Boosting order was completed successfully",
+      heading: "Your order was completed successfully!",
+      message: "Good news! Your order has been marked as completed. Thank you for using OG Boosting."
+    },
+    cancelled: {
+      subject: "Your OG Boosting order was cancelled",
+      heading: "Your order has been cancelled",
+      message: "Your order has been cancelled. If a refund was processed, the amount has been returned to your OG Boosting wallet."
+    },
+    refunded: {
+      subject: "Your OG Boosting order has been refunded",
+      heading: "Your order has been refunded",
+      message: "Your order has been refunded and the amount has been returned to your OG Boosting wallet."
+    }
+  }[notificationStatus];
+  if (!details) return false;
+
+  const safe = value => String(value ?? "").replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
+  const orderId = safe(order._id);
+  const amount = Number(order.amount || 0).toLocaleString("en-NG");
+  const { data, error } = await resend.emails.send({
+    from: "OG Boosting <support@getogsms.com>",
+    replyTo: "supportogboosting@gmail.com",
+    to: [user.email],
+    subject: details.subject,
+    html: `
+      <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:28px;background:#f6f8fa;color:#172033;">
+        <div style="background:#fff;border:1px solid #eaecf0;border-radius:16px;padding:28px;">
+          <div style="font-size:24px;font-weight:800;color:#0B4F63;">OG<span style="color:#F97316;">Boost</span></div>
+          <h2 style="color:#0B4F63;margin-top:28px;">${details.heading}</h2>
+          <p style="font-size:15px;line-height:1.7;color:#475467;">Hi ${safe(user.fullName || "there")}, ${details.message}</p>
+          <div style="padding:16px;background:#f8fafc;border:1px solid #eaecf0;border-radius:12px;line-height:1.9;">
+            <strong>Order ID:</strong> ${orderId}<br>
+            <strong>Service:</strong> ${safe(order.serviceName)}<br>
+            <strong>Quantity:</strong> ${Number(order.quantity || 0).toLocaleString()}<br>
+            <strong>Amount:</strong> ₦${amount}<br>
+            <strong>Status:</strong> ${safe(notificationStatus)}
+          </div>
+          <p style="font-size:14px;color:#475467;margin-top:24px;">If you have questions, reply to this email or contact OG Boosting Support.</p>
+          <p style="font-size:14px;color:#475467;">— OG Boosting Support</p>
+        </div>
+      </div>`
+  });
+  if (error) throw error;
+
+  order.emailNotifications = [...(order.emailNotifications || []), notificationStatus];
+  await order.save();
+  console.log(`Order ${notificationStatus} email sent:`, data?.id || "ok");
+  return true;
+}
+
 async function sendWelcomeBackEmail(user) {
   if (!process.env.RESEND_API_KEY) {
     console.warn("RESEND_API_KEY is not configured; welcome email skipped.");
@@ -1457,6 +1530,12 @@ app.post(
 
       });
 
+      try {
+        await sendOrderStatusEmail(order, "placed");
+      } catch (emailError) {
+        console.error("Order placed email error:", emailError.message || emailError);
+      }
+
     res.json({
 
   success: true,
@@ -1808,6 +1887,14 @@ app.get(
       }
 
       await order.save();
+
+      if (["completed", "cancelled", "refunded"].includes(newStatus)) {
+        try {
+          await sendOrderStatusEmail(order, newStatus);
+        } catch (emailError) {
+          console.error(`Order ${newStatus} email error:`, emailError.message || emailError);
+        }
+      }
 
       res.json({
 
@@ -2400,7 +2487,12 @@ app.patch("/api/admin/orders/:id", adminProtect, async (req,res)=>{
     if (status === "cancelled" || status === "refunded") {
       await refundOrderOnce(order, "REFUND");
     }
-    order.status=status; await order.save(); await adminLog(req,"Updated order status","order",order._id,`Status=${status}`); res.json({success:true,message:"Order updated.",order});
+    order.status=status; await order.save();
+    if (["completed", "cancelled", "refunded"].includes(status)) {
+      try { await sendOrderStatusEmail(order, status); }
+      catch (emailError) { console.error(`Admin order ${status} email error:`, emailError.message || emailError); }
+    }
+    await adminLog(req,"Updated order status","order",order._id,`Status=${status}`); res.json({success:true,message:"Order updated.",order});
   } catch(e){res.status(500).json({success:false,message:"Unable to update order."});}
 });
 app.get("/api/admin/deposits", adminProtect, async (req,res)=>{

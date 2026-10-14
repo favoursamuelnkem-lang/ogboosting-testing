@@ -66,6 +66,11 @@ const orderSchema = new mongoose.Schema(
     refundProcessed: {
       type: Boolean,
       default: false
+    },
+
+    emailNotifications: {
+      type: [String],
+      default: []
     }
   },
   {
