@@ -1467,35 +1467,39 @@ async function loadRecentOrders() {
 loadRecentOrders();
 
 
-  const logoutBtn =
-    document.getElementById("logoutBtn");
+  // Use one logout handler for every dashboard logout button.
+  function logoutOgBoostUser(event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
 
-  if (logoutBtn) {
+    localStorage.removeItem("ogBoostingToken");
+    localStorage.removeItem("ogBoostingUser");
+    sessionStorage.removeItem("ogBoostingToken");
+    sessionStorage.removeItem("ogBoostingUser");
 
-    logoutBtn.addEventListener(
-      "click",
-      () => {
-        localStorage.removeItem(
-          "ogBoostingToken"
-        );
-        localStorage.removeItem(
-          "ogBoostingUser"
-        );
-        sessionStorage.removeItem(
-          "ogBoostingToken"
-        );
-
-        sessionStorage.removeItem(
-          "ogBoostingUser"
-        );
-        window.location.replace(
-          "login.html"
-        );
-
-      }
-    );
-
+    // Replace the current page so Back does not return to an authenticated dashboard.
+    window.location.replace("login.html");
   }
+
+  [
+    document.getElementById("logoutBtn"),
+    document.getElementById("mobileLogoutTop")
+  ].filter(Boolean).forEach((button) => {
+    button.addEventListener("click", logoutOgBoostUser);
+  });
+
+  // Re-check authentication when a page is restored from the browser back-forward cache.
+  window.addEventListener("pageshow", (event) => {
+    const hasToken = Boolean(
+      localStorage.getItem("ogBoostingToken") ||
+      sessionStorage.getItem("ogBoostingToken")
+    );
+    if (event.persisted && !hasToken) {
+      window.location.replace("login.html");
+    }
+  });
 
 
 
