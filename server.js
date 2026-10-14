@@ -23,15 +23,31 @@ const axios = require("axios");
 dotenv.config();
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Only these two Owlet TikTok Followers services should be offered to customers.
-// IDs were identified by the site owner; provider names/rates remain sourced from Owlet.
+// Only the TikTok services selected by the site owner should be offered to customers.
+// Provider names and rates remain sourced from Owlet.
 const ALLOWED_TIKTOK_FOLLOWER_SERVICE_IDS = new Set(["8288", "23425"]);
+const ALLOWED_TIKTOK_LIKE_SERVICE_IDS = new Set(["21632"]);
+const ALLOWED_TIKTOK_VIEW_SERVICE_IDS = new Set(["23148"]);
+function getTikTokServiceText(service) {
+  return `${service?.name || ""} ${service?.category || ""}`.toLowerCase();
+}
 function isTikTokFollowersService(service) {
-  const text = `${service?.name || ""} ${service?.category || ""}`.toLowerCase();
+  const text = getTikTokServiceText(service);
   return text.includes("tiktok") && text.includes("follower");
 }
+function isTikTokLikesService(service) {
+  const text = getTikTokServiceText(service);
+  return text.includes("tiktok") && text.includes("like");
+}
+function isTikTokViewsService(service) {
+  const text = getTikTokServiceText(service);
+  return text.includes("tiktok") && text.includes("view");
+}
 function shouldExposeService(service) {
-  return !isTikTokFollowersService(service) || ALLOWED_TIKTOK_FOLLOWER_SERVICE_IDS.has(String(service.service));
+  if (isTikTokFollowersService(service)) return ALLOWED_TIKTOK_FOLLOWER_SERVICE_IDS.has(String(service.service));
+  if (isTikTokLikesService(service)) return ALLOWED_TIKTOK_LIKE_SERVICE_IDS.has(String(service.service));
+  if (isTikTokViewsService(service)) return ALLOWED_TIKTOK_VIEW_SERVICE_IDS.has(String(service.service));
+  return true;
 }
 
 // Idempotent wallet refund: the unique transaction reference prevents a repeated
@@ -1268,6 +1284,12 @@ app.post(
 
       if (isTikTokFollowersService(selectedService) && !ALLOWED_TIKTOK_FOLLOWER_SERVICE_IDS.has(String(selectedService.service))) {
         return res.status(400).json({ success: false, message: "This TikTok Followers service is not enabled on OGBoost." });
+      }
+      if (isTikTokLikesService(selectedService) && !ALLOWED_TIKTOK_LIKE_SERVICE_IDS.has(String(selectedService.service))) {
+        return res.status(400).json({ success: false, message: "This TikTok Likes service is not enabled on OGBoost." });
+      }
+      if (isTikTokViewsService(selectedService) && !ALLOWED_TIKTOK_VIEW_SERVICE_IDS.has(String(selectedService.service))) {
+        return res.status(400).json({ success: false, message: "This TikTok Views service is not enabled on OGBoost." });
       }
 
       const serviceOverride = await ServicePrice.findOne({ serviceId: String(selectedService.service) }).lean();
