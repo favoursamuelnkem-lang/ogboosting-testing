@@ -22,6 +22,46 @@ const axios = require("axios");
 
 dotenv.config();
 const resend = new Resend(process.env.RESEND_API_KEY);
+
+// Only these two Owlet TikTok Followers services should be offered to customers.
+// IDs were identified by the site owner; provider names/rates remain sourced from Owlet.
+const ALLOWED_TIKTOK_FOLLOWER_SERVICE_IDS = new Set(["8288", "23425"]);
+function isTikTokFollowersService(service) {
+  const text = `${service?.name || ""} ${service?.category || ""}`.toLowerCase();
+  return text.includes("tiktok") && text.includes("follower");
+}
+function shouldExposeService(service) {
+  return !isTikTokFollowersService(service) || ALLOWED_TIKTOK_FOLLOWER_SERVICE_IDS.has(String(service.service));
+}
+
+// Idempotent wallet refund: the unique transaction reference prevents a repeated
+// status poll from crediting the same order more than once.
+async function refundOrderOnce(order, referencePrefix = "REFUND") {
+  if (order.refundProcessed) return false;
+  const user = await User.findById(order.userId);
+  if (!user) throw new Error(`Cannot refund order ${order._id}: user not found`);
+  const txRef = `${referencePrefix}-${order._id}`;
+  try {
+    await Transaction.create({
+      userId: user._id,
+      txRef,
+      type: "refund",
+      amount: Number(order.amount || 0),
+      currency: "NGN",
+      status: "successful"
+    });
+  } catch (error) {
+    if (error.code === 11000) {
+      // The refund transaction already exists; do not credit the wallet again.
+      order.refundProcessed = true;
+      return false;
+    }
+    throw error;
+  }
+  await User.updateOne({ _id: user._id }, { $inc: { balance: Number(order.amount || 0) } });
+  order.refundProcessed = true;
+  return true;
+}
 async function sendWelcomeBackEmail(user) {
   if (!process.env.RESEND_API_KEY) {
     console.warn("RESEND_API_KEY is not configured; welcome email skipped.");
@@ -1110,7 +1150,7 @@ app.get("/api/services", async (req, res) => {
     const priceMap = new Map(overrides.map(item => [String(item.serviceId), item]));
     const defaultMarkup = 68.35;
 
-    const services = owletServices.map(service => {
+    const services = owletServices.filter(shouldExposeService).map(service => {
       const serviceId = String(service.service);
       const providerRate = Number(service.rate || 0);
       const saved = priceMap.get(serviceId);
@@ -1224,6 +1264,10 @@ app.post(
           message: "Selected service was not found."
         });
 
+      }
+
+      if (isTikTokFollowersService(selectedService) && !ALLOWED_TIKTOK_FOLLOWER_SERVICE_IDS.has(String(selectedService.service))) {
+        return res.status(400).json({ success: false, message: "This TikTok Followers service is not enabled on OGBoost." });
       }
 
       const serviceOverride = await ServicePrice.findOne({ serviceId: String(selectedService.service) }).lean();
@@ -1737,55 +1781,8 @@ app.get(
           owletData.charge || 0
         );
 
-      if (
-        (
-          newStatus === "cancelled" ||
-          newStatus === "refunded"
-        ) &&
-        !order.refundProcessed
-      ) {
-
-        const user =
-          await User.findById(
-            order.userId
-          );
-
-
-        if (user) {
-
-          user.balance =
-            Number(user.balance || 0) +
-            Number(order.amount || 0);
-
-          await user.save();
-
-          await Transaction.create({
-
-            userId:
-              order.userId,
-
-            txRef:
-              `REFUND-${order._id}`,
-
-            type:
-              "refund",
-
-            amount:
-              order.amount,
-
-            currency:
-              "NGN",
-
-            status:
-              "successful"
-
-          });
-
-          order.refundProcessed =
-            true;
-
-        }
-
+      if (newStatus === "cancelled" || newStatus === "refunded") {
+        await refundOrderOnce(order, "REFUND");
       }
 
       await order.save();
@@ -2378,8 +2375,8 @@ app.patch("/api/admin/orders/:id", adminProtect, async (req,res)=>{
     const order=await Order.findById(req.params.id); if(!order)return res.status(404).json({success:false,message:"Order not found."});
     const status=String(req.body.status||order.status).toLowerCase();
     if (!["pending","processing","completed","partial","cancelled","refunded"].includes(status)) return res.status(400).json({success:false,message:"Invalid order status."});
-    if ((status==="cancelled"||status==="refunded") && !order.refundProcessed) {
-      const user=await User.findById(order.userId); if(user){ user.balance=Number(user.balance||0)+Number(order.amount||0); await user.save(); await Transaction.create({userId:user._id,txRef:`ADMIN-REFUND-${order._id}-${Date.now()}`,type:"refund",amount:order.amount,currency:"NGN",status:"successful"}); order.refundProcessed=true; }
+    if (status === "cancelled" || status === "refunded") {
+      await refundOrderOnce(order, "REFUND");
     }
     order.status=status; await order.save(); await adminLog(req,"Updated order status","order",order._id,`Status=${status}`); res.json({success:true,message:"Order updated.",order});
   } catch(e){res.status(500).json({success:false,message:"Unable to update order."});}
