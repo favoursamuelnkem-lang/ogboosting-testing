@@ -1142,6 +1142,13 @@ document
     }
   );
 
+
+function serviceMinFromText(option) {
+  const text = option?.textContent || "";
+  const match = text.match(/(?:min(?:imum)?\s*[:=-]?\s*)(\d+)/i);
+  return match ? Number(match[1]) : 0;
+}
+
 function updateSummary() {
 
   const selectedPlatform =
@@ -1276,31 +1283,34 @@ placeOrderBtn.addEventListener(
     }
 
 
-    const selectedServiceForMinimum = services.find(
-      (item) => String(item.service) === String(serviceSelect.value)
-    );
-    const minimumQuantity = Number(selectedServiceForMinimum?.min || 1);
+    const selectedOption =
+      service.options[
+        service.selectedIndex
+      ];
+
+    // Respect the selected provider service minimum.
+    // TikTok Followers service 8288 supports orders from 50.
+    const serviceMin =
+      String(selectedService) === "8288"
+        ? 50
+        : Number(selectedOption?.dataset?.min || serviceMinFromText(selectedOption) || 100);
 
     if (
       !selectedQuantity ||
-      selectedQuantity < minimumQuantity
+      selectedQuantity < serviceMin
     ) {
 
       showMessage(
-        `Minimum quantity is ${minimumQuantity.toLocaleString()}.`,
+        `Minimum quantity for this service is ${serviceMin}.`,
         "error"
       );
 
+      quantity.min = String(serviceMin);
       quantity.focus();
 
       return;
 
     }
-
-    const selectedOption =
-      service.options[
-        service.selectedIndex
-      ];
 
 
     const pricePer1000 =
@@ -1331,10 +1341,17 @@ placeOrderBtn.addEventListener(
 
     }
 
+    // Prevent duplicate submissions and make the loading state visible.
     placeOrderBtn.disabled = true;
-
-    placeOrderBtn.textContent =
-      "Processing...";
+    placeOrderBtn.setAttribute("aria-busy", "true");
+    placeOrderBtn.innerHTML = `
+      <span class="inline-flex items-center justify-center gap-2">
+        <svg class="h-5 w-5 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-opacity=".25" stroke-width="3"></circle>
+          <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" stroke-width="3" stroke-linecap="round"></path>
+        </svg>
+        Placing order...
+      </span>`;
 
 
     try {
@@ -1468,11 +1485,9 @@ placeOrderBtn.addEventListener(
 
     } finally {
 
-      placeOrderBtn.disabled =
-        false;
-
-      placeOrderBtn.textContent =
-        "Place Order";
+      placeOrderBtn.disabled = false;
+      placeOrderBtn.removeAttribute("aria-busy");
+      placeOrderBtn.textContent = "Place Order";
 
     }
 

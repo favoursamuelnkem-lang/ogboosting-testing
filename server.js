@@ -32,10 +32,8 @@ function getTikTokServiceText(service) {
   return `${service?.name || ""} ${service?.category || ""}`.toLowerCase();
 }
 function isTikTokFollowersService(service) {
-  const id = String(service?.service ?? service?.serviceId ?? "");
   const text = getTikTokServiceText(service);
-  // Recognize the approved provider IDs even if Owlet changes the service label/category.
-  return ALLOWED_TIKTOK_FOLLOWER_SERVICE_IDS.has(id) || (text.includes("tiktok") && text.includes("follower"));
+  return text.includes("tiktok") && text.includes("follower");
 }
 function isTikTokLikesService(service) {
   const text = getTikTokServiceText(service);
@@ -1236,11 +1234,7 @@ app.get("/api/services", async (req, res) => {
       { headers: { "Content-Type": "application/json" } }
     );
 
-    if (!Array.isArray(response.data)) {
-      console.error("Owlet services response was not an array.");
-      return res.status(502).json({ success: false, message: "Service provider is temporarily unavailable. Please try again shortly." });
-    }
-    const owletServices = response.data;
+    const owletServices = Array.isArray(response.data) ? response.data : [];
     const overrides = await ServicePrice.find({}).lean();
     const priceMap = new Map(overrides.map(item => [String(item.serviceId), item]));
     const defaultMarkup = 68.35;
@@ -1260,7 +1254,7 @@ app.get("/api/services", async (req, res) => {
         category: saved?.category || service.category,
         description: saved?.description || "",
         price: sellingRate,
-        min: serviceId === "8288" ? 50 : (saved?.minOverride ?? service.min),
+        min: saved?.minOverride ?? service.min,
         max: saved?.maxOverride ?? service.max,
         refill: service.refill,
         dripfeed: service.dripfeed
@@ -1376,7 +1370,7 @@ app.post(
         return res.status(400).json({ success: false, message: "This service is currently unavailable." });
       }
 
-      const minimum = String(selectedService.service) === "8288" ? 50 : Number(serviceOverride?.minOverride ?? selectedService.min ?? 1);
+      const minimum = Number(serviceOverride?.minOverride ?? selectedService.min ?? 1);
 
       const maximum = Number(serviceOverride?.maxOverride ?? selectedService.max ?? 999999999);
 
@@ -2329,7 +2323,7 @@ app.get("/api/admin/provider", adminProtect, async (req, res) => {
         providerRate,
         sellingRate: saved ? Number(saved.sellingRate) : defaultSelling,
         enabled: saved?.enabled !== false,
-        min: serviceId === "8288" ? 50 : (saved?.minOverride ?? service.min),
+        min: saved?.minOverride ?? service.min,
         max: saved?.maxOverride ?? service.max,
         refill: service.refill,
         dripfeed: service.dripfeed
@@ -2362,11 +2356,7 @@ app.get("/api/admin/prices", adminProtect, async (req, res) => {
       { headers: { "Content-Type": "application/json" } }
     );
 
-    if (!Array.isArray(response.data)) {
-      console.error("Owlet services response was not an array.");
-      return res.status(502).json({ success: false, message: "Service provider is temporarily unavailable. Please try again shortly." });
-    }
-    const owletServices = response.data;
+    const owletServices = Array.isArray(response.data) ? response.data : [];
     const savedPrices = await ServicePrice.find({}).lean();
     const priceMap = new Map(savedPrices.map(item => [String(item.serviceId), item]));
     const defaultMarkup = 68.35;
