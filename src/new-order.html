@@ -473,7 +473,7 @@
             <input
               id="quantity"
               type="number"
-              min="100"
+              min="50"
               value="1000"
               placeholder="Enter quantity"
               class="w-full px-4 py-3.5 rounded-xl border border-gray-200 outline-none focus:border-[#0B4F63] focus:ring-4 focus:ring-[#0B4F63]/5 transition"
@@ -1276,13 +1276,18 @@ placeOrderBtn.addEventListener(
     }
 
 
+    const selectedServiceForMinimum = services.find(
+      (item) => String(item.service) === String(serviceSelect.value)
+    );
+    const minimumQuantity = Number(selectedServiceForMinimum?.min || 1);
+
     if (
       !selectedQuantity ||
-      selectedQuantity < 100
+      selectedQuantity < minimumQuantity
     ) {
 
       showMessage(
-        "Minimum quantity is 100.",
+        `Minimum quantity is ${minimumQuantity.toLocaleString()}.`,
         "error"
       );
 
