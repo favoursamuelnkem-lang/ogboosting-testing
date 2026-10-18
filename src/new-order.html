@@ -1041,6 +1041,9 @@ async function loadServices() {
       services.length
     );
 
+    // Refresh the dropdown after the async service request finishes.
+    renderMatchingServices();
+
   } catch (error) {
 
     console.error(
@@ -1074,11 +1077,30 @@ function renderMatchingServices() {
   }
 
   const matchingServices = services.filter(function (item) {
-    const platformText = `${String(item.name || "")} ${String(item.category || "")}`.toLowerCase();
-    const serviceText = `${String(item.name || "")} ${String(item.category || "")} ${String(item.type || "")} ${String(item.description || "")}`.toLowerCase();
-    const platformMatches = platformText.includes(selectedPlatform.toLowerCase()) ||
-      (selectedPlatform === "X" && /twitter|\bx\b/.test(platformText));
-    const typeMatches = !selectedType || serviceText.includes(selectedType);
+    const serviceId = String(item.service || item.serviceId || "");
+    const platformText = `${String(item.name || "")} ${String(item.category || "")} ${String(item.type || "")} ${String(item.description || "")}`.toLowerCase();
+    const serviceText = platformText;
+    const allowedFollowers = ["8288", "23425"].includes(serviceId);
+    const allowedLikes = serviceId === "21632";
+    const allowedViews = ["23148", "20884"].includes(serviceId);
+
+    let platformMatches = platformText.includes(selectedPlatform.toLowerCase()) ||
+      (selectedPlatform === "X" && /twitter|\\bx\\b/.test(platformText));
+    let typeMatches = !selectedType || serviceText.includes(selectedType);
+
+    // Provider names/categories can vary; use approved IDs as fallback.
+    if (selectedPlatform.toLowerCase() === "tiktok") {
+      if (selectedType.includes("follower") && allowedFollowers) {
+        platformMatches = true;
+        typeMatches = true;
+      } else if (selectedType.includes("like") && allowedLikes) {
+        platformMatches = true;
+        typeMatches = true;
+      } else if (selectedType.includes("view") && allowedViews) {
+        platformMatches = true;
+        typeMatches = true;
+      }
+    }
     return platformMatches && typeMatches;
   });
 
@@ -1093,7 +1115,7 @@ function renderMatchingServices() {
     option.value = item.service;
     option.textContent = `${item.name} — ₦${Number(item.price || 0).toLocaleString("en-NG", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} per 1,000`;
     option.dataset.price = item.price;
-    option.dataset.min = item.min;
+    option.dataset.min = String(String(item.service) === "8288" ? 50 : (String(item.service) === "23425" ? 200 : item.min));
     option.dataset.max = item.max;
     service.appendChild(option);
   });

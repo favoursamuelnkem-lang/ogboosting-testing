@@ -1254,7 +1254,7 @@ app.get("/api/services", async (req, res) => {
         category: saved?.category || service.category,
         description: saved?.description || "",
         price: sellingRate,
-        min: saved?.minOverride ?? service.min,
+        min: serviceId === "8288" ? 50 : (serviceId === "23425" ? 200 : (saved?.minOverride ?? service.min)),
         max: saved?.maxOverride ?? service.max,
         refill: service.refill,
         dripfeed: service.dripfeed
@@ -2323,7 +2323,7 @@ app.get("/api/admin/provider", adminProtect, async (req, res) => {
         providerRate,
         sellingRate: saved ? Number(saved.sellingRate) : defaultSelling,
         enabled: saved?.enabled !== false,
-        min: saved?.minOverride ?? service.min,
+        min: serviceId === "8288" ? 50 : (serviceId === "23425" ? 200 : (saved?.minOverride ?? service.min)),
         max: saved?.maxOverride ?? service.max,
         refill: service.refill,
         dripfeed: service.dripfeed
