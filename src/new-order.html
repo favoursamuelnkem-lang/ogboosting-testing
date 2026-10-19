@@ -980,6 +980,8 @@ async function loadWalletBalance() {
 loadWalletBalance();
 
 let services = [];
+let servicesLoaded = false;
+let servicesLoading = true;
 
 const platform =
   document.getElementById("platform");
@@ -1012,6 +1014,8 @@ const formMessage =
   document.getElementById("formMessage");
 
 async function loadServices() {
+  servicesLoading = true;
+  service.innerHTML = `<option value="">Loading services…</option>`;
 
   try {
 
@@ -1035,6 +1039,7 @@ async function loadServices() {
     }
 
     services = data.services || [];
+    servicesLoaded = true;
 
     console.log(
       "Total services loaded:",
@@ -1046,6 +1051,7 @@ async function loadServices() {
 
   } catch (error) {
 
+    service.innerHTML = `<option value="">Unable to load services — please refresh</option>`;
     console.error(
       "Load services error:",
       error
@@ -1056,6 +1062,9 @@ async function loadServices() {
       "error"
     );
 
+  } finally {
+    servicesLoading = false;
+    renderMatchingServices();
   }
 
 }
@@ -1065,6 +1074,10 @@ loadServices();
 const boostType = document.getElementById("boostType");
 
 function renderMatchingServices() {
+  if (servicesLoading || !servicesLoaded) {
+    service.innerHTML = `<option value="">Loading services…</option>`;
+    return;
+  }
   const selectedPlatform = platform.value;
   const selectedType = boostType.value.toLowerCase();
 

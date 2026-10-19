@@ -50,6 +50,32 @@ function shouldExposeService(service) {
   return true;
 }
 
+// Cache the large Owlet service catalogue briefly so every new page/login does not
+// trigger another slow request for thousands of services.
+let owletServicesCache = null;
+let owletServicesCacheAt = 0;
+let owletServicesRequestInFlight = null;
+const OWLET_SERVICES_CACHE_TTL_MS = 60 * 1000;
+async function getOwletServicesCached() {
+  if (Array.isArray(owletServicesCache) && Date.now() - owletServicesCacheAt < OWLET_SERVICES_CACHE_TTL_MS) {
+    return owletServicesCache;
+  }
+  if (owletServicesRequestInFlight) return owletServicesRequestInFlight;
+  owletServicesRequestInFlight = (async () => {
+    const response = await axios.post(
+      process.env.OWLET_API_URL,
+      { key: process.env.OWLET_API_KEY, action: "services" },
+      { headers: { "Content-Type": "application/json" }, timeout: 20000 }
+    );
+    if (!Array.isArray(response.data)) throw new Error("Owlet returned an invalid services list");
+    owletServicesCache = response.data;
+    owletServicesCacheAt = Date.now();
+    return owletServicesCache;
+  })();
+  try { return await owletServicesRequestInFlight; }
+  finally { owletServicesRequestInFlight = null; }
+}
+
 // Idempotent wallet refund: the unique transaction reference prevents a repeated
 // status poll from crediting the same order more than once.
 async function refundOrderOnce(order, referencePrefix = "REFUND") {
@@ -1228,13 +1254,7 @@ app.get("/api/owlet/services", async (req, res) => {
 
 app.get("/api/services", async (req, res) => {
   try {
-    const response = await axios.post(
-      process.env.OWLET_API_URL,
-      { key: process.env.OWLET_API_KEY, action: "services" },
-      { headers: { "Content-Type": "application/json" } }
-    );
-
-    const owletServices = Array.isArray(response.data) ? response.data : [];
+    const owletServices = await getOwletServicesCached();
     const overrides = await ServicePrice.find({}).lean();
     const priceMap = new Map(overrides.map(item => [String(item.serviceId), item]));
     const defaultMarkup = 68.35;
