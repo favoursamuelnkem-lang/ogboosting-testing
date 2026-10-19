@@ -14,6 +14,7 @@ const AdminLog = require("./models/AdminLog");
 const Coupon = require("./models/Coupon");
 const Announcement = require("./models/Announcement");
 const Withdrawal = require("./models/Withdrawal");
+const SupportConversation = require("./models/SupportConversation");
 const fs = require("fs");
 const path = require("path");
 const protect = require("./middleware/authMiddleware");
@@ -1970,6 +1971,49 @@ app.get(
 
   }
 );
+
+// Customer live support. Customers can only read/write their own conversations.
+app.get("/api/support/conversation", protect, async (req, res) => {
+  try {
+    let conversation = await SupportConversation.findOne({ userId: req.userId, status: "open" }).sort({ updatedAt: -1 });
+    if (!conversation) conversation = await SupportConversation.create({ userId: req.userId, messages: [] });
+    res.json({ success: true, conversation });
+  } catch (error) { console.error("Support conversation load failed:", error); res.status(500).json({ success: false, message: "Could not load live chat." }); }
+});
+app.post("/api/support/conversation/messages", protect, async (req, res) => {
+  try {
+    const text = String(req.body?.text || "").trim();
+    if (!text || text.length > 2000) return res.status(400).json({ success: false, message: "Enter a message (maximum 2,000 characters)." });
+    let conversation = await SupportConversation.findOne({ userId: req.userId, status: "open" }).sort({ updatedAt: -1 });
+    if (!conversation) conversation = new SupportConversation({ userId: req.userId, messages: [] });
+    conversation.messages.push({ sender: "customer", text }); conversation.lastMessageAt = new Date(); await conversation.save();
+    res.status(201).json({ success: true, conversation });
+  } catch (error) { console.error("Support message send failed:", error); res.status(500).json({ success: false, message: "Could not send your message." }); }
+});
+app.get("/api/admin/support/conversations", adminProtect, async (req, res) => {
+  try {
+    const status = String(req.query.status || "open");
+    const filter = status === "all" ? {} : { status: status === "closed" ? "closed" : "open" };
+    const conversations = await SupportConversation.find(filter).populate("userId", "fullName email").sort({ lastMessageAt: -1 }).limit(100);
+    res.json({ success: true, conversations });
+  } catch (error) { console.error("Admin support list failed:", error); res.status(500).json({ success: false, message: "Could not load support inbox." }); }
+});
+app.get("/api/admin/support/conversations/:id", adminProtect, async (req, res) => {
+  try { const conversation = await SupportConversation.findById(req.params.id).populate("userId", "fullName email"); if (!conversation) return res.status(404).json({ success:false, message:"Conversation not found." }); res.json({ success:true, conversation }); }
+  catch (error) { res.status(400).json({ success:false, message:"Invalid conversation ID." }); }
+});
+app.post("/api/admin/support/conversations/:id/messages", adminProtect, async (req, res) => {
+  try {
+    const text = String(req.body?.text || "").trim(); if (!text || text.length > 2000) return res.status(400).json({success:false,message:"Enter a message (maximum 2,000 characters)."});
+    const conversation = await SupportConversation.findById(req.params.id); if (!conversation) return res.status(404).json({success:false,message:"Conversation not found."});
+    conversation.messages.push({sender:"admin",text}); conversation.lastMessageAt=new Date(); conversation.status="open"; await conversation.save();
+    res.status(201).json({success:true,conversation});
+  } catch(error) { console.error("Admin reply failed:",error); res.status(500).json({success:false,message:"Could not send reply."}); }
+});
+app.patch("/api/admin/support/conversations/:id", adminProtect, async (req,res) => {
+  try { const status = req.body?.status; if(!["open","closed"].includes(status)) return res.status(400).json({success:false,message:"Invalid status."}); const conversation=await SupportConversation.findByIdAndUpdate(req.params.id,{status},{new:true}).populate("userId","fullName email"); if(!conversation)return res.status(404).json({success:false,message:"Conversation not found."}); res.json({success:true,conversation}); }
+  catch(error){res.status(400).json({success:false,message:"Could not update conversation."});}
+});
 
 app.post("/api/admin/login", async (req, res) => {
   try {
